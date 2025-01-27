@@ -1,4 +1,5 @@
-# https://www.youtube.com/watch?v=sVsn9NqpVhg
+# Basic movement and camera: https://www.youtube.com/watch?v=sVsn9NqpVhg
+# Level editor: https://www.youtube.com/watch?v=BUjCtwLO0S8
 extends RigidBody3D
 
 var mouse_sensitivity := 0.001 # speed at wich the camera rotates
