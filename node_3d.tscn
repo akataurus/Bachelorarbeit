@@ -63,12 +63,22 @@ surface_material_override/0 = ExtResource("2_oqju6")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="frontwall"]
 shape = SubResource("BoxShape3D_ajbs8")
 
-[node name="frontwall2" type="StaticBody3D" parent="."]
+[node name="rightwall" type="StaticBody3D" parent="."]
 transform = Transform3D(-4.37114e-06, 0, 1, 0, 2, 0, -100, 0, -4.37114e-08, 50, 1, 20.5)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="frontwall2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rightwall"]
 mesh = SubResource("BoxMesh_f3nlo")
 surface_material_override/0 = ExtResource("2_oqju6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="frontwall2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rightwall"]
+shape = SubResource("BoxShape3D_ajbs8")
+
+[node name="leftwall" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-06, 0, 1, 0, 2, 0, -100, 0, -4.37114e-08, -50, 1, 20.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="leftwall"]
+mesh = SubResource("BoxMesh_f3nlo")
+surface_material_override/0 = ExtResource("2_oqju6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="leftwall"]
 shape = SubResource("BoxShape3D_ajbs8")
