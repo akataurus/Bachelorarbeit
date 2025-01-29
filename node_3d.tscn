@@ -53,12 +53,22 @@ linear_damp = 3.0
 transform = Transform3D(0.0335564, 0, -0.999437, 0, 1, 0, 0.999437, 0, 0.0335564, 0, 0, 83.1864)
 visible = false
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 70)
+[node name="frontwall" type="StaticBody3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 70)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="frontwall"]
 mesh = SubResource("BoxMesh_f3nlo")
 surface_material_override/0 = ExtResource("2_oqju6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="frontwall"]
+shape = SubResource("BoxShape3D_ajbs8")
+
+[node name="frontwall2" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-06, 0, 1, 0, 2, 0, -100, 0, -4.37114e-08, 50, 1, 20.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="frontwall2"]
+mesh = SubResource("BoxMesh_f3nlo")
+surface_material_override/0 = ExtResource("2_oqju6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="frontwall2"]
 shape = SubResource("BoxShape3D_ajbs8")
