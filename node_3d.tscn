@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=11 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="1_v0m0c"]
 [ext_resource type="Material" uid="uid://oclfmcxxu3y6" path="res://textures/gray_texture.tres" id="2_oqju6"]
@@ -23,6 +23,10 @@ size = Vector2(200, 200)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_otds2"]
 data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
 
+[sub_resource type="BoxMesh" id="BoxMesh_f3nlo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ajbs8"]
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -41,16 +45,20 @@ mesh = SubResource("PlaneMesh_5phd0")
 shape = SubResource("ConcavePolygonShape3D_otds2")
 
 [node name="Player" parent="." instance=ExtResource("1_v0m0c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 78.7468)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 94.774)
 top_level = true
 linear_damp = 3.0
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 69.258)
-size = Vector3(6, 3, 0.5)
-material = ExtResource("2_oqju6")
-
 [node name="Mercedes E Taxi" parent="." instance=ExtResource("3_dl5sd")]
 transform = Transform3D(0.0335564, 0, -0.999437, 0, 1, 0, 0.999437, 0, 0.0335564, 0, 0, 83.1864)
+visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 70)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_f3nlo")
+surface_material_override/0 = ExtResource("2_oqju6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ajbs8")
