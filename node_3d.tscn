@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=9 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="1_v0m0c"]
 [ext_resource type="Material" uid="uid://oclfmcxxu3y6" path="res://textures/gray_texture.tres" id="2_oqju6"]
@@ -22,10 +22,6 @@ size = Vector2(200, 200)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_otds2"]
 data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
-
-[sub_resource type="BoxMesh" id="BoxMesh_f3nlo"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ajbs8"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -53,12 +49,14 @@ linear_damp = 3.0
 transform = Transform3D(0.0335564, 0, -0.999437, 0, 1, 0, 0.999437, 0, 0.0335564, 0, 0, 83.1864)
 visible = false
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 70)
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("BoxMesh_f3nlo")
-surface_material_override/0 = ExtResource("2_oqju6")
+[node name="frontwall" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(150, 0, 0, 0, 2, 0, 0, 0, 1, 0.814819, 1, 90)
+size = Vector3(1.01086, 1, 1)
+material = ExtResource("2_oqju6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_ajbs8")
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D/frontwall"]
+transform = Transform3D(0.00666667, 0, 0, 0, -2.18557e-08, -0.5, 0, 1, -4.37114e-08, -0.00543213, -0.5, -0.08918)
+operation = 2
+sides = 64
