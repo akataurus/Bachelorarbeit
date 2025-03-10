@@ -1,8 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=7 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="1_v0m0c"]
-[ext_resource type="Material" uid="uid://oclfmcxxu3y6" path="res://textures/gray_texture.tres" id="2_oqju6"]
-[ext_resource type="PackedScene" uid="uid://ct5m0hj2o02vx" path="res://assets/taxi/Mercedes E Taxi.glb" id="3_dl5sd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -45,18 +43,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 94.774)
 top_level = true
 linear_damp = 3.0
 
-[node name="Mercedes E Taxi" parent="." instance=ExtResource("3_dl5sd")]
-transform = Transform3D(0.0335564, 0, -0.999437, 0, 1, 0, 0.999437, 0, 0.0335564, 0, 0, 83.1864)
-visible = false
-
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-
-[node name="frontwall" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(150, 0, 0, 0, 2, 0, 0, 0, 1, 0.814819, 1, 90)
-size = Vector3(1.01086, 1, 1)
-material = ExtResource("2_oqju6")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D/frontwall"]
-transform = Transform3D(0.00666667, 0, 0, 0, -2.18557e-08, -0.5, 0, 1, -4.37114e-08, -0.00543213, -0.5, -0.08918)
-operation = 2
-sides = 64
