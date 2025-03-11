@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=8 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="1_v0m0c"]
+[ext_resource type="PackedScene" uid="uid://b8ko216e7cdxq" path="res://backflip_bench.tscn" id="2_a1234"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -44,3 +45,6 @@ top_level = true
 linear_damp = 3.0
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="backflip_bench" parent="." instance=ExtResource("2_a1234")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 76.5443)

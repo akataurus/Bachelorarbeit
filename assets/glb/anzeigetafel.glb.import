@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dn07gkrcuk7wo"
-path="res://.godot/imported/_Airport-Turbosquid.glb-20110d75dfd03f06b99f5f747c701a11.scn"
+uid="uid://c3hwggsb2uqbj"
+path="res://.godot/imported/anzeigetafel.glb-176d46c8c5e04ad2d3dc7279739e274f.scn"
 
 [deps]
 
-source_file="res://blender/_Airport-Turbosquid.glb"
-dest_files=["res://.godot/imported/_Airport-Turbosquid.glb-20110d75dfd03f06b99f5f747c701a11.scn"]
+source_file="res://assets/glb/anzeigetafel.glb"
+dest_files=["res://.godot/imported/anzeigetafel.glb-176d46c8c5e04ad2d3dc7279739e274f.scn"]
 
 [params]
 
