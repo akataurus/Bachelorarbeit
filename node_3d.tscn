@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=11 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="1_v0m0c"]
 [ext_resource type="PackedScene" uid="uid://b8ko216e7cdxq" path="res://backflip_bench.tscn" id="2_a1234"]
 [ext_resource type="PackedScene" uid="uid://bkqxywepc7t7x" path="res://anzeigetafel.tscn" id="3_5b2dl"]
 [ext_resource type="PackedScene" uid="uid://ctny8xb7kwqtb" path="res://absperrband.tscn" id="4_kfq53"]
+[ext_resource type="PackedScene" uid="uid://cxh5m46y8xhhl" path="res://hgscan.tscn" id="5_e6oby"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -56,3 +57,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 83.775)
 
 [node name="absperrband" parent="." instance=ExtResource("4_kfq53")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 83)
+
+[node name="hgscan" parent="." instance=ExtResource("5_e6oby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 83)
