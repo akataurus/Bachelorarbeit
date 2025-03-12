@@ -8,7 +8,7 @@ data = PackedVector3Array(-0.6261, 0.1638, -0.1941, -5.8016, -0.232, -0.1942, -1
 [node name="anzeigetafel" instance=ExtResource("1_v1t14")]
 
 [node name="Cube" parent="." index="0"]
-transform = Transform3D(0.198, 0, 0, 0, 3, 0, 0, 0, 3, 0, 5.89163, 0)
+transform = Transform3D(0.132, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5.89163, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0"]
 

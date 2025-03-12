@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=15 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="1_v0m0c"]
 [ext_resource type="PackedScene" uid="uid://bwkjlr4cxb47f" path="res://assets/scenes/polizei.tscn" id="2_afdrc"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cxh5m46y8xhhl" path="res://assets/scenes/hgscan.tscn" id="5_ve58a"]
 [ext_resource type="PackedScene" uid="uid://d2fxem1o4nt1d" path="res://assets/scenes/koerperscanner.tscn" id="6_3sd0c"]
 [ext_resource type="PackedScene" uid="uid://b46qodkewow64" path="res://assets/scenes/schalter.tscn" id="8_7y762"]
+[ext_resource type="PackedScene" uid="uid://cv1hqkjg6j8cf" path="res://assets/scenes/flughafen.tscn" id="9_2h7ul"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -34,7 +35,7 @@ data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100,
 environment = SubResource("Environment_qymvr")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 5.24214, 48.1974)
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -46,29 +47,32 @@ mesh = SubResource("PlaneMesh_5phd0")
 shape = SubResource("ConcavePolygonShape3D_otds2")
 
 [node name="Player" parent="." instance=ExtResource("1_v0m0c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 94.774)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 68.774)
 top_level = true
 linear_damp = 3.0
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 
 [node name="absperrband" parent="." instance=ExtResource("2_v2nhd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 81)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 33)
 
 [node name="anzeigetafel" parent="." instance=ExtResource("3_3g043")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 81)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 30)
 
 [node name="backflip_bench" parent="." instance=ExtResource("4_vb8ka")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 86)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
 
 [node name="hgscan" parent="." instance=ExtResource("5_ve58a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 80)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 39)
 
 [node name="koerperscanner" parent="." instance=ExtResource("6_3sd0c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 45)
 
 [node name="polizei" parent="." instance=ExtResource("2_afdrc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 84)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 37)
 
 [node name="schalter" parent="." instance=ExtResource("8_7y762")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14987, 0, 79.1585)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14987, 0, 44.1585)
+
+[node name="flughafen" parent="." instance=ExtResource("9_2h7ul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 45)

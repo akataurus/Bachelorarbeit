@@ -7,6 +7,9 @@ data = PackedVector3Array(3.295, 0.08, 0, 3.295, 0.08, -0.682, 3.393, 0.08, -0.6
 
 [node name="polizei" instance=ExtResource("1_c6tja")]
 
+[node name="Text" parent="." index="0"]
+transform = Transform3D(-3.94127e-08, 0.376813, -0.134208, 2.02648e-08, -0.134208, -0.376813, -0.4, -4.39273e-08, -5.86641e-09, 1.67838, 3.29089, 1.586)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="Text" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Text/StaticBody3D" index="0"]

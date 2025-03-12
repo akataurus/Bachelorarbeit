@@ -7,6 +7,9 @@ data = PackedVector3Array(0.9108, -1, 1, -0.9108, -37.3182, 1, -0.9108, -1, 1, 0
 
 [node name="koerperscanner" instance=ExtResource("1_7odf3")]
 
+[node name="Cube" parent="." index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.067, 0, 0, 0, 0.693, 0, 2.5, 0)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0"]
