@@ -7,6 +7,9 @@ data = PackedVector3Array(0, -1, -1, 0.1951, 1, -0.9808, 0, 1, -1, 0, -1, -1, 0.
 
 [node name="absperrband" instance=ExtResource("1_21moh")]
 
+[node name="Cylinder" parent="." index="0"]
+transform = Transform3D(0.2, 0, 0, 0, 0.011, 0, 0, 0, 0.2, 0, 0, 0)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="Cylinder" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cylinder/StaticBody3D" index="0"]

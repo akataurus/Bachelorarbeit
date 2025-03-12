@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bf1n7qosp8wpm"
-path="res://.godot/imported/anzeigetafel.glb-176d46c8c5e04ad2d3dc7279739e274f.scn"
+uid="uid://c1wkjgstw4mpq"
+path="res://.godot/imported/polizei.glb-3cd98667d7bdd0ecb8f0c619e6777cb8.scn"
 
 [deps]
 
-source_file="res://assets/glb/anzeigetafel.glb"
-dest_files=["res://.godot/imported/anzeigetafel.glb-176d46c8c5e04ad2d3dc7279739e274f.scn"]
+source_file="res://assets/glb/polizei.glb"
+dest_files=["res://.godot/imported/polizei.glb-3cd98667d7bdd0ecb8f0c619e6777cb8.scn"]
 
 [params]
 
