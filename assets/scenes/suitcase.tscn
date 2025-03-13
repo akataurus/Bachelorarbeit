@@ -24,4 +24,13 @@ shape = SubResource("BoxShape3D_5oj0l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.163818, 1.09039, -0.35083)
 shape = SubResource("BoxShape3D_4eari")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="1"]
+
+[node name="pickup_hint" type="Label" parent="CanvasLayer" index="0"]
+offset_left = 1313.0
+offset_top = 648.0
+offset_right = 1457.0
+offset_bottom = 671.0
+text = "Pick up luggage: E"
+
 [connection signal="body_entered" from="Suitcase/Area3D" to="." method="_on_area_3d_body_entered"]
