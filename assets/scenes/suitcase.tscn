@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbf5uv0o7cwr8"]
+
+[ext_resource type="PackedScene" uid="uid://b5cpwd1nftait" path="res://assets/glb/Suitcase_Grey_London.glb" id="1_e7tec"]
+[ext_resource type="Script" path="res://suitcase.gd" id="2_xljtq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5oj0l"]
+size = Vector3(0.418701, 0.63623, 0.289612)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4eari"]
+size = Vector3(4, 4.01453, 4)
+
+[node name="Suitcase_Grey_London" instance=ExtResource("1_e7tec")]
+script = ExtResource("2_xljtq")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Suitcase" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Suitcase/RigidBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0115967, 0.370361, -0.00167847)
+shape = SubResource("BoxShape3D_5oj0l")
+
+[node name="Area3D" type="Area3D" parent="Suitcase" index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Suitcase/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.163818, 1.09039, -0.35083)
+shape = SubResource("BoxShape3D_4eari")
+
+[connection signal="body_entered" from="Suitcase/Area3D" to="." method="_on_area_3d_body_entered"]
