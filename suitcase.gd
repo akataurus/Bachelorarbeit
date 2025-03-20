@@ -71,6 +71,7 @@ func drop():
 	if drop_target:
 		var drop_position = drop_target.get_drop_position()
 		global_transform.origin = drop_position
+		global_rotation = Vector3(deg_to_rad(90), 0, 0)  # Koffer um 90° nach vorne kippen
 		print("koffer auf schalter gelegt")
 		
 	else: 
