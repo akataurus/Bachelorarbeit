@@ -23,9 +23,7 @@ func _ready():
 
 
 func _on_body_entered(body):
-	print("_on_body_entered: ", body.name)
 	if body.is_in_group("player"):  # Prüft, ob der Spieler in den Bereich tritt
-		print("spieler in range")
 		player = body
 		hint.visible = true
 		
@@ -41,10 +39,10 @@ func _on_body_exited(body):
 			print("body exited")
 			hint.visible = false
 			
-	#elif body == drop_target:
-	#	if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
-	#		drop_target = null
-	#		print("schalterbereich verlassen")
+	if body == drop_target:
+		if body.global_transform.origin.distance_to(body.global_transform.origin) > pickup_distance:
+			drop_target = null
+			print("schalterbereich verlassen")
 
 func _process(delta):
 	if player and Input.is_action_just_pressed("interact"):
@@ -67,7 +65,6 @@ func pick_up():
 func drop():
 	is_held = false
 	reparent(get_tree().current_scene)  # Entfernt den Koffer aus der Spielerhierarchie
-	print("🔍 Drop Target:", drop_target, "Type:", drop_target.get_class())
 	if drop_target:
 		var drop_position = drop_target.get_drop_position()
 		global_transform.origin = drop_position

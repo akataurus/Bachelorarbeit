@@ -13,5 +13,4 @@ func _process(delta: float) -> void:
 	pass
 
 func get_drop_position():
-	print("drop_position: ", drop_position)
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)
