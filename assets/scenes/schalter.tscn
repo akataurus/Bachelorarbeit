@@ -26,3 +26,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.4687, 0, -40.8228)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="bildschirm/Area3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0282, 16.6111, 37.3021)
 shape = SubResource("BoxShape3D_qq0fy")
+
+[node name="baggage_pos" type="Marker3D" parent="bildschirm" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.6572, -16.5134, 2.42118)

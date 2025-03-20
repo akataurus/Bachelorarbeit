@@ -67,11 +67,12 @@ func pick_up():
 func drop():
 	is_held = false
 	reparent(get_tree().current_scene)  # Entfernt den Koffer aus der Spielerhierarchie
-	print("drop_target (drop): ", drop_target)
+	print("🔍 Drop Target:", drop_target, "Type:", drop_target.get_class())
 	if drop_target:
 		var drop_position = drop_target.get_drop_position()
 		global_transform.origin = drop_position
-		global_rotation = Vector3(deg_to_rad(90), 0, 0)  # Koffer um 90° nach vorne kippen
+		global_rotation = Vector3(deg_to_rad(90), 0, 0)
+		
 		print("koffer auf schalter gelegt")
 		
 	else: 
