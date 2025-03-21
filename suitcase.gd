@@ -10,6 +10,9 @@ var is_dropping = false # workaround für drop() und _on_body_exited()
 var is_in_counter_range = false # jewels für hint
 var is_in_hgscan_range = false
 
+var weight: float = 0.0 # gewicht des Koffers
+var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
+
 @onready var area := $Suitcase/Area3D
 @onready var hint := $CanvasLayer/pickup_hint
 
@@ -21,6 +24,10 @@ func _ready():
 		area.body_exited.connect(_on_body_exited)
 	else:
 		print("Fehler: area ist null oder kein Area3D! (ready)")
+	
+	randomize()
+	weight = randf_range(10.0, 30.0)
+	print("🎯 Koffergewicht: ", weight, "kg")
 	
 	hint.visible = false # label ausblenden
 	hint.self_modulate = Color(1, 0, 0)  # Rot (RGB)
@@ -59,8 +66,7 @@ func _on_body_entered(body):
 
 
 func _on_body_exited(body):
-	if is_dropping:
-		#print("ignoriere body_exited wegen drop")
+	if is_dropping: # ignoriere wegen drop
 		return
 	
 	if body == player:
@@ -85,7 +91,6 @@ func pick_up():
 			reparent(player)  # Koffer wird zum Kind des Spielers
 			global_transform = player.global_transform
 			position += Vector3(1, 0, 0)  # Hebt den Koffer etwas an
-			#hint.text = "Drop luggage: E"
 	else:
 		print("player ist null oder hat kein global_transform")
 
@@ -101,8 +106,10 @@ func drop():
 		# koffer wurde auf ziel abgelegt
 	else: 
 		position += Vector3(0, -1, 0) #Lässt Koffer auf Boden fallen
+	# Gewicht prüfen
+	if is_in_counter_range:
+		drop_target.get_parent().update_feedback(weight <= weight_limit)
 	
-	#hint.text = "Pick up luggage: E"
 	reparent(get_tree().current_scene)  #Entfernt den Koffer aus der Spielerhierarchie
 	
 	is_dropping = false
