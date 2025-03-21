@@ -1,3 +1,5 @@
+# Dieses Script wird an alle Objekte gehängt, wo man einen Koffer ablegen 
+# kann. z.B. Schalter oder Hgscanner
 extends Node3D
 
 @onready var drop_position := $baggage_pos

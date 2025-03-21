@@ -1,13 +1,18 @@
 extends Node3D
 
-@export var pickup_distance := 1.5  # Maximale Distanz zum Aufheben
+@export var pickup_distance := 3  # Maximale Distanz zum Aufheben
 
 var player = null
 var is_held = false  # Ob der Koffer aktuell getragen wird
 var drop_target = null # speichert drop Ziel falls erkannt wird
+var is_dropping = false # workaround für drop() und _on_body_exited()
+
+var is_in_counter_range = false # jewels für hint
+var is_in_hgscan_range = false
 
 @onready var area := $Suitcase/Area3D
 @onready var hint := $CanvasLayer/pickup_hint
+
 
 func _ready():
 	await get_tree().create_timer(0.1).timeout  # Wartet 0.1 Sekunden
@@ -18,8 +23,24 @@ func _ready():
 		print("Fehler: area ist null oder kein Area3D! (ready)")
 	
 	hint.visible = false # label ausblenden
-	# Ändere die Textfarbe direkt mit self_modulate
 	hint.self_modulate = Color(1, 0, 0)  # Rot (RGB)
+
+func _process(delta):
+	if player and Input.is_action_just_pressed("interact"):
+		if is_held:
+			drop()
+		else:
+			pick_up()
+	# für hint
+	if is_held:
+		if is_in_hgscan_range: 
+			hint.text = "Drop luggage on scanner: E"
+		elif is_in_counter_range:
+			hint.text = "Drop luggage on scale: E"
+		else:
+			hint.text = "Drop luggage: E"
+	else:
+		hint.text = "Pick up luggage: E"
 
 
 func _on_body_entered(body):
@@ -30,13 +51,18 @@ func _on_body_entered(body):
 	# Prüft, ob der Koffer sich in Schalternähe befindet
 	elif body.is_in_group("schalter"):  
 		drop_target = body
-		hint.text = "Drop luggage on scale: E"
-	
+		is_in_counter_range = true
+		
 	elif body.is_in_group("hgscan"):
 		drop_target = body
-		hint.text = "Drop luggage on scanner: E"
+		is_in_hgscan_range = true
+
 
 func _on_body_exited(body):
+	if is_dropping:
+		#print("ignoriere body_exited wegen drop")
+		return
+	
 	if body == player:
 		# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
 		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
@@ -45,13 +71,11 @@ func _on_body_exited(body):
 			
 	if body == drop_target:
 		drop_target = null
+		if body.is_in_group("schalter"):
+			is_in_counter_range = false
+		if body.is_in_group("hgscan"):
+			is_in_hgscan_range = false
 
-func _process(delta):
-	if player and Input.is_action_just_pressed("interact"):
-		if is_held:
-			drop()
-		else:
-			pick_up()
 
 func pick_up():
 	if player and player.global_transform:
@@ -61,11 +85,14 @@ func pick_up():
 			reparent(player)  # Koffer wird zum Kind des Spielers
 			global_transform = player.global_transform
 			position += Vector3(1, 0, 0)  # Hebt den Koffer etwas an
-			hint.text = "Drop luggage: E"
+			#hint.text = "Drop luggage: E"
 	else:
 		print("player ist null oder hat kein global_transform")
 
+
 func drop():
+	is_dropping = true
+	
 	is_held = false
 	if is_instance_valid(drop_target):
 		var drop_position = drop_target.get_parent().get_drop_position()
@@ -75,5 +102,7 @@ func drop():
 	else: 
 		position += Vector3(0, -1, 0) #Lässt Koffer auf Boden fallen
 	
-	hint.text = "Pick up luggage: E"
+	#hint.text = "Pick up luggage: E"
 	reparent(get_tree().current_scene)  #Entfernt den Koffer aus der Spielerhierarchie
+	
+	is_dropping = false
