@@ -23,26 +23,23 @@ func _ready():
 
 
 func _on_body_entered(body):
-	if body.is_in_group("player"):  # Prüft, ob der Spieler in den Bereich tritt
+	# Prüft, ob der Spieler in den Bereich tritt
+	if body.is_in_group("player"):  
 		player = body
 		hint.visible = true
-		
-	elif body.is_in_group("schalter"):  # Prüft, ob der Koffer sich in Schalternähe befindet
-		print("📦 Schalter erkannt, kann Koffer darauf ablegen")
-		drop_target = body.get_parent()
+	# Prüft, ob der Koffer sich in Schalternähe befindet
+	elif body.is_in_group("schalter"):  
+		drop_target = body
 
 func _on_body_exited(body):
 	if body == player:
 		# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
 		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
 			player = null
-			print("body exited")
 			hint.visible = false
 			
 	if body == drop_target:
-		if body.global_transform.origin.distance_to(body.global_transform.origin) > pickup_distance:
-			drop_target = null
-			print("schalterbereich verlassen")
+		drop_target = null
 
 func _process(delta):
 	if player and Input.is_action_just_pressed("interact"):
@@ -55,6 +52,7 @@ func pick_up():
 	if player and player.global_transform:
 		if player.global_transform.origin.distance_to(global_transform.origin) < pickup_distance:
 			is_held = true
+			drop_target = null # reset beim aufheben
 			reparent(player)  # Koffer wird zum Kind des Spielers
 			global_transform = player.global_transform
 			position += Vector3(1, 0, 0)  # Hebt den Koffer etwas an
@@ -64,15 +62,15 @@ func pick_up():
 
 func drop():
 	is_held = false
-	reparent(get_tree().current_scene)  # Entfernt den Koffer aus der Spielerhierarchie
-	if drop_target:
-		var drop_position = drop_target.get_drop_position()
+	if is_instance_valid(drop_target):
+		var drop_position = drop_target.get_parent().get_drop_position()
 		global_transform.origin = drop_position
 		global_rotation = Vector3(deg_to_rad(90), 0, 0)
 		
 		print("koffer auf schalter gelegt")
 		
 	else: 
-		position += Vector3(0, -1, 0)  # Lässt den Koffer wieder auf den Boden fallen
+		position += Vector3(0, -1, 0) #Lässt Koffer auf Boden fallen
 	
 	hint.text = "Pick up luggage: E"
+	reparent(get_tree().current_scene)  #Entfernt den Koffer aus der Spielerhierarchie

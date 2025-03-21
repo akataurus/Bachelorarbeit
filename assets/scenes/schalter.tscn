@@ -9,7 +9,7 @@ data = PackedVector3Array(0, -1, -1, 0.1951, 1, -0.9808, 0, 1, -1, 0, -1, -1, 0.
 [sub_resource type="BoxShape3D" id="BoxShape3D_qq0fy"]
 size = Vector3(122.561, 130.857, 162.077)
 
-[node name="schalter" groups=["schalter"] instance=ExtResource("1_fql2p")]
+[node name="schalter" instance=ExtResource("1_fql2p")]
 
 [node name="bildschirm" parent="." index="0"]
 transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, -0.19, 1.14289, -1.006)
