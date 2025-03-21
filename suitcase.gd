@@ -4,7 +4,7 @@ extends Node3D
 
 var player = null
 var is_held = false  # Ob der Koffer aktuell getragen wird
-var drop_target = null # speichert Schalter falls erkannt wird
+var drop_target = null # speichert drop Ziel falls erkannt wird
 
 @onready var area := $Suitcase/Area3D
 @onready var hint := $CanvasLayer/pickup_hint
@@ -30,6 +30,11 @@ func _on_body_entered(body):
 	# Prüft, ob der Koffer sich in Schalternähe befindet
 	elif body.is_in_group("schalter"):  
 		drop_target = body
+		hint.text = "Drop luggage on scale: E"
+	
+	elif body.is_in_group("hgscan"):
+		drop_target = body
+		hint.text = "Drop luggage on scanner: E"
 
 func _on_body_exited(body):
 	if body == player:
@@ -66,9 +71,7 @@ func drop():
 		var drop_position = drop_target.get_parent().get_drop_position()
 		global_transform.origin = drop_position
 		global_rotation = Vector3(deg_to_rad(90), 0, 0)
-		
-		print("koffer auf schalter gelegt")
-		
+		# koffer wurde auf ziel abgelegt
 	else: 
 		position += Vector3(0, -1, 0) #Lässt Koffer auf Boden fallen
 	
