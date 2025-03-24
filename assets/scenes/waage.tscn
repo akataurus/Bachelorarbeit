@@ -31,3 +31,45 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0197775, -26.3592, 4.13045)
 [node name="Label3D" type="Label3D" parent="Cube_002" index="3"]
 transform = Transform3D(10, 0, 0, 0, 9.6806, 2.50718, 0, -2.50718, 9.6806, 0.337945, 0.39666, 2.10624)
 font_size = 80
+
+[node name="optionContainer" type="VBoxContainer" parent="." index="1"]
+offset_left = 412.0
+offset_top = 282.0
+offset_right = 452.0
+offset_bottom = 332.0
+
+[node name="plus1" type="Label" parent="optionContainer" index="0"]
+layout_mode = 2
+text = "plus 1"
+
+[node name="plus2" type="Label" parent="optionContainer" index="1"]
+layout_mode = 2
+text = "plus 2"
+
+[node name="minus2" type="Label" parent="optionContainer" index="2"]
+layout_mode = 2
+text = "minus 2"
+
+[node name="minus3" type="Label" parent="optionContainer" index="3"]
+layout_mode = 2
+text = "minus 3"
+
+[node name="minus5" type="Label" parent="optionContainer" index="4"]
+layout_mode = 2
+text = "minus 5"
+
+[node name="minus3_2" type="Label" parent="optionContainer" index="5"]
+layout_mode = 2
+text = "minus 3"
+
+[node name="minus2_2" type="Label" parent="optionContainer" index="6"]
+layout_mode = 2
+text = "minus 2"
+
+[node name="plus2_2" type="Label" parent="optionContainer" index="7"]
+layout_mode = 2
+text = "plus 2"
+
+[node name="plus1_2" type="Label" parent="optionContainer" index="8"]
+layout_mode = 2
+text = "plus 1"
