@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=19 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="1_v0m0c"]
 [ext_resource type="PackedScene" uid="uid://bwkjlr4cxb47f" path="res://assets/scenes/polizei.tscn" id="2_afdrc"]
@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://b46qodkewow64" path="res://assets/scenes/schalter.tscn" id="8_7y762"]
 [ext_resource type="PackedScene" uid="uid://cv1hqkjg6j8cf" path="res://assets/scenes/flughafen.tscn" id="9_2h7ul"]
 [ext_resource type="PackedScene" uid="uid://cbf5uv0o7cwr8" path="res://assets/scenes/suitcase.tscn" id="10_bdhpk"]
+[ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://assets/scenes/schreibtisch.tscn" id="11_1clm7"]
+[ext_resource type="PackedScene" uid="uid://delo5q0n555nk" path="res://assets/scenes/waage.tscn" id="12_1uxhh"]
+[ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://assets/scenes/trennwand.tscn" id="13_o0o48"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,12 +42,12 @@ environment = SubResource("Environment_qymvr")
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, -24.8449, 5.24214, 25.4377)
 shadow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Boden" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_5phd0")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Boden"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boden/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_otds2")
 
 [node name="Player" parent="." instance=ExtResource("1_v0m0c")]
@@ -80,3 +83,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 45)
 
 [node name="Suitcase_Grey_London" parent="." instance=ExtResource("10_bdhpk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56.4609)
+
+[node name="schreibtisch" parent="." instance=ExtResource("11_1clm7")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, -14, 0, 53)
+
+[node name="waage" parent="." instance=ExtResource("12_1uxhh")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 11, 0, 54)
+
+[node name="trennwand" parent="." instance=ExtResource("13_o0o48")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15, -0.137787, 46)

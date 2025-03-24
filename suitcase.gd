@@ -9,6 +9,7 @@ var is_dropping = false # workaround für drop() und _on_body_exited()
 
 var is_in_counter_range = false # jewels für hint
 var is_in_hgscan_range = false
+var is_in_scale_range = false
 
 var weight: float = 0.0 # gewicht des Koffers
 var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
@@ -26,7 +27,7 @@ func _ready():
 		print("Fehler: area ist null oder kein Area3D! (ready)")
 	
 	randomize()
-	weight = randf_range(10.0, 30.0)
+	weight = snapped(randf_range(10.0, 30.0), 0.01) # zwei Nachkommastellen
 	print("🎯 Koffergewicht: ", weight, "kg")
 	
 	hint.visible = false # label ausblenden
@@ -43,6 +44,8 @@ func _process(delta):
 		if is_in_hgscan_range: 
 			hint.text = "Drop luggage on scanner: E"
 		elif is_in_counter_range:
+			hint.text = "Drop luggage on counter: E"
+		elif is_in_scale_range:
 			hint.text = "Drop luggage on scale: E"
 		else:
 			hint.text = "Drop luggage: E"
@@ -63,24 +66,32 @@ func _on_body_entered(body):
 	elif body.is_in_group("hgscan"):
 		drop_target = body
 		is_in_hgscan_range = true
-
+		
+	elif body.is_in_group("waage"):
+		drop_target = body
+		is_in_scale_range = true
 
 func _on_body_exited(body):
 	if is_dropping: # ignoriere wegen drop
 		return
 	
 	if body == player:
+		hint.visible = false
 		# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
 		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
 			player = null
 			hint.visible = false
 			
 	if body == drop_target:
-		drop_target = null
+		
 		if body.is_in_group("schalter"):
 			is_in_counter_range = false
 		if body.is_in_group("hgscan"):
 			is_in_hgscan_range = false
+		if body.is_in_group("waage"):
+			is_in_scale_range = false
+			drop_target.get_parent().set_label_text(0.0)
+		drop_target = null
 
 
 func pick_up():
@@ -110,6 +121,9 @@ func drop():
 	if is_in_counter_range:
 		drop_target.get_parent().update_feedback(weight <= weight_limit)
 	
+	if is_in_scale_range:
+		drop_target.get_parent().set_label_text(weight)
+		
 	reparent(get_tree().current_scene)  #Entfernt den Koffer aus der Spielerhierarchie
 	
 	is_dropping = false
