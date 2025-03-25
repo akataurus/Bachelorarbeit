@@ -9,6 +9,7 @@ var is_active = false
 
 @onready var drop_position := $baggage_pos
 @onready var weight_label := $Label3D
+@onready var optcontainer := $"../optionContainer"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +17,7 @@ func _ready() -> void:
 	if drop_position == null:
 		print("drop_position ist null!")
 	weight_label.text = ("0.0 kg")
+	optcontainer.visible = false
 	set_process(true)
 	
 	option_nodes = [
@@ -30,18 +32,11 @@ func _ready() -> void:
 		get_node_or_null("../optionContainer/plus1_2")
 	]
 
-	for node in option_nodes:
-		if node == null:
-			print("❌ OptionNode ist null!")
-		else:
-			print("✅ Option gefunden:", node.name)
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_select"):
-		print("space pressed")
 		select_option(current_index)
 	elif event.is_action_pressed("start_game"):
-		print("pressed")
 		start_minigame()
 
 
@@ -56,11 +51,9 @@ func _process(delta: float) -> void:
 		cycle_option()
 	
 	if Input.is_action_just_pressed("ui_select"):
-		print("space pressed")
 		select_option(current_index)
 	
 	if Input.is_action_just_pressed("start_game"):
-		print("pressed")
 		start_minigame()
 
 func get_drop_position():
@@ -69,6 +62,10 @@ func get_drop_position():
 func set_label_text(text):
 	weight_label.text = str(var_to_str(text), " kg")
 
+func set_optcontainer_visible(visible: bool):
+	if optcontainer:
+		optcontainer.visible = visible
+
 
 func start_minigame():
 	is_active = true
@@ -76,24 +73,24 @@ func start_minigame():
 	timer = 0.0
 
 func cycle_option():
-	print("🌀 Aktiver Index:", current_index)
 	for i in option_nodes.size():
 		set_option_highlighted(option_nodes[i], i == current_index)
 
 	current_index = (current_index + 1) % option_nodes.size()
 
-
 func select_option(index):
 	is_active = false
+	cycle_option() # zur syncronisation
 	var node = option_nodes[index]
 	print("🎯 Auswahl getroffen:", node.name)
-	
 	var weight_change = node.get_meta("weight_change")  # z. B. -2 oder 0
+	
 	if weight_change != null:
 		# Auf Koffer zugreifen und Gewicht anpassen
-		var luggage = get_node("/root/World/Suitcase_Grey_London")  # Beispielpfad
+		var luggage = get_node("/root/world/Suitcase_Grey_London")  # Beispielpfad
 		luggage.weight = max(luggage.weight + weight_change, 0)
 		print("📦 Neues Gewicht:", luggage.weight)
+		set_label_text(luggage.weight)
 
 func set_option_highlighted(node, is_selected):
 	if node == null:

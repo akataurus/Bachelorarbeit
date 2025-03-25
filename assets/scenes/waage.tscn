@@ -38,38 +38,47 @@ offset_top = 282.0
 offset_right = 452.0
 offset_bottom = 332.0
 
-[node name="plus1" type="Label" parent="optionContainer" index="0"]
-layout_mode = 2
-text = "plus 1"
-
-[node name="plus2" type="Label" parent="optionContainer" index="1"]
+[node name="plus2" type="Label" parent="optionContainer" index="0"]
 layout_mode = 2
 text = "plus 2"
+metadata/weight_change = 2
+
+[node name="plus1" type="Label" parent="optionContainer" index="1"]
+layout_mode = 2
+text = "plus 1"
+metadata/weight_change = 1
 
 [node name="minus2" type="Label" parent="optionContainer" index="2"]
 layout_mode = 2
 text = "minus 2"
+metadata/weight_change = -2
 
 [node name="minus3" type="Label" parent="optionContainer" index="3"]
 layout_mode = 2
 text = "minus 3"
+metadata/weight_change = -3
 
 [node name="minus5" type="Label" parent="optionContainer" index="4"]
 layout_mode = 2
 text = "minus 5"
+metadata/weight_change = -5
 
 [node name="minus3_2" type="Label" parent="optionContainer" index="5"]
 layout_mode = 2
 text = "minus 3"
+metadata/weight_change = -3
 
 [node name="minus2_2" type="Label" parent="optionContainer" index="6"]
 layout_mode = 2
 text = "minus 2"
+metadata/weight_change = -2
 
-[node name="plus2_2" type="Label" parent="optionContainer" index="7"]
-layout_mode = 2
-text = "plus 2"
-
-[node name="plus1_2" type="Label" parent="optionContainer" index="8"]
+[node name="plus1_2" type="Label" parent="optionContainer" index="7"]
 layout_mode = 2
 text = "plus 1"
+metadata/weight_change = 1
+
+[node name="plus2_2" type="Label" parent="optionContainer" index="8"]
+layout_mode = 2
+text = "plus 2"
+metadata/weight_change = 2

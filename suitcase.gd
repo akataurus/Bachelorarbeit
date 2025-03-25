@@ -28,7 +28,6 @@ func _ready():
 	
 	randomize()
 	weight = snapped(randf_range(10.0, 30.0), 0.01) # zwei Nachkommastellen
-	print("🎯 Koffergewicht: ", weight, "kg")
 	
 	hint.visible = false # label ausblenden
 	hint.self_modulate = Color(1, 0, 0)  # Rot (RGB)
@@ -50,7 +49,10 @@ func _process(delta):
 		else:
 			hint.text = "Drop luggage: E"
 	else:
-		hint.text = "Pick up luggage: E"
+		if is_in_scale_range:
+			hint.text = "Start minigame: G\nPick up luggage: E"
+		else:
+			hint.text = "Pick up luggage: E"
 
 
 func _on_body_entered(body):
@@ -81,7 +83,8 @@ func _on_body_exited(body):
 		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
 			player = null
 			hint.visible = false
-			
+		if drop_target:
+			drop_target.get_parent().set_optcontainer_visible(false) # minigamedw
 	if body == drop_target:
 		
 		if body.is_in_group("schalter"):
@@ -98,6 +101,8 @@ func pick_up():
 	if player and player.global_transform:
 		if player.global_transform.origin.distance_to(global_transform.origin) < pickup_distance:
 			is_held = true
+			if drop_target and drop_target.is_in_group("waage"):
+				drop_target.get_parent().set_optcontainer_visible(false) # minigame
 			drop_target = null # reset beim aufheben
 			reparent(player)  # Koffer wird zum Kind des Spielers
 			global_transform = player.global_transform
@@ -123,6 +128,7 @@ func drop():
 	
 	if is_in_scale_range:
 		drop_target.get_parent().set_label_text(weight)
+		drop_target.get_parent().set_optcontainer_visible(true) # minigame
 		
 	reparent(get_tree().current_scene)  #Entfernt den Koffer aus der Spielerhierarchie
 	
