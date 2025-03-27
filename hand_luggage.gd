@@ -16,9 +16,7 @@ var is_in_hgscan_range = false
 
 
 func _ready():
-	print("📦 Suitcase ready: ", name, " in scene: ", get_tree().current_scene.name)
-	for node in get_tree().get_nodes_in_group("suitcase"):
-		print("🎒 Gefundener Koffer:", node.name)
+
 	await get_tree().create_timer(0.1).timeout  # Wartet 0.1 Sekunden
 	if area and area is Area3D:
 		area.body_entered.connect(_on_body_entered)
@@ -81,7 +79,7 @@ func pick_up():
 			drop_target = null # reset beim aufheben
 			reparent(player)  # Koffer wird zum Kind des Spielers
 			global_transform = player.global_transform
-			position += Vector3(1, 0, 0)  # Hebt den Koffer etwas an
+			position += Vector3(0, 0, 1)  # Hebt den Koffer etwas an
 	else:
 		print("player ist null oder hat kein global_transform")
 

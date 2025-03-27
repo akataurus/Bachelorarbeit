@@ -9,7 +9,6 @@ var drop_target = null # speichert drop Ziel falls erkannt wird
 var is_dropping = false # workaround für drop() und _on_body_exited()
 
 var is_in_counter_range = false # jewels für hint
-var is_in_hgscan_range = false
 var is_in_scale_range = false
 
 var weight: float = 0.0 # gewicht des Koffers
@@ -20,7 +19,6 @@ var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
 
 
 func _ready():
-	print("suitcase")
 	await get_tree().create_timer(0.1).timeout  # Wartet 0.1 Sekunden
 	if area and area is Area3D:
 		area.body_entered.connect(_on_body_entered)
@@ -42,9 +40,7 @@ func _process(delta):
 			pick_up()
 	# für hint
 	if is_held:
-		if is_in_hgscan_range: 
-			hint.text = "Drop luggage on scanner: E"
-		elif is_in_counter_range:
+		if is_in_counter_range:
 			hint.text = "Drop luggage on counter: E"
 		elif is_in_scale_range:
 			hint.text = "Drop luggage on scale: E"
@@ -67,10 +63,6 @@ func _on_body_entered(body):
 		drop_target = body
 		is_in_counter_range = true
 		
-	elif body.is_in_group("hgscan"):
-		drop_target = body
-		is_in_hgscan_range = true
-		
 	elif body.is_in_group("waage"):
 		drop_target = body
 		is_in_scale_range = true
@@ -92,8 +84,6 @@ func _on_body_exited(body):
 		
 		if body.is_in_group("schalter"):
 			is_in_counter_range = false
-		if body.is_in_group("hgscan"):
-			is_in_hgscan_range = false
 		if body.is_in_group("waage"):
 			is_in_scale_range = false
 			drop_target.get_parent().set_label_text(0.0)
