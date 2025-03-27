@@ -9,7 +9,7 @@ size = Vector3(0.418701, 0.63623, 0.289612)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4eari"]
 size = Vector3(4, 4.01453, 4)
 
-[node name="Suitcase_Grey_London" instance=ExtResource("1_e7tec")]
+[node name="Suitcase_Grey_London" groups=["suitcase"] instance=ExtResource("1_e7tec")]
 script = ExtResource("2_xljtq")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="Suitcase" index="0"]

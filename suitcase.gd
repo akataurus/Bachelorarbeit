@@ -1,3 +1,4 @@
+# source: https://www.cgtrader.com/items/2877263/download-page
 extends Node3D
 
 @export var pickup_distance := 3  # Maximale Distanz zum Aufheben
@@ -19,6 +20,7 @@ var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
 
 
 func _ready():
+	print("suitcase")
 	await get_tree().create_timer(0.1).timeout  # Wartet 0.1 Sekunden
 	if area and area is Area3D:
 		area.body_entered.connect(_on_body_entered)
@@ -50,7 +52,7 @@ func _process(delta):
 			hint.text = "Drop luggage: E"
 	else:
 		if is_in_scale_range:
-			hint.text = "Start minigame: G\nPick up luggage: E"
+			hint.text = "Start minigame: G\nSelect: Space\nPick up luggage: E"
 		else:
 			hint.text = "Pick up luggage: E"
 
@@ -84,7 +86,8 @@ func _on_body_exited(body):
 			player = null
 			hint.visible = false
 		if drop_target:
-			drop_target.get_parent().set_optcontainer_visible(false) # minigamedw
+			drop_target.get_parent().set_optcontainer_visible(false) # minigame
+	
 	if body == drop_target:
 		
 		if body.is_in_group("schalter"):

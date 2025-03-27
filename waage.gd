@@ -82,14 +82,12 @@ func select_option(index):
 	is_active = false
 	cycle_option() # zur syncronisation
 	var node = option_nodes[index]
-	print("🎯 Auswahl getroffen:", node.name)
 	var weight_change = node.get_meta("weight_change")  # z. B. -2 oder 0
 	
 	if weight_change != null:
 		# Auf Koffer zugreifen und Gewicht anpassen
 		var luggage = get_node("/root/world/Suitcase_Grey_London")  # Beispielpfad
 		luggage.weight = max(luggage.weight + weight_change, 0)
-		print("📦 Neues Gewicht:", luggage.weight)
 		set_label_text(luggage.weight)
 
 func set_option_highlighted(node, is_selected):
