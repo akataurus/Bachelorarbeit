@@ -27,23 +27,21 @@ func _ready():
 	if area and area is Area3D:
 		area.body_entered.connect(_on_body_entered)
 		area.body_exited.connect(_on_body_exited)
+	if scanner_exit:
+		scanner_exit.body_entered.connect(_on_scanner_exit_body_entered)
 	else:
 		print("Fehler: area ist null oder kein Area3D! (ready)")
 	
 	hint.visible = false # label ausblenden
 	hint.self_modulate = Color(1, 0, 0)  # Rot (RGB)
-	
-	
-	print("scanner_exit: ", scanner_exit)
-	if scanner_exit:
-		print("true")
-		scanner_exit.body_entered.connect(_on_scanner_exit_body_entered)
+
 
 func _process(delta):
 	if is_moving_on_belt:
 		position += belt_direction * belt_speed * delta
 		return # keine Eingabe möglich wenn koffer in Bewegung
 	
+
 	if player and Input.is_action_just_pressed("hg_interact"):
 		if is_held:
 			drop()
@@ -58,13 +56,10 @@ func _process(delta):
 	else:
 		hint.text = "Pick up hand luggage: F"
 
+# für das stoppen des handgepäcks
 func _on_scanner_exit_body_entered(body):
-	print("scanner_exit", body == self)
 	if body.is_in_group("hand_luggage"):
 		is_moving_on_belt = false
-		print("🛑 Scanner Exit erreicht!")
-	elif body.is_in_group("hgscan_stop"):
-		print("huansonhn")
 
 
 func _on_body_entered(body):
@@ -76,10 +71,7 @@ func _on_body_entered(body):
 	elif body.is_in_group("hgscan"):
 		drop_target = body
 		is_in_hgscan_range = true
-		
-	elif body.is_in_group("hgscan_stop"):
-		print("hea")
-		is_moving_on_belt = false
+
 
 func _on_body_exited(body):
 	if is_dropping: # ignoriere wegen drop
@@ -130,8 +122,6 @@ func drop():
 		# koffer wurde auf ziel abgelegt
 		if drop_target.is_in_group("hgscan"):
 			is_moving_on_belt = true
-	else: 
-		position += Vector3(0, -1, 0) #Lässt Koffer auf Boden fallen
 		
 	reparent(get_tree().current_scene)  #Entfernt Koffer aus Spielerhierarchie
 	is_dropping = false

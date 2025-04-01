@@ -1,36 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbf5uv0o7cwr8"]
+[gd_scene load_steps=5 format=3 uid="uid://b3vunkpxkns06"]
 
-[ext_resource type="PackedScene" uid="uid://b5cpwd1nftait" path="res://assets/glb/Suitcase_Grey_London.glb" id="1_e7tec"]
+[ext_resource type="PackedScene" uid="uid://be7nrpet6tssb" path="res://assets/scenes/suitcase_mesh.tscn" id="2_4ujew"]
 [ext_resource type="Script" path="res://suitcase.gd" id="2_xljtq"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5oj0l"]
-size = Vector3(0.418701, 0.63623, 0.289612)
+[sub_resource type="BoxShape3D" id="BoxShape3D_fpsr1"]
+size = Vector3(0.453979, 0.625, 0.273102)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4eari"]
-size = Vector3(4, 4.01453, 4)
+[sub_resource type="SphereShape3D" id="SphereShape3D_mnurf"]
+radius = 3.25987
 
-[node name="Suitcase_Grey_London" groups=["suitcase"] instance=ExtResource("1_e7tec")]
+[node name="suitcase" type="RigidBody3D" groups=["suitcase"]]
 script = ExtResource("2_xljtq")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Suitcase" index="0"]
+[node name="Suitcase_Grey_London" parent="." instance=ExtResource("2_4ujew")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Suitcase/RigidBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0115967, 0.370361, -0.00167847)
-shape = SubResource("BoxShape3D_5oj0l")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0127563, 0.365234, -0.0126495)
+shape = SubResource("BoxShape3D_fpsr1")
 
-[node name="Area3D" type="Area3D" parent="Suitcase" index="1"]
+[node name="Area3D" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Suitcase/Area3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.163818, 1.09039, -0.35083)
-shape = SubResource("BoxShape3D_4eari")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_mnurf")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="1"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="pickup_hint" type="Label" parent="CanvasLayer" index="0"]
-offset_left = 1313.0
-offset_top = 648.0
-offset_right = 1457.0
-offset_bottom = 671.0
-text = "Pick up luggage: E"
-
-[connection signal="body_entered" from="Suitcase/Area3D" to="." method="_on_area_3d_body_entered"]
+[node name="pickup_hint" type="Label" parent="CanvasLayer"]
+offset_left = 588.0
+offset_top = 367.0
+offset_right = 628.0
+offset_bottom = 390.0

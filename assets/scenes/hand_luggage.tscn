@@ -1,5 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7qco10llpfq6"]
+[gd_scene load_steps=5 format=3 uid="uid://ccfg6nqd46qke"]
 
-[ext_resource type="PackedScene" uid="uid://b2yev8axodekc" path="res://assets/glb/hand_luggage/hand_luggage.glb" id="1_6hrpv"]
+[ext_resource type="Script" path="res://hand_luggage.gd" id="1_pfagk"]
+[ext_resource type="PackedScene" uid="uid://c7qco10llpfq6" path="res://assets/scenes/hl_mesh.tscn" id="1_ri8cb"]
 
-[node name="hand_luggage" instance=ExtResource("1_6hrpv")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ilmoy"]
+size = Vector3(0.405273, 0.489014, 0.477112)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3x4ew"]
+size = Vector3(3.68127, 2.22583, 3.53625)
+
+[node name="Node3D" type="RigidBody3D" groups=["hand_luggage"]]
+script = ExtResource("1_pfagk")
+
+[node name="hand_luggage" parent="." instance=ExtResource("1_ri8cb")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00537109, 0.245972, -0.00210571)
+shape = SubResource("BoxShape3D_ilmoy")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0774536, 0.612915, -0.0915911)
+shape = SubResource("BoxShape3D_3x4ew")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0

@@ -86,7 +86,7 @@ func select_option(index):
 	
 	if weight_change != null:
 		# Auf Koffer zugreifen und Gewicht anpassen
-		var luggage = get_node("/root/world/Suitcase_Grey_London")  # Beispielpfad
+		var luggage = get_node("/root/world/suitcase")  
 		luggage.weight = max(luggage.weight + weight_change, 0)
 		set_label_text(luggage.weight)
 

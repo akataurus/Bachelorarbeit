@@ -10,11 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://d2fxem1o4nt1d" path="res://assets/scenes/koerperscanner.tscn" id="6_3sd0c"]
 [ext_resource type="PackedScene" uid="uid://b46qodkewow64" path="res://assets/scenes/schalter.tscn" id="8_7y762"]
 [ext_resource type="PackedScene" uid="uid://cv1hqkjg6j8cf" path="res://assets/scenes/flughafen.tscn" id="9_2h7ul"]
-[ext_resource type="PackedScene" uid="uid://cbf5uv0o7cwr8" path="res://assets/scenes/suitcase.tscn" id="10_bdhpk"]
+[ext_resource type="PackedScene" uid="uid://b3vunkpxkns06" path="res://assets/scenes/suitcase.tscn" id="10_bdhpk"]
 [ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://assets/scenes/schreibtisch.tscn" id="11_1clm7"]
 [ext_resource type="PackedScene" uid="uid://delo5q0n555nk" path="res://assets/scenes/waage.tscn" id="12_1uxhh"]
 [ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://assets/scenes/trennwand.tscn" id="13_o0o48"]
-[ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://assets/scenes/hand_luggage1.tscn" id="15_l2v8h"]
+[ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://assets/scenes/hand_luggage.tscn" id="15_l2v8h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -93,8 +93,8 @@ transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 11, 0, 54)
 [node name="trennwand" parent="." instance=ExtResource("13_o0o48")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15, -0.137787, 46)
 
-[node name="Suitcase_Grey_London" parent="." instance=ExtResource("10_bdhpk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56.976)
-
 [node name="hand_luggage" parent="." instance=ExtResource("15_l2v8h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66684, 0, 59.8405)
+
+[node name="suitcase" parent="." instance=ExtResource("10_bdhpk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 57.5314)

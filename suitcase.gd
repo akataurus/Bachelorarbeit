@@ -1,5 +1,5 @@
 # source: https://www.cgtrader.com/items/2877263/download-page
-extends Node3D
+extends RigidBody3D
 
 @export var pickup_distance := 3  # Maximale Distanz zum Aufheben
 
@@ -14,7 +14,7 @@ var is_in_scale_range = false
 var weight: float = 0.0 # gewicht des Koffers
 var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
 
-@onready var area := $Suitcase/Area3D
+@onready var area := $Area3D
 @onready var hint := $CanvasLayer/pickup_hint
 
 
@@ -97,6 +97,11 @@ func pick_up():
 			if drop_target and drop_target.is_in_group("waage"):
 				drop_target.get_parent().set_optcontainer_visible(false) # minigame
 			drop_target = null # reset beim aufheben
+			# Physik einfrieren
+			freeze = true  # Verhindert Bewegung
+			linear_velocity = Vector3.ZERO
+			angular_velocity = Vector3.ZERO
+			
 			reparent(player)  # Koffer wird zum Kind des Spielers
 			global_transform = player.global_transform
 			position += Vector3(1, 0, 0)  # Hebt den Koffer etwas an
@@ -106,15 +111,15 @@ func pick_up():
 
 func drop():
 	is_dropping = true
-	
 	is_held = false
+	freeze = false # Physik wieder aktivieren
+	
 	if is_instance_valid(drop_target):
 		var drop_position = drop_target.get_parent().get_drop_position()
 		global_transform.origin = drop_position
 		global_rotation = Vector3(deg_to_rad(90), 0, 0)
 		# koffer wurde auf ziel abgelegt
-	else: 
-		position += Vector3(0, -1, 0) #Lässt Koffer auf Boden fallen
+	
 	# Gewicht prüfen
 	if is_in_counter_range:
 		drop_target.get_parent().update_feedback(weight <= weight_limit)
