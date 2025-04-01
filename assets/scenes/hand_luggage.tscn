@@ -1,33 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://begr3lpuxxh41"]
+[gd_scene load_steps=2 format=3 uid="uid://c7qco10llpfq6"]
 
 [ext_resource type="PackedScene" uid="uid://b2yev8axodekc" path="res://assets/glb/hand_luggage/hand_luggage.glb" id="1_6hrpv"]
-[ext_resource type="Script" path="res://hand_luggage.gd" id="2_fhwjd"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7melo"]
-size = Vector3(0.349243, 0.462402, 0.44397)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_igakf"]
-size = Vector3(2.71973, 1.97388, 2.64557)
 
 [node name="hand_luggage" instance=ExtResource("1_6hrpv")]
-script = ExtResource("2_fhwjd")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="BP10_world/BP10_geo" index="0"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BP10_world/BP10_geo/RigidBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00604248, -0.0241699, -0.00164795)
-shape = SubResource("BoxShape3D_7melo")
-
-[node name="Area3D" type="Area3D" parent="BP10_world/BP10_geo" index="1"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BP10_world/BP10_geo/Area3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.074707, 0.0155029, 0.00350952)
-shape = SubResource("BoxShape3D_igakf")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="BP10_world/BP10_geo" index="2"]
-
-[node name="Label" type="Label" parent="BP10_world/BP10_geo/CanvasLayer" index="0"]
-offset_left = 274.0
-offset_top = 184.0
-offset_right = 314.0
-offset_bottom = 207.0

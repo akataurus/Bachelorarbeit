@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://assets/scenes/schreibtisch.tscn" id="11_1clm7"]
 [ext_resource type="PackedScene" uid="uid://delo5q0n555nk" path="res://assets/scenes/waage.tscn" id="12_1uxhh"]
 [ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://assets/scenes/trennwand.tscn" id="13_o0o48"]
-[ext_resource type="PackedScene" uid="uid://begr3lpuxxh41" path="res://assets/scenes/hand_luggage.tscn" id="14_7f0ay"]
+[ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://assets/scenes/hand_luggage1.tscn" id="15_l2v8h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -93,8 +93,8 @@ transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 11, 0, 54)
 [node name="trennwand" parent="." instance=ExtResource("13_o0o48")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15, -0.137787, 46)
 
-[node name="hand_luggage" parent="." instance=ExtResource("14_7f0ay")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.87383, 0, 60.4586)
-
 [node name="Suitcase_Grey_London" parent="." instance=ExtResource("10_bdhpk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56.976)
+
+[node name="hand_luggage" parent="." instance=ExtResource("15_l2v8h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66684, 0, 59.8405)
