@@ -60,7 +60,8 @@ func _process(delta):
 func _on_scanner_exit_body_entered(body):
 	if body.is_in_group("hand_luggage"):
 		is_moving_on_belt = false
-
+		if drop_target and drop_target.is_in_group("hgscan"):
+			drop_target.get_parent().update_feedback()
 
 func _on_body_entered(body):
 	# Prüft, ob der Spieler in den Bereich tritt
@@ -122,6 +123,7 @@ func drop():
 		# koffer wurde auf ziel abgelegt
 		if drop_target.is_in_group("hgscan"):
 			is_moving_on_belt = true
+			
 		
 	reparent(get_tree().current_scene)  #Entfernt Koffer aus Spielerhierarchie
 	is_dropping = false

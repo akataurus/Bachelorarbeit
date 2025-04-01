@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxh5m46y8xhhl"]
+[gd_scene load_steps=9 format=3 uid="uid://cxh5m46y8xhhl"]
 
 [ext_resource type="PackedScene" uid="uid://cbv7sriqtr3t7" path="res://assets/glb/hgscan.glb" id="1_k2763"]
 [ext_resource type="Script" path="res://hgscan.gd" id="2_v0hxl"]
@@ -14,6 +14,10 @@ size = Vector3(98.9149, 57.5769, 2.14331)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ygvle"]
 size = Vector3(41.552, 38.1223, 0.0639648)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5jvbo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dmyn"]
 
 [node name="hgscan" instance=ExtResource("1_k2763")]
 
@@ -45,3 +49,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.686, 5.5309, -0.699)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/luggage_stop" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1.00005, 0, 0, 0, 1, -15.22, 3.1243, 0.91801)
 shape = SubResource("BoxShape3D_ygvle")
+
+[node name="feedback" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.499811, -0.0265032, -0.00216485, -0.000271566, 0.243588, -0.290964, 0.0137313, 0.969517, 0.0730446, 1.51976, 1.74694, -0.228051)
+mesh = SubResource("PlaneMesh_5jvbo")
+surface_material_override/0 = SubResource("StandardMaterial3D_2dmyn")

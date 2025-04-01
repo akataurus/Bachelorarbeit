@@ -4,6 +4,7 @@ extends Node3D
 
 @onready var drop_position := $baggage_pos
 @onready var area := $luggage_stop
+@onready var feedback := $"../feedback"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,10 +20,11 @@ func _process(delta: float) -> void:
 func get_drop_position():
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)
 
-func _on_body_entered(body):
-	print("📦 Irgendwas hat den Scanner-Exit betreten:", body.name)
-
-func _on_luggage_stop_body_entered(body: Node3D) -> void:
-	print("hier")
-	if body.is_in_group("hand_luggage"):
-		print("ja bisshc")
+func update_feedback():
+	var is_scan_successful := randf() < 0.5 # Wahrscheinlichkeit für grünen scan
+	var material = feedback.get_active_material(0)
+	
+	if is_scan_successful:
+		material.albedo_color = Color(0, 1, 0) # Grün
+	else:
+		material.albedo_color = Color(1, 0, 0) # Rot

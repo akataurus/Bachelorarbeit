@@ -4,6 +4,7 @@ extends Node3D
 
 @onready var drop_position := $baggage_pos
 @onready var feedback_light := $weight_feedback
+@onready var monitor_feedback := $monitor_feedback
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,11 +21,14 @@ func get_drop_position():
 
 func update_feedback(is_valid: bool):
 	var material = feedback_light.get_active_material(0)
+	var material2 = monitor_feedback.get_active_material(0)
 	if material == null:
 		print("⚠️ Kein Material gefunden!")
 		return
 		
 	if is_valid:
 		material.albedo_color = Color(0, 1, 0) # Grün
+		material2.albedo_color = Color(0, 1, 0)
 	else:
 		material.albedo_color = Color(1, 0, 0) # Rot
+		material2.albedo_color = Color(1, 0, 0) # Rot

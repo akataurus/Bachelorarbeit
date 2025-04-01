@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b46qodkewow64"]
+[gd_scene load_steps=9 format=3 uid="uid://b46qodkewow64"]
 
 [ext_resource type="PackedScene" uid="uid://rmxgqaow1tdg" path="res://assets/glb/schalter.glb" id="1_fql2p"]
 [ext_resource type="Script" path="res://schalter.gd" id="2_xhjui"]
@@ -12,6 +12,10 @@ size = Vector3(122.561, 130.857, 162.077)
 [sub_resource type="PlaneMesh" id="PlaneMesh_3c0s8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qrc6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nx4ww"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kushs"]
 
 [node name="schalter" instance=ExtResource("1_fql2p")]
 
@@ -38,3 +42,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.6572, -16.5134, 2.42118)
 transform = Transform3D(2.6, 0, 0, 0, 1, 0, 0, 0, 0.8, -41.5425, -0.600605, -2.62244)
 mesh = SubResource("PlaneMesh_3c0s8")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qrc6")
+
+[node name="monitor_feedback" type="MeshInstance3D" parent="bildschirm" index="4"]
+transform = Transform3D(9.99686, -0.0244299, -0.0338102, -0.00647524, 0.199526, -5.87935, 0.25063, 0.979588, 1.19669, 0.0662823, 10.5469, 2.4169)
+mesh = SubResource("PlaneMesh_nx4ww")
+surface_material_override/0 = SubResource("StandardMaterial3D_kushs")
