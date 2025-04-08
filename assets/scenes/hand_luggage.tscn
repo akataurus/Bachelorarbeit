@@ -23,9 +23,3 @@ shape = SubResource("BoxShape3D_ilmoy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0774536, 0.612915, -0.0915911)
 shape = SubResource("BoxShape3D_3x4ew")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0

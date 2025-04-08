@@ -44,6 +44,6 @@ mesh = SubResource("PlaneMesh_3c0s8")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qrc6")
 
 [node name="monitor_feedback" type="MeshInstance3D" parent="bildschirm" index="4"]
-transform = Transform3D(9.99686, -0.0244299, -0.0338102, -0.00647524, 0.199526, -5.87935, 0.25063, 0.979588, 1.19669, 0.0662823, 10.5469, 2.4169)
+transform = Transform3D(9.99686, -0.0244299, -0.0338102, -0.00647524, 0.199526, -5.87935, 0.25063, 0.979588, 1.19669, 0.0662823, 10.5469, 1.8079)
 mesh = SubResource("PlaneMesh_nx4ww")
 surface_material_override/0 = SubResource("StandardMaterial3D_kushs")

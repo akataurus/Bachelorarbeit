@@ -28,9 +28,7 @@ func _ready():
 	
 	randomize()
 	weight = snapped(randf_range(10.0, 30.0), 0.01) # zwei Nachkommastellen
-	
-	hint.visible = false # label ausblenden
-	hint.self_modulate = Color(1, 0, 0)  # Rot (RGB)
+
 
 func _process(delta):
 	if player and Input.is_action_just_pressed("interact"):
@@ -39,25 +37,27 @@ func _process(delta):
 		else:
 			pick_up()
 	# für hint
-	if is_held:
-		if is_in_counter_range:
-			hint.text = "Drop luggage on counter: E"
-		elif is_in_scale_range:
-			hint.text = "Drop luggage on scale: E"
+	if player:	
+		if is_held:
+			if is_in_counter_range:
+				player.show_hint("Drop luggage on counter: E", self)
+				#hint.text = "Drop luggage on counter: E"
+			elif is_in_scale_range:
+				player.show_hint("Drop luggage on scale: E", self)
+			else:
+				player.show_hint("Drop luggage: E", self)
 		else:
-			hint.text = "Drop luggage: E"
-	else:
-		if is_in_scale_range:
-			hint.text = "Start minigame: G\nSelect: Space\nPick up luggage: E"
-		else:
-			hint.text = "Pick up luggage: E"
+			if is_in_scale_range:
+				player.show_hint("Start minigame: G\nSelect: Space\nPick up luggage: E", self)
+			else:
+				player.show_hint("Pick up luggage: E", self)
 
 
 func _on_body_entered(body):
 	# Prüft, ob der Spieler in den Bereich tritt
 	if body.is_in_group("player"):  
 		player = body
-		hint.visible = true
+		#player.show_hint("", self)
 	# Prüft, ob der Koffer sich in Schalternähe befindet
 	elif body.is_in_group("schalter"):  
 		drop_target = body
@@ -71,12 +71,11 @@ func _on_body_exited(body):
 	if is_dropping: # ignoriere wegen drop
 		return
 	
-	if body == player:
-		hint.visible = false
+	if body == player and player:
+		player.hide_hint(self)
 		# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
 		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
 			player = null
-			hint.visible = false
 		if drop_target:
 			drop_target.get_parent().set_optcontainer_visible(false) # minigame
 	

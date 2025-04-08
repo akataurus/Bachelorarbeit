@@ -32,8 +32,6 @@ func _ready():
 	else:
 		print("Fehler: area ist null oder kein Area3D! (ready)")
 	
-	hint.visible = false # label ausblenden
-	hint.self_modulate = Color(1, 0, 0)  # Rot (RGB)
 
 
 func _process(delta):
@@ -47,14 +45,7 @@ func _process(delta):
 			drop()
 		else:
 			pick_up()
-	# für hint
-	if is_held:
-		if is_in_hgscan_range: 
-			hint.text = "Drop hand luggage on scanner: F"
-		else:
-			hint.text = "Drop hand luggage: F"
-	else:
-		hint.text = "Pick up hand luggage: F"
+	
 
 # für das stoppen des handgepäcks
 func _on_scanner_exit_body_entered(body):
@@ -64,10 +55,19 @@ func _on_scanner_exit_body_entered(body):
 			drop_target.get_parent().update_feedback()
 
 func _on_body_entered(body):
+	# für hint
+	
+	
 	# Prüft, ob der Spieler in den Bereich tritt
 	if body.is_in_group("player"):  
 		player = body
-		hint.visible = true
+		if is_held:
+			if is_in_hgscan_range: 
+				player.show_hint("Drop hand luggage on scanner: F", self)
+			else:
+				player.show_hint("Drop hand luggage: F", self)
+		else:
+			player.show_hint("Pick up hand luggage: F", self)
 		
 	elif body.is_in_group("hgscan"):
 		drop_target = body
@@ -77,14 +77,15 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	if is_dropping: # ignoriere wegen drop
 		return
-	
+
 	if body == player:
-		hint.visible = false
+		player.hide_hint(self)
 		# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
 		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
 			player = null
-			hint.visible = false
-	
+			
+
+
 	if body == drop_target:
 		if body.is_in_group("hgscan"):
 			is_in_hgscan_range = false
