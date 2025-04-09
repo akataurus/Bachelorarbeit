@@ -55,7 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_body_entered(body):
 	if body.is_in_group("schalter"):
 		show_hint("Ausweis vorzeigen: R", self)
-		print("Ausweiskontrolle")
+		# hier Ausweiskontrolle implementieren!
 
 func _on_body_exited(body):
 	if body.is_in_group("schalter"):

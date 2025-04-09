@@ -32,3 +32,7 @@ func update_feedback(is_valid: bool):
 	else:
 		material.albedo_color = Color(1, 0, 0) # Rot
 		material2.albedo_color = Color(1, 0, 0) # Rot
+	
+	await get_tree().create_timer(2).timeout 
+	material.albedo_color = Color(1, 1, 1) # Weiß
+	material2.albedo_color = Color(1, 1, 1) 

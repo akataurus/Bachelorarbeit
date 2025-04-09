@@ -55,9 +55,6 @@ func _on_scanner_exit_body_entered(body):
 			drop_target.get_parent().update_feedback()
 
 func _on_body_entered(body):
-	# für hint
-	
-	
 	# Prüft, ob der Spieler in den Bereich tritt
 	if body.is_in_group("player"):  
 		player = body
