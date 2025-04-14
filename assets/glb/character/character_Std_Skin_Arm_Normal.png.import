@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvj0jqhyhsl5l"
+uid="uid://b3ow75xfx6wnq"
 path.s3tc="res://.godot/imported/character_Std_Skin_Arm_Normal.png-2fcfaeb3f93115d84898010950b3af93.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
@@ -27,8 +27,8 @@ compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://assets/glb/character/character_Std_Skin_Arm_Normal.png"
+roughness/mode=0
+roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

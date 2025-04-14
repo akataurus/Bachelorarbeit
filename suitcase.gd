@@ -120,7 +120,7 @@ func pick_up():
 			
 			reparent(player)  # Koffer wird zum Kind des Spielers
 			global_transform = player.global_transform
-			position += Vector3(1, 0, 0)  # Hebt den Koffer etwas an
+			position += Vector3(1, 1, 0)  # Hebt den Koffer etwas an
 	else:
 		print("player ist null oder hat kein global_transform")
 
@@ -140,8 +140,7 @@ func drop():
 		#drop_target.get_parent().update_feedback(weight < weight_limit)
 		if drop_target.is_in_group("schalter") and weight < weight_limit:
 			is_moving_on_belt = true
-			
-	
+		
 	if is_in_scale_range:
 		drop_target.get_parent().set_label_text(weight)
 		drop_target.get_parent().set_optcontainer_visible(true) # minigame
