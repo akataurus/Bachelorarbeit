@@ -137,8 +137,7 @@ func drop():
 		# koffer wurde auf ziel abgelegt
 	
 		#bewegung aktivieren
-		drop_target.get_parent().update_feedback(weight < weight_limit)
-		print("should move now")
+		#drop_target.get_parent().update_feedback(weight < weight_limit)
 		if drop_target.is_in_group("schalter") and weight < weight_limit:
 			is_moving_on_belt = true
 			
