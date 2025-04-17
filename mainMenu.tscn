@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuxdorwwnec1q"]
+
+[ext_resource type="Script" path="res://mainMenu.gd" id="1_5gfht"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_5gfht")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 346.0
+offset_right = 1166.0
+offset_bottom = 666.0
+
+[node name="passenger" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Play as passenger
+"
+
+[node name="airport_worker" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Play as airport worker"
+
+[node name="airline_worker" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Play as airline worker"
+
+[connection signal="pressed" from="VBoxContainer/passenger" to="." method="_on_passenger_pressed"]
+[connection signal="pressed" from="VBoxContainer/airport_worker" to="." method="_on_airport_worker_pressed"]
+[connection signal="pressed" from="VBoxContainer/airline_worker" to="." method="_on_airline_worker_pressed"]

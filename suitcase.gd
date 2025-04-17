@@ -67,7 +67,6 @@ func _process(delta):
 
 func _on_counter_exit_body_entered(body):
 	if body == self:
-		print("stop moving")
 		is_moving_on_belt = false
 
 func _on_body_entered(body):

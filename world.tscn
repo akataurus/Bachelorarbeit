@@ -1,0 +1,100 @@
+[gd_scene load_steps=21 format=3 uid="uid://c75tx2d3gdqv"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_cq5qn"]
+[ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="2_vq4wn"]
+[ext_resource type="PackedScene" uid="uid://glnxtypxtao4" path="res://assets/scenes/absperrband.tscn" id="3_rycwc"]
+[ext_resource type="PackedScene" uid="uid://d1wjdftfy8pox" path="res://assets/scenes/anzeigetafel.tscn" id="4_q0yci"]
+[ext_resource type="PackedScene" uid="uid://b8ko216e7cdxq" path="res://assets/scenes/backflip_bench.tscn" id="5_gvmf5"]
+[ext_resource type="PackedScene" uid="uid://cxh5m46y8xhhl" path="res://assets/scenes/hgscan.tscn" id="6_7ucro"]
+[ext_resource type="PackedScene" uid="uid://d2fxem1o4nt1d" path="res://assets/scenes/koerperscanner.tscn" id="7_ff81o"]
+[ext_resource type="PackedScene" uid="uid://bwkjlr4cxb47f" path="res://assets/scenes/polizei.tscn" id="8_1u3fv"]
+[ext_resource type="PackedScene" uid="uid://b46qodkewow64" path="res://assets/scenes/schalter.tscn" id="9_e63ap"]
+[ext_resource type="PackedScene" uid="uid://cv1hqkjg6j8cf" path="res://assets/scenes/flughafen.tscn" id="10_1173x"]
+[ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://assets/scenes/schreibtisch.tscn" id="11_qeqct"]
+[ext_resource type="PackedScene" uid="uid://delo5q0n555nk" path="res://assets/scenes/waage.tscn" id="12_rsa7g"]
+[ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://assets/scenes/trennwand.tscn" id="13_rtcvv"]
+[ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://assets/scenes/hand_luggage.tscn" id="14_rwo20"]
+[ext_resource type="PackedScene" uid="uid://b3vunkpxkns06" path="res://assets/scenes/suitcase.tscn" id="15_n6nrx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_524yn"]
+sky_material = SubResource("ProceduralSkyMaterial_tbeoq")
+
+[sub_resource type="Environment" id="Environment_qymvr"]
+background_mode = 2
+sky = SubResource("Sky_524yn")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5phd0"]
+size = Vector2(200, 200)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_otds2"]
+data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_cq5qn")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qymvr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, -24.8449, 5.24214, 25.4377)
+shadow_enabled = true
+
+[node name="Boden" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_5phd0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Boden"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boden/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_otds2")
+
+[node name="Player" parent="." instance=ExtResource("2_vq4wn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 68.774)
+top_level = true
+linear_damp = 3.0
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="absperrband" parent="." instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 33)
+
+[node name="anzeigetafel" parent="." instance=ExtResource("4_q0yci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 30)
+
+[node name="backflip_bench" parent="." instance=ExtResource("5_gvmf5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
+
+[node name="hgscan" parent="." instance=ExtResource("6_7ucro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 39)
+
+[node name="koerperscanner" parent="." instance=ExtResource("7_ff81o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 45)
+
+[node name="polizei" parent="." instance=ExtResource("8_1u3fv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 37)
+
+[node name="schalter" parent="." instance=ExtResource("9_e63ap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14987, 0, 44.1585)
+
+[node name="flughafen" parent="." instance=ExtResource("10_1173x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 45)
+
+[node name="schreibtisch" parent="." instance=ExtResource("11_qeqct")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, -14, 0, 53)
+
+[node name="waage" parent="." instance=ExtResource("12_rsa7g")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 11, 0, 54)
+
+[node name="trennwand" parent="." instance=ExtResource("13_rtcvv")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15, -0.137787, 46)
+
+[node name="hand_luggage" parent="." instance=ExtResource("14_rwo20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66684, 0, 59.8405)
+
+[node name="suitcase" parent="." instance=ExtResource("15_n6nrx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 57.5314)

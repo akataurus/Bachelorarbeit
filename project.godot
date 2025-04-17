@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="airport_map"
-run/main_scene="res://node_3d.tscn"
+run/main_scene="res://mainMenu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://gameManager.gd"
 
 [display]
 
