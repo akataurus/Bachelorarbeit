@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8ko216e7cdxq"]
+
+[ext_resource type="PackedScene" uid="uid://bcmr6lnputjhk" path="res://blender/backflip_bench.glb" id="1_t1t1s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ha5c"]
+size = Vector3(0.77356, 0.818359, 1.74213)
+
+[node name="backflip_bench" instance=ExtResource("1_t1t1s")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mesh" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0115356, 0.421566, 0.00869751)
+shape = SubResource("BoxShape3D_1ha5c")

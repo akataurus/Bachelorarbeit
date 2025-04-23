@@ -1,20 +1,37 @@
 [gd_scene load_steps=21 format=3 uid="uid://c75tx2d3gdqv"]
 
-[ext_resource type="Script" path="res://world.gd" id="1_cq5qn"]
-[ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://player.tscn" id="2_vq4wn"]
-[ext_resource type="PackedScene" uid="uid://glnxtypxtao4" path="res://assets/scenes/absperrband.tscn" id="3_rycwc"]
-[ext_resource type="PackedScene" uid="uid://d1wjdftfy8pox" path="res://assets/scenes/anzeigetafel.tscn" id="4_q0yci"]
-[ext_resource type="PackedScene" uid="uid://b8ko216e7cdxq" path="res://assets/scenes/backflip_bench.tscn" id="5_gvmf5"]
-[ext_resource type="PackedScene" uid="uid://cxh5m46y8xhhl" path="res://assets/scenes/hgscan.tscn" id="6_7ucro"]
-[ext_resource type="PackedScene" uid="uid://d2fxem1o4nt1d" path="res://assets/scenes/koerperscanner.tscn" id="7_ff81o"]
-[ext_resource type="PackedScene" uid="uid://bwkjlr4cxb47f" path="res://assets/scenes/polizei.tscn" id="8_1u3fv"]
-[ext_resource type="PackedScene" uid="uid://b46qodkewow64" path="res://assets/scenes/schalter.tscn" id="9_e63ap"]
-[ext_resource type="PackedScene" uid="uid://cv1hqkjg6j8cf" path="res://assets/scenes/flughafen.tscn" id="10_1173x"]
-[ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://assets/scenes/schreibtisch.tscn" id="11_qeqct"]
-[ext_resource type="PackedScene" uid="uid://delo5q0n555nk" path="res://assets/scenes/waage.tscn" id="12_rsa7g"]
-[ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://assets/scenes/trennwand.tscn" id="13_rtcvv"]
-[ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://assets/scenes/hand_luggage.tscn" id="14_rwo20"]
-[ext_resource type="PackedScene" uid="uid://b3vunkpxkns06" path="res://assets/scenes/suitcase.tscn" id="15_n6nrx"]
+[ext_resource type="PackedScene" uid="uid://glnxtypxtao4" path="res://scenes/non_interactable/absperrband.tscn" id="3_rycwc"]
+[ext_resource type="PackedScene" uid="uid://d1wjdftfy8pox" path="res://scenes/non_interactable/anzeigetafel.tscn" id="4_q0yci"]
+[ext_resource type="PackedScene" uid="uid://b8ko216e7cdxq" path="res://scenes/non_interactable/backflip_bench.tscn" id="5_gvmf5"]
+[ext_resource type="PackedScene" uid="uid://cxh5m46y8xhhl" path="res://scenes/hgscan.tscn" id="6_7ucro"]
+[ext_resource type="PackedScene" uid="uid://d2fxem1o4nt1d" path="res://scenes/koerperscanner.tscn" id="7_ff81o"]
+[ext_resource type="PackedScene" uid="uid://bwkjlr4cxb47f" path="res://scenes/polizei.tscn" id="8_1u3fv"]
+[ext_resource type="PackedScene" uid="uid://b46qodkewow64" path="res://scenes/schalter.tscn" id="9_e63ap"]
+[ext_resource type="PackedScene" uid="uid://cv1hqkjg6j8cf" path="res://scenes/non_interactable/flughafen.tscn" id="10_1173x"]
+[ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://scenes/schreibtisch.tscn" id="11_qeqct"]
+[ext_resource type="PackedScene" uid="uid://delo5q0n555nk" path="res://scenes/waage.tscn" id="12_rsa7g"]
+[ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://scenes/non_interactable/trennwand.tscn" id="13_rtcvv"]
+[ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://scenes/playable/passenger.tscn" id="14_kjbx7"]
+[ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://scenes/hand_luggage.tscn" id="14_rwo20"]
+[ext_resource type="PackedScene" uid="uid://b3vunkpxkns06" path="res://scenes/suitcase.tscn" id="15_n6nrx"]
+
+[sub_resource type="GDScript" id="GDScript_4s24c"]
+script/source = "extends Node3D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	if GameManager.role == \"passenger\":
+		print(\"player is passenger\")
+	if GameManager.role == \"airport_worker\":
+		print(\"player is airport worker\")
+	if GameManager.role == \"airline_worker\":
+		print(\"player is airline worker\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -36,7 +53,7 @@ size = Vector2(200, 200)
 data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
 
 [node name="world" type="Node3D"]
-script = ExtResource("1_cq5qn")
+script = SubResource("GDScript_4s24c")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qymvr")
@@ -52,11 +69,6 @@ mesh = SubResource("PlaneMesh_5phd0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boden/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_otds2")
-
-[node name="Player" parent="." instance=ExtResource("2_vq4wn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 68.774)
-top_level = true
-linear_damp = 3.0
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 
@@ -98,3 +110,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66684, 0, 59.8405)
 
 [node name="suitcase" parent="." instance=ExtResource("15_n6nrx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 57.5314)
+
+[node name="Player" parent="." instance=ExtResource("14_kjbx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 64.4012)

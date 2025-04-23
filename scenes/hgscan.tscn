@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://cxh5m46y8xhhl"]
+
+[ext_resource type="PackedScene" uid="uid://cbv7sriqtr3t7" path="res://assets/glb/hgscan.glb" id="1_k2763"]
+[ext_resource type="Script" path="res://scripts/hgscan.gd" id="2_maour"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vmdbe"]
+size = Vector3(31.6989, 1.89557, 1.97949)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m7683"]
+size = Vector3(72.2426, 2.90607, 0.595337)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_co6ar"]
+size = Vector3(98.9149, 57.5769, 2.14331)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ygvle"]
+size = Vector3(41.552, 38.1223, 0.0639648)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5jvbo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dmyn"]
+
+[node name="hgscan" instance=ExtResource("1_k2763")]
+
+[node name="Cube" parent="." index="0"]
+transform = Transform3D(0.043, 0, 0, 0, 0.062, 0, 0, 0, 3, 0.01, 1, 0)
+script = ExtResource("2_maour")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0" groups=["hgscan"]]
+
+[node name="band_shape" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1.00006, 0, 0, 0, 1, -14.7569, 0.0764885, 0.0126286)
+shape = SubResource("BoxShape3D_vmdbe")
+
+[node name="table_shap" type="CollisionShape3D" parent="Cube/StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1.00004, 0, 0, 0, 1, 41.505, 0.538651, -0.00404731)
+shape = SubResource("BoxShape3D_m7683")
+
+[node name="Area3D" type="Area3D" parent="Cube" index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.1298, 11.4767, 0)
+shape = SubResource("BoxShape3D_co6ar")
+
+[node name="baggage_pos" type="Marker3D" parent="Cube" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.686, 5.5309, -0.699)
+
+[node name="luggage_stop" type="Area3D" parent="Cube" index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/luggage_stop" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1.00005, 0, 0, 0, 1, -15.22, 3.1243, 0.91801)
+shape = SubResource("BoxShape3D_ygvle")
+
+[node name="feedback" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.499811, -0.0265032, -0.00216485, -0.000271566, 0.243588, -0.290964, 0.0137313, 0.969517, 0.0730446, 1.51976, 1.74694, -0.228051)
+mesh = SubResource("PlaneMesh_5jvbo")
+surface_material_override/0 = SubResource("StandardMaterial3D_2dmyn")
