@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=20 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="PackedScene" uid="uid://glnxtypxtao4" path="res://scenes/non_interactable/absperrband.tscn" id="3_rycwc"]
 [ext_resource type="PackedScene" uid="uid://d1wjdftfy8pox" path="res://scenes/non_interactable/anzeigetafel.tscn" id="4_q0yci"]
@@ -11,12 +11,15 @@
 [ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://scenes/schreibtisch.tscn" id="11_qeqct"]
 [ext_resource type="PackedScene" uid="uid://delo5q0n555nk" path="res://scenes/waage.tscn" id="12_rsa7g"]
 [ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://scenes/non_interactable/trennwand.tscn" id="13_rtcvv"]
-[ext_resource type="PackedScene" uid="uid://b21r42decjwd4" path="res://scenes/playable/passenger.tscn" id="14_kjbx7"]
 [ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://scenes/hand_luggage.tscn" id="14_rwo20"]
 [ext_resource type="PackedScene" uid="uid://b3vunkpxkns06" path="res://scenes/suitcase.tscn" id="15_n6nrx"]
 
 [sub_resource type="GDScript" id="GDScript_4s24c"]
 script/source = "extends Node3D
+
+@onready var passenger_spawn := $spawns/passenger_spawn # empty Nodes as starting position
+@onready var airportw_spawn := $spawns/airportw_spawn
+@onready var airlinew_spawn := $spawns/airlinew_spawn
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,6 +30,24 @@ func _ready() -> void:
 	if GameManager.role == \"airline_worker\":
 		print(\"player is airline worker\")
 
+	match GameManager.role:
+		\"passenger\":
+			var player_scene = load(\"res://scenes/playable/passenger.tscn\")
+			var player = player_scene.instantiate()
+			player.global_transform.origin = passenger_spawn.global_transform.origin
+			add_child(player)
+		\"airport_worker\":
+			var player_scene = load(\"res://scenes/playable/airport_worker.tscn\")
+			var player = player_scene.instantiate()
+			add_child(player)
+			player.global_transform.origin = airportw_spawn.global_transform.origin
+		\"airline_worker\":
+			var player_scene = load(\"res://scenes/playable/airline_worker.tscn\")
+			var player = player_scene.instantiate()
+			add_child(player)
+			player.global_transform.origin = airlinew_spawn.global_transform.origin
+		_:
+			push_error(\"no acceptable role!\")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -111,5 +132,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66684, 0, 59.8405)
 [node name="suitcase" parent="." instance=ExtResource("15_n6nrx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 57.5314)
 
-[node name="Player" parent="." instance=ExtResource("14_kjbx7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 64.4012)
+[node name="spawns" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33.5081)
+
+[node name="passenger_spawn" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16382, 0, 27.5045)
+
+[node name="airportw_spawn" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1477, 0, 8.50154)
+
+[node name="airlinew_spawn" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20777, 0, 12.0229)
