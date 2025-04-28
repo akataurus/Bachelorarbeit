@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://u7wfidf63tvd"]
+
+[ext_resource type="PackedScene" uid="uid://83jxdf84ypn" path="res://assets/glb/airline_worker.glb" id="1_bvqw1"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_el50c"]
+
+[node name="airline_worker" instance=ExtResource("1_bvqw1")]
+
+[node name="m009_01-highpolyeyes" parent="root/Skeleton3D" index="1"]
+mesh = SubResource("ArrayMesh_el50c")
+
+[node name="m009_01-mind_eyelashes_01" parent="root/Skeleton3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000189142, 0.00079447)

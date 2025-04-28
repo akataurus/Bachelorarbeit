@@ -1,5 +1,7 @@
 # Basic movement and camera: https://www.youtube.com/watch?v=sVsn9NqpVhg
 # Level editor: https://www.youtube.com/watch?v=BUjCtwLO0S8
+# model (woman): https://rigmodels.com/model.php?view=Business_Woman-3d-model__9TPXMJCKKPSP3PYW9Y119709R
+# model (man): https://www.cgtrader.com/items/2578203/download-page
 extends RigidBody3D
 
 var mouse_sensitivity := 0.001 # speed at wich the camera rotates

@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://6gai71ur06pn"]
+
+[ext_resource type="PackedScene" uid="uid://ci4i8ua3kr6ut" path="res://assets/glb/airport_worker.glb" id="1_cpqaf"]
+
+[node name="AuxScene" instance=ExtResource("1_cpqaf")]
+
+[node name="Node" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25851, 0)
+
+[node name="Mesh2" parent="Node" index="1"]
+visible = false
+
+[node name="Mesh3" parent="Node" index="2"]
+visible = false
+
+[node name="Mesh4" parent="Node" index="3"]
+visible = false
+
+[node name="Mesh5" parent="Node" index="4"]
+visible = false
+
+[node name="Mesh6" parent="Node" index="5"]
+visible = false
+
+[node name="Mesh7" parent="Node" index="6"]
+visible = false
+
+[node name="Mesh8" parent="Node" index="7"]
+visible = false
+
+[node name="Mesh9" parent="Node" index="8"]
+visible = false
+
+[node name="Mesh10" parent="Node" index="9"]
+visible = false
