@@ -23,8 +23,8 @@ script/source = "extends Node3D
 
 @export var npc_scene: PackedScene
 @export var npc_spawn:= Vector3(0,0,0)
-@export var npc_destination:= Vector3(5, 0, 0) # wo npcs hinlaufen sollen
-@export var spawn_interval := 10.0 # alle 3 Sekunden neuer npc
+@export var npc_destination:= Vector3(20, 0, 0) # wo npcs hinlaufen sollen
+@export var spawn_interval := 20.0 # alle 3 Sekunden neuer npc
 var timer := 0.0
 
 # Called when the node enters the scene tree for the first time.
