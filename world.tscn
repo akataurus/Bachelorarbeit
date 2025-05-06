@@ -25,6 +25,7 @@ script/source = "extends Node3D
 @export var npc_spawn:= Vector3(0,0,0)
 @export var npc_destination:= Vector3(20, 0, 0) # wo npcs hinlaufen sollen
 @export var spawn_interval := 20.0 # alle 3 Sekunden neuer npc
+@export var npcs_per_spawn := 3 # anzahl der auf einmal gespawnten npcs
 var timer := 0.0
 
 # Called when the node enters the scene tree for the first time.
@@ -63,13 +64,15 @@ func _process(delta: float) -> void:
 		spawn_passenger()
 
 func spawn_passenger():
-	print(\"spawning\")
-	npc_scene = load(\"res://scenes/npc_passenger.tscn\")
-	var passenger = npc_scene.instantiate()
-	passenger.global_transform.origin = npc_spawn
-	passenger.target_position = npc_destination
-	
-	get_parent().add_child(passenger)
+	for i in npcs_per_spawn:
+		print(\"spawning\")
+		npc_scene = load(\"res://scenes/npc_passenger.tscn\")
+		var passenger = npc_scene.instantiate()
+		# Leicht versetzte Spawn-Position (z. B. damit sie nicht ineinander spawnen)
+		var offset := Vector3(randf_range(-2, 2), 0, randf_range(-2, 2))
+		passenger.global_transform.origin = npc_spawn + offset
+		
+		get_parent().add_child(passenger)
 "
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
