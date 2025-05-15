@@ -4,8 +4,8 @@ extends CharacterBody3D
 @export var target_position: Vector3
 
 var paths := [
-	[Vector3(10, 0, 0), Vector3(0, 0, 5), Vector3(5, 0, 0)],
-	[Vector3(0, 0, 10), Vector3(3, 0, 7), Vector3(5, 0, 3)],
+	[Vector3(0, 0, 3), Vector3(0, 0, 5), Vector3(5, 0, 0)],
+	[Vector3(1, 0, 10), Vector3(3, 0, 7), Vector3(5, 0, 3)],
 	[Vector3(-5, 0, 5), Vector3(0, 0, 0), Vector3(5, 0, -5)]
 ]
 
