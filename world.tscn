@@ -104,3 +104,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1477, 0, 8.50154)
 
 [node name="airlinew_spawn" type="Node3D" parent="spawns"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20777, 0, 12.0229)
+
+[node name="customer_path" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 34.5358)
+
+[node name="schalter" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.01033, 0, 7.18295)
+
+[node name="hgscan" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2722, 0, 2.38365)

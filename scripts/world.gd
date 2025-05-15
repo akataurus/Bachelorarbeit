@@ -7,12 +7,12 @@ extends Node3D
 @export var npc_passenger_scene: PackedScene
 @export var npc_passenger_spawn:= Vector3(0,0,0)
 @export var npc_passenger_spawn_interval := 20.0 # alle 3 Sekunden neuer npc
-@export var npc_passengers_per_spawn := 3 # anzahl der auf einmal gespawnten npcs
+@export var npc_passengers_per_spawn := 0 # anzahl der auf einmal gespawnten npcs
 
 @export var npc_customer_scene: PackedScene
-@export var npc_customer_spawn:= Vector3(0, 0, 0)
+@export var npc_customer_spawn:= Vector3(-30, 0, 40)
 @export var npc_customer_spawn_interval := 15.0
-@export var npc_customer_per_spawn := 3
+@export var npc_customer_per_spawn := 1
 # damit npcs nicht komplett aufeinander spawnen:
 var offset := Vector3(randf_range(-2, 2), 0, randf_range(-2, 2)) 
 
@@ -68,10 +68,22 @@ func spawn_passenger(npc_type: String):
 			passenger.global_transform.origin = npc_passenger_spawn + offset
 			get_parent().add_child(passenger)
 			
-	if npc_type == "customer":
+	elif npc_type == "customer":
 		for i in npc_customer_per_spawn:
 			print("spawning customer")
 			npc_customer_scene = load("res://scenes/npc_customer.tscn")
 			var customer = npc_customer_scene.instantiate()
 			customer.global_transform.origin = npc_customer_spawn + offset
+
+			# Pfad sammeln aus CustomerPaths Node
+			var markers := $customer_path.get_children()
+			var path: Array = []
+
+			for marker in markers:
+				if marker is Marker3D:
+					path.append(marker.global_transform.origin)
+
+			# Pfad an Customer übergeben
+			customer.set_path(path)
+
 			get_parent().add_child(customer)
