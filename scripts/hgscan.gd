@@ -6,8 +6,18 @@ extends Node3D
 @onready var area := $luggage_stop
 @onready var feedback := $"../feedback"
 
+@onready var counter_worker := $"../Player"
+@onready var speech_bubble := $"../Player".get_node("speech_bubble")
+var passenger_in_range := false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if GameManager.role != "passenger":
+		counter_worker.visible = false
+		
+	await get_tree().process_frame
+	speech_bubble.text = "Welcome! Please put your luggage on the scanner."
+	speech_bubble.visible = false # kein text am Anfang
 	
 	drop_position = get_node_or_null("baggage_pos")
 	if drop_position == null:
@@ -15,7 +25,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if passenger_in_range and Input.is_action_just_pressed("hg_interact"):
+		speech_bubble.text = "Thanks!"
 
 func get_drop_position():
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)
@@ -26,5 +37,19 @@ func update_feedback():
 	
 	if is_scan_successful:
 		material.albedo_color = Color(0, 1, 0) # Grün
+		speech_bubble.text = "Okay, looks good. You can go to the gate now."
 	else:
 		material.albedo_color = Color(1, 0, 0) # Rot
+		speech_bubble.text = "Oh no, seems like you have bad stuff in here."
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		passenger_in_range = true
+		speech_bubble.visible = true
+
+
+func _on_area_3d_body_exited(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		passenger_in_range = false
+		speech_bubble.visible = false

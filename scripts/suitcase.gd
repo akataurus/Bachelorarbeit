@@ -49,7 +49,7 @@ func _process(delta):
 		else:
 			pick_up()
 	# für hint
-	if player:	
+	if player and player.has_method("show_hint"):	
 		if is_held:
 			if is_in_counter_range:
 				player.show_hint("Drop luggage on counter: E", self)
@@ -90,7 +90,7 @@ func _on_body_exited(body):
 	if is_dropping: # ignoriere wegen drop
 		return
 	
-	if body == player and player:
+	if body == player and player and player.has_method("hide_hint"):
 		player.hide_hint(self)
 		# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
 		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:

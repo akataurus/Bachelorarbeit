@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxh5m46y8xhhl"]
+[gd_scene load_steps=10 format=3 uid="uid://cxh5m46y8xhhl"]
 
 [ext_resource type="PackedScene" uid="uid://cbv7sriqtr3t7" path="res://assets/glb/hgscan.glb" id="1_k2763"]
 [ext_resource type="Script" path="res://scripts/hgscan.gd" id="2_maour"]
+[ext_resource type="PackedScene" uid="uid://nmqe2cjjkd3k" path="res://scenes/npc_airport_worker.tscn" id="3_lav5q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vmdbe"]
 size = Vector3(31.6989, 1.89557, 1.97949)
@@ -9,8 +10,8 @@ size = Vector3(31.6989, 1.89557, 1.97949)
 [sub_resource type="BoxShape3D" id="BoxShape3D_m7683"]
 size = Vector3(72.2426, 2.90607, 0.595337)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_co6ar"]
-size = Vector3(98.9149, 57.5769, 2.14331)
+[sub_resource type="BoxShape3D" id="BoxShape3D_iqyop"]
+margin = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ygvle"]
 size = Vector3(41.552, 38.1223, 0.0639648)
@@ -36,10 +37,10 @@ transform = Transform3D(1, 0, 0, 0, 1.00004, 0, 0, 0, 1, 41.505, 0.538651, -0.00
 shape = SubResource("BoxShape3D_m7683")
 
 [node name="Area3D" type="Area3D" parent="Cube" index="1"]
+transform = Transform3D(50, 0, 0, 0, 10, 0, 0, 0, 1, 34.4668, 1.29754, -0.666667)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/Area3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.1298, 11.4767, 0)
-shape = SubResource("BoxShape3D_co6ar")
+shape = SubResource("BoxShape3D_iqyop")
 
 [node name="baggage_pos" type="Marker3D" parent="Cube" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.686, 5.5309, -0.699)
@@ -54,3 +55,10 @@ shape = SubResource("BoxShape3D_ygvle")
 transform = Transform3D(0.499811, -0.0265032, -0.00216485, -0.000271566, 0.243588, -0.290964, 0.0137313, 0.969517, 0.0730446, 1.51976, 1.74694, -0.228051)
 mesh = SubResource("PlaneMesh_5jvbo")
 surface_material_override/0 = SubResource("StandardMaterial3D_2dmyn")
+
+[node name="Player" parent="." index="2" instance=ExtResource("3_lav5q")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.21624, 0, 1.3188)
+
+[connection signal="body_entered" from="Cube/Area3D" to="Cube" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Cube/Area3D" to="Cube" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Cube/luggage_stop" to="Cube" method="_on_luggage_stop_body_entered"]

@@ -55,16 +55,19 @@ func _on_scanner_exit_body_entered(body):
 			drop_target.get_parent().update_feedback()
 
 func _on_body_entered(body):
+	print("body: ", body)
+	
 	# Prüft, ob der Spieler in den Bereich tritt
 	if body.is_in_group("player"):  
 		player = body
-		if is_held:
-			if is_in_hgscan_range: 
-				player.show_hint("Drop hand luggage on scanner: F", self)
+		if player.has_method("show_hint"):
+			if is_held:
+				if is_in_hgscan_range: 
+					player.show_hint("Drop hand luggage on scanner: F", self)
+				else:
+					player.show_hint("Drop hand luggage: F", self)
 			else:
-				player.show_hint("Drop hand luggage: F", self)
-		else:
-			player.show_hint("Pick up hand luggage: F", self)
+				player.show_hint("Pick up hand luggage: F", self)
 		
 	elif body.is_in_group("hgscan"):
 		drop_target = body
@@ -76,10 +79,11 @@ func _on_body_exited(body):
 		return
 
 	if body == player:
-		player.hide_hint(self)
-		# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
-		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
-			player = null
+		if player.has_method("hide_hint"):
+			player.hide_hint(self)
+			# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
+			if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
+				player = null
 			
 
 

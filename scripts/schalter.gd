@@ -20,24 +20,26 @@ func _ready() -> void:
 		counter_worker.visible = false
 	
 	await get_tree().process_frame
-	speech_bubble.text = "Welcome! Please show your ID."
+	speech_bubble.text = "Welcome! Please put your luggage on the scale."
 	speech_bubble.visible = false # kein text am Anfang
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if passenger_in_range and Input.is_action_just_pressed("show_ID"):
 		# implement animation here
-		show_check_in_dialogue()
+		show_ID_check_dialogue()
+	if passenger_in_range and Input.is_action_just_pressed("interact"):
+		show
 		
-func show_check_in_dialogue():
+func show_ID_check_dialogue():
 	speech_bubble.text = "Thanks!"
 	await get_tree().create_timer(1.5).timeout  # Delay in Sekunden
 	speech_bubble.text = "Let me check you in..."
-	await get_tree().create_timer(3).timeout  # Delay in Sekunden
-	speech_bubble.text = "Alright, all set up! Here is your boarding ticket."
 	await get_tree().create_timer(5).timeout  # Delay in Sekunden
-	# animation und erhalten der boardkarte hier
+	speech_bubble.text = "Alright, all set up."
+	await get_tree().create_timer(2).timeout
 	speech_bubble.text = "You can go to the security check now."
+	
 
 func get_drop_position():
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)
@@ -51,11 +53,15 @@ func update_feedback(is_valid: bool):
 		return
 		
 	if is_valid:
+		speech_bubble.text = "Okay, please show your ID."
 		material.albedo_color = Color(0, 1, 0) # Grün
 		material2.albedo_color = Color(0, 1, 0)
 	else:
+		speech_bubble.text = "Oh no! Please go to the scale and \n remove something from your luggage."
 		material.albedo_color = Color(1, 0, 0) # Rot
 		material2.albedo_color = Color(1, 0, 0) # Rot
+		await get_tree().create_timer(10).timeout  # Delay in Sekunden
+		speech_bubble.text = "Welcome! Please put your luggage on the scale."
 	
 	await get_tree().create_timer(2).timeout 
 	material.albedo_color = Color(1, 1, 1) # Weiß
@@ -63,11 +69,11 @@ func update_feedback(is_valid: bool):
 	
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	passenger_in_range = true
 	if body.is_in_group("player"):
+		passenger_in_range = true
 		speech_bubble.visible = true
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
-	passenger_in_range = false
 	if body.is_in_group("player"):
+		passenger_in_range = false
 		speech_bubble.visible = false

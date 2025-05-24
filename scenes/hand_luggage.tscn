@@ -9,7 +9,7 @@ size = Vector3(0.405273, 0.489014, 0.477112)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3x4ew"]
 size = Vector3(3.68127, 2.22583, 3.53625)
 
-[node name="Node3D" type="RigidBody3D" groups=["hand_luggage"]]
+[node name="hand_luggage" type="RigidBody3D" groups=["hand_luggage"]]
 script = ExtResource("1_mubem")
 
 [node name="hand_luggage" parent="." instance=ExtResource("1_ri8cb")]
