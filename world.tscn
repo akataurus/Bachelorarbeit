@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bwkjlr4cxb47f" path="res://scenes/polizei.tscn" id="8_1u3fv"]
 [ext_resource type="PackedScene" uid="uid://b46qodkewow64" path="res://scenes/schalter.tscn" id="9_e63ap"]
 [ext_resource type="PackedScene" uid="uid://cv1hqkjg6j8cf" path="res://scenes/non_interactable/flughafen.tscn" id="10_1173x"]
-[ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://scenes/schreibtisch.tscn" id="11_qeqct"]
+[ext_resource type="PackedScene" uid="uid://cu46g1yonmqgj" path="res://scenes/gate_counter.tscn" id="11_qeqct"]
 [ext_resource type="PackedScene" uid="uid://delo5q0n555nk" path="res://scenes/waage.tscn" id="12_rsa7g"]
 [ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://scenes/non_interactable/trennwand.tscn" id="13_rtcvv"]
 [ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://scenes/hand_luggage.tscn" id="14_rwo20"]
@@ -78,7 +78,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14987, 0, 44.1585)
 [node name="flughafen" parent="." instance=ExtResource("10_1173x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 45)
 
-[node name="schreibtisch" parent="." instance=ExtResource("11_qeqct")]
+[node name="gate_counter" parent="." instance=ExtResource("11_qeqct")]
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, -14, 0, 53)
 
 [node name="waage" parent="." instance=ExtResource("12_rsa7g")]
