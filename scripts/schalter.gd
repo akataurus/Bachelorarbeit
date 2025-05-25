@@ -39,13 +39,12 @@ func show_ID_check_dialogue():
 	speech_bubble.text = "Alright, all set up."
 	await get_tree().create_timer(2).timeout
 	speech_bubble.text = "You can go to the security check now."
-	
+	GameManager.is_checked_in = true
 
 func get_drop_position():
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)
 
 func update_feedback(is_valid: bool):
-	print("update_feedback")
 	var material = feedback_light.get_active_material(0)
 	var material2 = monitor_feedback.get_active_material(0)
 	if material == null:
@@ -61,7 +60,7 @@ func update_feedback(is_valid: bool):
 		material.albedo_color = Color(1, 0, 0) # Rot
 		material2.albedo_color = Color(1, 0, 0) # Rot
 		await get_tree().create_timer(10).timeout  # Delay in Sekunden
-		speech_bubble.text = "Welcome! Please put your luggage on the scale."
+		speech_bubble.text = "Welcome! \n Please put your luggage on the scale."
 	
 	await get_tree().create_timer(2).timeout 
 	material.albedo_color = Color(1, 1, 1) # Weiß

@@ -55,8 +55,6 @@ func _on_scanner_exit_body_entered(body):
 			drop_target.get_parent().update_feedback()
 
 func _on_body_entered(body):
-	print("body: ", body)
-	
 	# Prüft, ob der Spieler in den Bereich tritt
 	if body.is_in_group("player"):  
 		player = body
@@ -123,7 +121,7 @@ func drop():
 		global_transform.origin = drop_position
 		global_rotation = Vector3(deg_to_rad(90), 0, 0)
 		# koffer wurde auf ziel abgelegt
-		if drop_target.is_in_group("hgscan"):
+		if drop_target.is_in_group("hgscan") and GameManager.is_checked_in:
 			is_moving_on_belt = true
 			
 		
