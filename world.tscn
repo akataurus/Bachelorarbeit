@@ -113,3 +113,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.01033, 0, 7.18295)
 
 [node name="hgscan" type="Marker3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2722, 0, 2.38365)
+
+[node name="job_positions" type="Node3D" parent="."]
+
+[node name="airport_worker" type="Node3D" parent="job_positions"]
+
+[node name="hgscan" type="Marker3D" parent="job_positions/airport_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9539, 0, 41.0691)
+
+[node name="bodyscan" type="Marker3D" parent="job_positions/airport_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00559, 0, 47.4234)

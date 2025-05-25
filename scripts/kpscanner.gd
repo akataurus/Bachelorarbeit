@@ -5,11 +5,17 @@ var player = null
 @onready var indicator = $indicator
 @onready var indicator2 = $indicator2 # Rückseite des Scanners
 @onready var scanner_area = $Area3D
+@onready var npc_airport_worker = $"../npc_airport_worker"
+@onready var npc_collision_shape = npc_airport_worker.get_node("CollisionShape3D")
 
 @onready var speech_bubble = $"../npc_airport_worker".get_node("speech_bubble")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if GameManager.role != "passenger":
+		#npc_airport_worker.visible = false 
+		npc_collision_shape.disabled = true
+		
 	# Signal verbinden für _on_body_entered
 	scanner_area.body_entered.connect(_on_body_entered) 
 	

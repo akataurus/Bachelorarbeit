@@ -21,8 +21,13 @@ var pitch_input := 0.0 # how much mouse has moved vertically each frame
 @onready var hint_label := $CanvasLayer/Hint_label
 var active_hints := {} # alle aktiven hints 
 
+var job_markers = {}
+var job_order := ["hgscan", "bodyscan"]
+var curr_job_index := 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	match GameManager.role:
 		"passenger":
 			curr_character_model = $character
@@ -53,6 +58,13 @@ func _process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if Input.is_action_just_pressed("show_bcard"):
 		show_boarding_card()
+		
+	if Input.is_action_just_pressed("next_job") and GameManager.role == "airport_worker":
+		teleport_to_next_job(self)
+	if Input.is_action_just_pressed("previous_job") and GameManager.role == "airport_worker":
+		teleport_to_previous_job(self)
+	
+	
 
 	twist_pivot.rotate_y(twist_input)
 	pitch_pivot.rotate_x(pitch_input)
@@ -77,6 +89,23 @@ func _process(delta: float) -> void:
 		
 		curr_character_model.rotation.y = new_yaw
 
+func set_job_markers(markers: Dictionary):
+	job_markers = markers
+	print("Job markers erhalten:", job_markers)
+	print("Marker selbst:", job_markers.get("hgscan"))
+
+func teleport_to_next_job(player: Node3D):
+	curr_job_index = (curr_job_index + 1) % job_order.size()
+	var job_name = job_order[curr_job_index]
+	
+	var marker = job_markers.get(job_name, null)
+	if marker:
+		player.global_position = marker.global_position
+	else:
+		print("problem bei teleport")
+
+func teleport_to_previous_job(player: Node3D):
+	curr_job_index = (curr_job_index -1) % job_order.size()
 
 # camera movement
 func _unhandled_input(event: InputEvent) -> void:

@@ -20,32 +20,39 @@ var timer1 := 0.0
 var timer2 := 0.0
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	if GameManager.role == "passenger":
-		print("player is passenger")
-	if GameManager.role == "airport_worker":
-		print("player is airport worker")
-	if GameManager.role == "airline_worker":
-		print("player is airline worker")
-
+func _ready():
 	match GameManager.role:
 		"passenger":
 			var player_scene = load("res://scenes/playable/passenger.tscn")
 			var player = player_scene.instantiate()
 			player.global_transform.origin = passenger_spawn.global_transform.origin
 			add_child(player)
+
 		"airport_worker":
-			var player_scene = load("res://scenes/playable/airport_worker.tscn")
-			var player = player_scene.instantiate()
-			add_child(player)
-			player.global_transform.origin = airportw_spawn.global_transform.origin
+			var airport_worker_scene = preload("res://scenes/playable/airport_worker.tscn")
+			var airport_worker = airport_worker_scene.instantiate()
+			
+			airport_worker.global_transform.origin = $job_positions/airport_worker/hgscan.global_transform.origin
+			add_child(airport_worker)
+
+			var hgscan_node = $job_positions/airport_worker/hgscan
+			var bodyscan_node = $job_positions/airport_worker/bodyscan
+			print("Node im World-Kontext:", hgscan_node)
+
+			airport_worker.set_job_markers({
+				"hgscan": hgscan_node,
+				"bodyscan": bodyscan_node
+			})
+
 		"airline_worker":
 			var player_scene = load("res://scenes/playable/airline_worker.tscn")
 			var player = player_scene.instantiate()
 			add_child(player)
 			player.global_transform.origin = airlinew_spawn.global_transform.origin
+
 		_:
 			push_error("no acceptable role!")
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -53,16 +60,15 @@ func _process(delta: float) -> void:
 	timer2 += delta
 	if timer1 >= npc_passenger_spawn_interval:
 		timer1 = 0
-		spawn_passenger("passenger") # spawn a passenger
+		spawn_npc("passenger") # spawn a passenger
 	if timer2 >= npc_customer_spawn_interval:
 		timer2 = 0
-		spawn_passenger("customer") # spawn a customer
+		spawn_npc("customer") # spawn a customer
 		
 
-func spawn_passenger(npc_type: String):
+func spawn_npc(npc_type: String):
 	if npc_type == "passenger":
 		for i in npc_passengers_per_spawn:
-			print("spawning passenger")
 			npc_passenger_scene = load("res://scenes/npc_passenger.tscn")
 			var passenger = npc_passenger_scene.instantiate()
 			passenger.global_transform.origin = npc_passenger_spawn + offset
@@ -70,10 +76,10 @@ func spawn_passenger(npc_type: String):
 			
 	elif npc_type == "customer":
 		for i in npc_customer_per_spawn:
-			print("spawning customer")
 			npc_customer_scene = load("res://scenes/npc_customer.tscn")
 			var customer = npc_customer_scene.instantiate()
 			customer.global_transform.origin = npc_customer_spawn + offset
+			get_parent().add_child(customer)
 
 			# Pfad sammeln aus CustomerPaths Node
 			var markers := $customer_path.get_children()

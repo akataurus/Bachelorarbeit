@@ -7,7 +7,7 @@ var paths := [
 	[Vector3(10, 0, 0), Vector3(0, 0, 5), Vector3(5, 0, 0)],
 	[Vector3(0, 0, 10), Vector3(3, 0, 7), Vector3(5, 0, 3)],
 	[Vector3(-5, 0, 5), Vector3(0, 0, 0), Vector3(5, 0, -5)]
-]
+] # some paths, where passengers move along
 
 var path0 := []
 var path_index := 0
