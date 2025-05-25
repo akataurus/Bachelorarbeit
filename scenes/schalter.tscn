@@ -68,6 +68,3 @@ shape = SubResource("BoxShape3D_ocpjk")
 
 [node name="Player" parent="." index="2" instance=ExtResource("3_qvfor")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.672139, 0, 0)
-
-[connection signal="body_entered" from="bildschirm/Area3D" to="bildschirm" method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="bildschirm/Area3D" to="bildschirm" method="_on_area_3d_body_exited"]
