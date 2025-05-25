@@ -21,12 +21,8 @@ func _process(delta: float) -> void:
 func boarding_card_dialogue():
 	if !GameManager.is_checked_in:
 		speech_bubble.text = "Oh no, you are not checked in yet! \n Please go to the counter and check in."
-		await get_tree().create_timer(4).timeout  # Delay in Sekunden
-		speech_bubble.text = ""
 	if GameManager.is_checked_in and !GameManager.is_sec_checked:
 		speech_bubble.text = "Oh no, you weren't at the security check! \n Please go there first."
-		await get_tree().create_timer(4).timeout  # Delay in Sekunden
-		speech_bubble.text = ""
 	if GameManager.is_checked_in and GameManager.is_sec_checked:
 		speech_bubble.text = "Thanks! You can go on board now."
 
