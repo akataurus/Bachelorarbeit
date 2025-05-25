@@ -15,11 +15,22 @@ var pitch_input := 0.0 # how much mouse has moved vertically each frame
 @onready var twist_pivot := $TwistPivot
 @onready var pitch_pivot := $TwistPivot/PitchPivot
 
+@onready var curr_character_model
+@onready var turn_speed := 5.0 # wie schnell modell zur laufrichtung dreht 
+
 @onready var hint_label := $CanvasLayer/Hint_label
 var active_hints := {} # alle aktiven hints 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	match GameManager.role:
+		"passenger":
+			curr_character_model = $character
+		"airport_worker":
+			curr_character_model = $AuxScene
+		"airline_worker":
+			curr_character_model = $airline_worker	
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	if area:
@@ -54,6 +65,17 @@ func _process(delta: float) -> void:
 	# Begrenze maximale Geschwindigkeit
 	if linear_velocity.length() > 5.0:
 		linear_velocity = linear_velocity.normalized() * 5.0
+
+	# Dreht das modell, wenn der spieler sich in ein richtung bewegt
+	if input.length() > 0.1:
+		var movement_dir = (twist_pivot.basis * input).normalized()
+		# Ziel-Rotation berechnen (Y-Rotation zur Bewegungsrichtung)
+		var target_rotation = atan2(movement_dir.x, movement_dir.z)
+		# airline_worker zum Ziel drehen (glatt über interpolate_angle)
+		var current_yaw = curr_character_model.rotation.y
+		var new_yaw = lerp_angle(current_yaw, target_rotation, turn_speed * delta)
+		
+		curr_character_model.rotation.y = new_yaw
 
 
 # camera movement
