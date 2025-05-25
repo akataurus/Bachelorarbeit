@@ -2,6 +2,7 @@
 # Level editor: https://www.youtube.com/watch?v=BUjCtwLO0S8
 # model (woman): https://rigmodels.com/model.php?view=Business_Woman-3d-model__9TPXMJCKKPSP3PYW9Y119709R
 # model (man): https://www.cgtrader.com/items/2578203/download-page
+# boarding pass pic source: https://www.wa.gov.au/media/32906
 extends RigidBody3D
 
 var mouse_sensitivity := 0.001 # speed at wich the camera rotates
@@ -9,6 +10,7 @@ var twist_input := 0.0 # how much mouse has moved horizontally each frame
 var pitch_input := 0.0 # how much mouse has moved vertically each frame
 
 @onready var area := $Area3D
+@onready var boarding_card := $boarding_card
 
 @onready var twist_pivot := $TwistPivot
 @onready var pitch_pivot := $TwistPivot/PitchPivot
@@ -38,6 +40,8 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if Input.is_action_just_pressed("show_bcard"):
+		show_boarding_card()
 
 	twist_pivot.rotate_y(twist_input)
 	pitch_pivot.rotate_x(pitch_input)
@@ -84,3 +88,9 @@ func update_hint():
 		combined += hint + "\n"
 	hint_label.text = combined.strip_edges()
 	hint_label.visible = active_hints.size() > 0
+	
+func show_boarding_card():
+	if GameManager.is_checked_in:
+		boarding_card.visible = true
+		await get_tree().create_timer(5).timeout  # Delay in Sekunden
+		boarding_card.visible = false
