@@ -23,6 +23,10 @@ var active_hints := {} # alle aktiven hints
 
 var job_markers = {}
 var job_order := ["hgscan", "bodyscan"]
+
+var airline_job_markers = {}
+var airline_job_order := ["schalter", "gate"]
+
 var curr_job_index := 0
 
 # Called when the node enters the scene tree for the first time.
@@ -59,7 +63,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("show_bcard"):
 		show_boarding_card()
 		
-	if Input.is_action_just_pressed("next_job") and GameManager.role == "airport_worker":
+	if Input.is_action_just_pressed("next_job"):
 		teleport_to_next_job(self)
 	if Input.is_action_just_pressed("previous_job") and GameManager.role == "airport_worker":
 		teleport_to_previous_job(self)
@@ -90,19 +94,35 @@ func _process(delta: float) -> void:
 		curr_character_model.rotation.y = new_yaw
 
 func set_job_markers(markers: Dictionary):
-	job_markers = markers
-	print("Job markers erhalten:", job_markers)
-	print("Marker selbst:", job_markers.get("hgscan"))
+	if GameManager.role == "airport_worker":
+		job_markers = markers
+		print("Job markers erhalten:", job_markers)
+		print("Marker selbst:", job_markers.get("hgscan"))
+	if GameManager.role == "airline_worker":
+		airline_job_markers = markers
+		print("Job markers erhalten:", airline_job_markers)
+		print("Marker selbst:", airline_job_markers.get("schalter"))
 
 func teleport_to_next_job(player: Node3D):
-	curr_job_index = (curr_job_index + 1) % job_order.size()
-	var job_name = job_order[curr_job_index]
+	if GameManager.role == "airport_worker":
+		curr_job_index = (curr_job_index + 1) % job_order.size()
+		var job_name = job_order[curr_job_index]
+		var marker = job_markers.get(job_name, null)
+		
+		if marker:
+			player.global_position = marker.global_position
+		else:
+			print("problem bei airport teleport")
 	
-	var marker = job_markers.get(job_name, null)
-	if marker:
-		player.global_position = marker.global_position
-	else:
-		print("problem bei teleport")
+	if GameManager.role == "airline_worker":
+		curr_job_index = (curr_job_index + 1) % airline_job_order.size()
+		var job_name = airline_job_order[curr_job_index]
+		var marker = airline_job_markers.get(job_name, null)
+		
+		if marker:
+			player.global_position = marker.global_position
+		else:
+			print("problem bei airline teleport")
 
 func teleport_to_previous_job(player: Node3D):
 	curr_job_index = (curr_job_index -1) % job_order.size()

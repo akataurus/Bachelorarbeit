@@ -18,7 +18,6 @@ var is_in_hgscan_range = false
 @onready var scanner_exit := get_tree().root.find_child("luggage_stop", true, false)
 
 @onready var area := $Area3D
-@onready var hint := $CanvasLayer/Label
 
 
 func _ready():

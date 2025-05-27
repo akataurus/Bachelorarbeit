@@ -19,7 +19,6 @@ var belt_direction := Vector3.BACK # Richtung der Bewegung
 var belt_speed := 2 # Geschwindigkeit für Bewegung
 
 @onready var area := $Area3D
-@onready var hint := $CanvasLayer/pickup_hint
 
 
 @onready var scanner_exit := get_tree().root.find_child("suitcase_stop", true, false)

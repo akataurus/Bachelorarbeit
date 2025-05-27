@@ -123,3 +123,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9539, 0, 41.0691)
 
 [node name="bodyscan" type="Marker3D" parent="job_positions/airport_worker"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00559, 0, 47.4234)
+
+[node name="airline_worker" type="Node3D" parent="job_positions"]
+
+[node name="schalter" type="Marker3D" parent="job_positions/airline_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66123, 4.76837e-07, 44.5775)
+
+[node name="gate" type="Marker3D" parent="job_positions/airline_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2059, 0, 51.6102)

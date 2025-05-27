@@ -45,11 +45,18 @@ func _ready():
 			})
 
 		"airline_worker":
-			var player_scene = load("res://scenes/playable/airline_worker.tscn")
-			var player = player_scene.instantiate()
-			add_child(player)
-			player.global_transform.origin = airlinew_spawn.global_transform.origin
+			var airline_worker_scene = load("res://scenes/playable/airline_worker.tscn")
+			var airline_worker = airline_worker_scene.instantiate()
+			add_child(airline_worker)
+			airline_worker.global_transform.origin = airlinew_spawn.global_transform.origin
 
+			var schalter_node := $job_positions/airline_worker/schalter
+			var gate_node := $job_positions/airline_worker/gate
+			airline_worker.set_job_markers({
+				"schalter": schalter_node,
+				"gate": gate_node
+			})
+			
 		_:
 			push_error("no acceptable role!")
 

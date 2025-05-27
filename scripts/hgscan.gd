@@ -13,8 +13,8 @@ var passenger_in_range := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if GameManager.role != "passenger":
-		counter_worker.visible = false#
+	if GameManager.role != "passenger": #npc arbeiter entfernen
+		counter_worker.visible = false
 		worker_collshape.disabled = true
 		
 	await get_tree().process_frame
