@@ -1,12 +1,14 @@
 extends Node3D
 
 @onready var airline_worker := $airline_worker
+@onready var worker_shape := $airline_worker/CollisionShape3D
 @onready var speech_bubble := $"airline_worker".get_node("speech_bubble")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if GameManager.role != "passenger":
 		airline_worker.visible = false
+		worker_shape.disabled = true
 	
 	speech_bubble.text = "Welcome to the gate! \n Please show your boarding ticket."
 	speech_bubble.visible = false

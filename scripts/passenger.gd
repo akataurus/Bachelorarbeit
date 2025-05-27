@@ -103,6 +103,7 @@ func set_job_markers(markers: Dictionary):
 		print("Job markers erhalten:", airline_job_markers)
 		print("Marker selbst:", airline_job_markers.get("schalter"))
 
+# up_down gibt an ob man zum nächsten job oder zu dem davor teleportiert
 func teleport_to_job(player: Node3D, up_down: int):
 	if GameManager.role == "airport_worker":
 		curr_job_index = (curr_job_index + up_down) % job_order.size()

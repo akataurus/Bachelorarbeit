@@ -7,6 +7,7 @@ extends Node3D
 @onready var monitor_feedback := $monitor_feedback
 
 @onready var counter_worker := $"../Player"
+@onready var worker_shape := $"../Player/CollisionShape3D"
 @onready var speech_bubble := $"../Player".get_node("speech_bubble")
 var passenger_in_range := false
 
@@ -18,6 +19,7 @@ func _ready() -> void:
 	
 	if GameManager.role != "passenger":
 		counter_worker.visible = false
+		worker_shape.disabled = true
 	
 	await get_tree().process_frame
 	speech_bubble.text = "Welcome! Please put your luggage on the scale."
