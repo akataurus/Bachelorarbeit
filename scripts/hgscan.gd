@@ -7,13 +7,15 @@ extends Node3D
 @onready var feedback := $"../feedback"
 
 @onready var counter_worker := $"../Player"
+@onready var worker_collshape := $"../Player/CollisionShape3D"
 @onready var speech_bubble := $"../Player".get_node("speech_bubble")
 var passenger_in_range := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if GameManager.role != "passenger":
-		counter_worker.visible = false
+		counter_worker.visible = false#
+		worker_collshape.disabled = true
 		
 	await get_tree().process_frame
 	speech_bubble.text = "Welcome! \n Please put your luggage on the scanner."
