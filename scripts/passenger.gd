@@ -64,9 +64,9 @@ func _process(delta: float) -> void:
 		show_boarding_card()
 		
 	if Input.is_action_just_pressed("next_job"):
-		teleport_to_next_job(self)
-	if Input.is_action_just_pressed("previous_job") and GameManager.role == "airport_worker":
-		teleport_to_previous_job(self)
+		teleport_to_job(self, 1)
+	if Input.is_action_just_pressed("previous_job"):
+		teleport_to_job(self, -1)
 	
 	
 
@@ -103,9 +103,9 @@ func set_job_markers(markers: Dictionary):
 		print("Job markers erhalten:", airline_job_markers)
 		print("Marker selbst:", airline_job_markers.get("schalter"))
 
-func teleport_to_next_job(player: Node3D):
+func teleport_to_job(player: Node3D, up_down: int):
 	if GameManager.role == "airport_worker":
-		curr_job_index = (curr_job_index + 1) % job_order.size()
+		curr_job_index = (curr_job_index + up_down) % job_order.size()
 		var job_name = job_order[curr_job_index]
 		var marker = job_markers.get(job_name, null)
 		
@@ -115,7 +115,7 @@ func teleport_to_next_job(player: Node3D):
 			print("problem bei airport teleport")
 	
 	if GameManager.role == "airline_worker":
-		curr_job_index = (curr_job_index + 1) % airline_job_order.size()
+		curr_job_index = (curr_job_index + up_down) % airline_job_order.size()
 		var job_name = airline_job_order[curr_job_index]
 		var marker = airline_job_markers.get(job_name, null)
 		
