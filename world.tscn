@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=21 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_co7eg"]
+[ext_resource type="PackedScene" uid="uid://doip7nd4nlelu" path="res://scenes/npc_passenger.tscn" id="2_50cfg"]
 [ext_resource type="PackedScene" uid="uid://glnxtypxtao4" path="res://scenes/non_interactable/absperrband.tscn" id="3_rycwc"]
 [ext_resource type="PackedScene" uid="uid://d1wjdftfy8pox" path="res://scenes/non_interactable/anzeigetafel.tscn" id="4_q0yci"]
 [ext_resource type="PackedScene" uid="uid://b8ko216e7cdxq" path="res://scenes/non_interactable/backflip_bench.tscn" id="5_gvmf5"]
@@ -36,6 +37,7 @@ data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100,
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_co7eg")
+npc_passenger_scene = ExtResource("2_50cfg")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qymvr")
@@ -53,9 +55,6 @@ mesh = SubResource("PlaneMesh_5phd0")
 shape = SubResource("ConcavePolygonShape3D_otds2")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-
-[node name="absperrband" parent="." instance=ExtResource("3_rycwc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 33)
 
 [node name="anzeigetafel" parent="." instance=ExtResource("4_q0yci")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 30)
@@ -108,26 +107,82 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20777, 0, 12.0229)
 [node name="customer_path" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 34.5358)
 
+[node name="job_positions" type="Node3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34.5358)
+
+[node name="airport_worker" type="Node3D" parent="customer_path/job_positions"]
+
+[node name="hgscan" type="Marker3D" parent="customer_path/job_positions/airport_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9539, 0, 41.0691)
+
+[node name="bodyscan" type="Marker3D" parent="customer_path/job_positions/airport_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00559, 0, 47.4234)
+
+[node name="airline_worker" type="Node3D" parent="customer_path/job_positions"]
+
+[node name="schalter" type="Marker3D" parent="customer_path/job_positions/airline_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66123, 4.76837e-07, 44.5775)
+
+[node name="gate" type="Marker3D" parent="customer_path/job_positions/airline_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2059, 0, 51.6102)
+
+[node name="Marker3D" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6543, 0, -1.68731)
+
+[node name="Marker3D2" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2191, 0, -1.26368)
+
+[node name="Marker3D3" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0817, 0, 1.4782)
+
+[node name="Marker3D4" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.94843, 0, 1.68891)
+
 [node name="schalter" type="Marker3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.01033, 0, 7.18295)
 
 [node name="hgscan" type="Marker3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2722, 0, 2.38365)
 
-[node name="job_positions" type="Node3D" parent="."]
+[node name="spawn" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.7117, 0, -8.57682)
 
-[node name="airport_worker" type="Node3D" parent="job_positions"]
+[node name="absperrbänder" type="Node3D" parent="."]
 
-[node name="hgscan" type="Marker3D" parent="job_positions/airport_worker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9539, 0, 41.0691)
+[node name="schalter" type="Node3D" parent="absperrbänder"]
 
-[node name="bodyscan" type="Marker3D" parent="job_positions/airport_worker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00559, 0, 47.4234)
+[node name="absperrband" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.264, 0, 40)
 
-[node name="airline_worker" type="Node3D" parent="job_positions"]
+[node name="absperrband2" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.95745, 0, 40)
 
-[node name="schalter" type="Marker3D" parent="job_positions/airline_worker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66123, 4.76837e-07, 44.5775)
+[node name="absperrband3" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.63275, 0, 37.3161)
 
-[node name="gate" type="Marker3D" parent="job_positions/airline_worker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2059, 0, 51.6102)
+[node name="absperrband4" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25183, 0, 37.3287)
+
+[node name="absperrband12" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25183, 0, 34.6202)
+
+[node name="absperrband5" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93523, 0, 34.6453)
+
+[node name="absperrband6" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.61863, 0, 34.6453)
+
+[node name="absperrband7" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 37.3161)
+
+[node name="absperrband8" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3271, 0, 37.3161)
+
+[node name="absperrband9" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3271, 0, 34.6453)
+
+[node name="absperrband10" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 31.9744)
+
+[node name="absperrband11" parent="absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64371, 0, 31.9744)

@@ -1,25 +1,31 @@
 extends Node3D
 
-@onready var passenger_spawn := $spawns/passenger_spawn # empty Nodes as starting position
-@onready var airportw_spawn := $spawns/airportw_spawn # die 3 hier sind für spieler
+@onready var passenger_spawn := $spawns/passenger_spawn
+@onready var airportw_spawn := $spawns/airportw_spawn
 @onready var airlinew_spawn := $spawns/airlinew_spawn
 
 @export var npc_passenger_scene: PackedScene
-@export var npc_passenger_spawn:= Vector3(0,0,0)
-@export var npc_passenger_spawn_interval := 20.0 # alle 3 Sekunden neuer npc
-@export var npc_passengers_per_spawn := 0 # anzahl der auf einmal gespawnten npcs
+@export var npc_passenger_spawn_interval := 20.0
+@export var npc_passengers_per_spawn := 0
 
-@export var npc_customer_scene: PackedScene
-@export var npc_customer_spawn:= Vector3(-30, 0, 40)
+#@export var npc_customer_scene: PackedScene
 @export var npc_customer_spawn_interval := 15.0
 @export var npc_customer_per_spawn := 1
-# damit npcs nicht komplett aufeinander spawnen:
-var offset := Vector3(randf_range(-2, 2), 0, randf_range(-2, 2)) 
+
+@onready var npc_customer_scene = preload("res://scenes/npc_customer.tscn")
+
+@onready var queue_markers := [
+	$customer_path/Marker3D,
+	$customer_path/Marker3D2,
+	$customer_path/Marker3D3,
+	$customer_path/Marker3D4
+]
+
+var queue_slots := []
 
 var timer1 := 0.0
 var timer2 := 0.0
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	match GameManager.role:
 		"passenger":
@@ -31,7 +37,6 @@ func _ready():
 		"airport_worker":
 			var airport_worker_scene = preload("res://scenes/playable/airport_worker.tscn")
 			var airport_worker = airport_worker_scene.instantiate()
-			
 			airport_worker.global_transform.origin = $job_positions/airport_worker/hgscan.global_transform.origin
 			add_child(airport_worker)
 
@@ -47,8 +52,8 @@ func _ready():
 		"airline_worker":
 			var airline_worker_scene = load("res://scenes/playable/airline_worker.tscn")
 			var airline_worker = airline_worker_scene.instantiate()
-			add_child(airline_worker)
 			airline_worker.global_transform.origin = airlinew_spawn.global_transform.origin
+			add_child(airline_worker)
 
 			var schalter_node := $job_positions/airline_worker/schalter
 			var gate_node := $job_positions/airline_worker/gate
@@ -56,47 +61,51 @@ func _ready():
 				"schalter": schalter_node,
 				"gate": gate_node
 			})
-			
+
 		_:
 			push_error("no acceptable role!")
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	timer1 += delta
 	timer2 += delta
+
 	if timer1 >= npc_passenger_spawn_interval:
 		timer1 = 0
-		spawn_npc("passenger") # spawn a passenger
+		spawn_npc("passenger")
+
 	if timer2 >= npc_customer_spawn_interval:
 		timer2 = 0
-		spawn_npc("customer") # spawn a customer
-		
+		spawn_npc("customer")
 
 func spawn_npc(npc_type: String):
 	if npc_type == "passenger":
 		for i in npc_passengers_per_spawn:
-			npc_passenger_scene = load("res://scenes/npc_passenger.tscn")
 			var passenger = npc_passenger_scene.instantiate()
-			passenger.global_transform.origin = npc_passenger_spawn + offset
-			get_parent().add_child(passenger)
-			
+			passenger.global_transform.origin = passenger_spawn.global_transform.origin
+			add_child(passenger)
+
 	elif npc_type == "customer":
 		for i in npc_customer_per_spawn:
-			npc_customer_scene = load("res://scenes/npc_customer.tscn")
-			var customer = npc_customer_scene.instantiate()
-			customer.global_transform.origin = npc_customer_spawn + offset
-			get_parent().add_child(customer)
+			if queue_slots.size() >= queue_markers.size():
+				print("Schlange voll!")
+				return
 
-			# Pfad sammeln aus CustomerPaths Node
+			var customer = npc_customer_scene.instantiate()
+			print("customer-position: ", customer.global_position)
+			
+			var target_marker = queue_markers[queue_slots.size()]
+			print("queue markers ist ", queue_markers)
+			queue_slots.append(customer)
+			#customer.set_target_marker(target_marker)
+			add_child(customer)
+
+			# Zusätzlich: Pfad sammeln (optional, falls sie nachher weiterlaufen sollen)
 			var markers := $customer_path.get_children()
 			var path: Array = []
-
 			for marker in markers:
 				if marker is Marker3D:
 					path.append(marker.global_transform.origin)
 
-			# Pfad an Customer übergeben
-			customer.set_path(path)
-
-			get_parent().add_child(customer)
+			if customer.has_method("set_path"):
+				customer.set_path(path)
+				print("path (world.gd): ", path)
