@@ -4,20 +4,26 @@ extends CharacterBody3D
 var path := []
 var current_path_index := 0
 var waiting = false
+const wait_at_index := 5
+
 
 func _ready():
 	call_deferred("_post_ready")
+	print("NPC ready, CollisionShape vorhanden?: ", $CollisionShape3D)
 
 # wegen timing issues
 func _post_ready(): 
 	pass
 
-
+# von world.gd aufgerufen
 func set_path(p: Array):
 	path = p
 	current_path_index = 0
 	waiting = false
-	print("Pfad gesetzt: ", path)
+
+# von einem worker aufgerufen
+func resume_from_wait():
+	waiting = false
 	
 func _physics_process(delta):
 	if path.is_empty() or waiting:
@@ -30,6 +36,10 @@ func _physics_process(delta):
 	# Wenn nah genug -> anhalten
 	if direction.length() < 0.1:
 		current_path_index += 1
+		if current_path_index == wait_at_index:
+			waiting = true
+			print("wartet am Schalter")
+			return
 		if current_path_index >= path.size():
 			waiting = true
 			velocity = Vector3.ZERO

@@ -5,7 +5,7 @@ extends Node3D
 @onready var airlinew_spawn := $spawns/airlinew_spawn
 
 @export var npc_passenger_scene: PackedScene
-@export var npc_passenger_spawn_interval := 20.0
+@export var npc_passenger_spawn_interval := 10.0
 @export var npc_passengers_per_spawn := 0
 
 #@export var npc_customer_scene: PackedScene
@@ -91,12 +91,9 @@ func spawn_npc(npc_type: String):
 				return
 
 			var customer = npc_customer_scene.instantiate()
-			print("customer-position: ", customer.global_position)
 			
 			var target_marker = queue_markers[queue_slots.size()]
-			print("queue markers ist ", queue_markers)
 			queue_slots.append(customer)
-			#customer.set_target_marker(target_marker)
 			add_child(customer)
 
 			# Zusätzlich: Pfad sammeln (optional, falls sie nachher weiterlaufen sollen)
@@ -108,4 +105,3 @@ func spawn_npc(npc_type: String):
 
 			if customer.has_method("set_path"):
 				customer.set_path(path)
-				print("path (world.gd): ", path)
