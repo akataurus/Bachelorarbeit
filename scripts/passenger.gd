@@ -11,6 +11,7 @@ var pitch_input := 0.0 # how much mouse has moved vertically each frame
 
 @onready var area := $Area3D
 @onready var boarding_card := $boarding_card
+@onready var speech_bubble := $Label3D # für die worker um mit npcs zu reden
 
 @onready var twist_pivot := $TwistPivot
 @onready var pitch_pivot := $TwistPivot/PitchPivot
@@ -79,7 +80,7 @@ func _process(delta: float) -> void:
 		teleport_to_job(self, -1)
 	
 	if Input.is_action_just_pressed("interact") and airline_role and curr_customer_at_counter:
-		print("hier")
+		start_dialogue()
 
 	twist_pivot.rotate_y(twist_input)
 	pitch_pivot.rotate_x(pitch_input)
@@ -180,3 +181,8 @@ func show_boarding_card():
 		boarding_card.visible = true
 		await get_tree().create_timer(5).timeout  # Delay in Sekunden
 		boarding_card.visible = false
+
+func start_dialogue():
+	if curr_customer_at_counter:
+		speech_bubble.text = "Ausweis bitte!"
+		#curr_customer_at_counter.dialogue("")

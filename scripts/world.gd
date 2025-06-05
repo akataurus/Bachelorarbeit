@@ -1,8 +1,6 @@
 extends Node3D
 
 @onready var passenger_spawn := $spawns/passenger_spawn
-@onready var airportw_spawn := $spawns/airportw_spawn
-@onready var airlinew_spawn := $spawns/airlinew_spawn
 
 @export var npc_passenger_scene: PackedScene
 @export var npc_passenger_spawn_interval := 10.0
@@ -37,13 +35,12 @@ func _ready():
 		"airport_worker":
 			var airport_worker_scene = preload("res://scenes/playable/airport_worker.tscn")
 			var airport_worker = airport_worker_scene.instantiate()
-			airport_worker.global_transform.origin = $customer_path/job_positions/airport_worker/hgscan.global_transform.origin
-			add_child(airport_worker)
-
 			var hgscan_node = $customer_path/job_positions/airport_worker/hgscan
 			var bodyscan_node = $customer_path/job_positions/airport_worker/bodyscan
-			print("Node im World-Kontext:", hgscan_node)
-
+			
+			airport_worker.global_transform.origin = hgscan_node.global_transform.origin
+			add_child(airport_worker)
+			
 			airport_worker.set_job_markers({
 				"hgscan": hgscan_node,
 				"bodyscan": bodyscan_node
@@ -52,11 +49,12 @@ func _ready():
 		"airline_worker":
 			var airline_worker_scene = load("res://scenes/playable/airline_worker.tscn")
 			var airline_worker = airline_worker_scene.instantiate()
-			airline_worker.global_transform.origin = airlinew_spawn.global_transform.origin
-			add_child(airline_worker)
-
 			var schalter_node := $customer_path/job_positions/airline_worker/schalter
 			var gate_node := $customer_path/job_positions/airline_worker/gate
+			
+			airline_worker.global_transform.origin = schalter_node.global_transform.origin
+			add_child(airline_worker)
+			
 			airline_worker.set_job_markers({
 				"schalter": schalter_node,
 				"gate": gate_node

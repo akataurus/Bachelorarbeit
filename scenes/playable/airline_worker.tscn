@@ -39,3 +39,5 @@ shape = SubResource("SphereShape3D_g7xr8")
 [node name="Hint_label" type="Label" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="Label3D" type="Label3D" parent="."]
