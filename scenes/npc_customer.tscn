@@ -9,7 +9,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 [sub_resource type="SphereShape3D" id="SphereShape3D_g7xr8"]
 radius = 4.26534
 
-[node name="Player" type="CharacterBody3D" groups=["player"]]
+[node name="Player" type="CharacterBody3D" groups=["npc_customer"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11388, 0)
 script = ExtResource("1_sw1rs")
 
@@ -22,8 +22,10 @@ shape = SubResource("ConvexPolygonShape3D_j8mlf")
 disabled = true
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705167, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0205227, 0.92687, 0.0691764)
 shape = SubResource("SphereShape3D_g7xr8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -31,3 +33,5 @@ shape = SubResource("SphereShape3D_g7xr8")
 [node name="Hint_label" type="Label" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

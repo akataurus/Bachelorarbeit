@@ -142,16 +142,14 @@ func _on_body_entered(body):
 	if body.is_in_group("schalter"):
 		show_hint("Ausweis vorzeigen: R", self)
 		# hier Ausweiskontrolle implementieren!
-		
-	print("body entered, body is ", body)
-	if body.has_method("resume_from_waiting") and GameManager.role == "airline_worker":
-		curr_customer_at_counter = body
-		print("curr_costomer: ", curr_customer_at_counter)
 
 func _on_body_exited(body):
 	if body.is_in_group("schalter"):
 		hide_hint(self)
 
+func set_curr_customer(customer):
+	curr_customer_at_counter = customer
+	print("customer set!")
 
 # Methoden für die hints
 func show_hint(text: String, owner: Node):

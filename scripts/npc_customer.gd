@@ -9,7 +9,7 @@ const wait_at_index := 5
 
 func _ready():
 	call_deferred("_post_ready")
-	print("NPC ready, CollisionShape vorhanden?: ", $CollisionShape3D)
+	#print("NPC ready, CollisionShape vorhanden?: ", $CollisionShape3D)
 
 # wegen timing issues
 func _post_ready(): 
@@ -55,3 +55,8 @@ func _physics_process(delta):
 		var target_yaw = atan2(velocity.x, velocity.z)
 		var current_yaw = rotation.y
 		rotation.y = lerp_angle(current_yaw, target_yaw, 5 * delta)
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.is_in_group("player") and body.has_method("set_curr_customer"):
+		body.set_curr_customer(self)
+		print("npc ist angemeldet")
