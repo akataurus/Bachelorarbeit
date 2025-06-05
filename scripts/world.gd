@@ -37,11 +37,11 @@ func _ready():
 		"airport_worker":
 			var airport_worker_scene = preload("res://scenes/playable/airport_worker.tscn")
 			var airport_worker = airport_worker_scene.instantiate()
-			airport_worker.global_transform.origin = $job_positions/airport_worker/hgscan.global_transform.origin
+			airport_worker.global_transform.origin = $customer_path/job_positions/airport_worker/hgscan.global_transform.origin
 			add_child(airport_worker)
 
-			var hgscan_node = $job_positions/airport_worker/hgscan
-			var bodyscan_node = $job_positions/airport_worker/bodyscan
+			var hgscan_node = $customer_path/job_positions/airport_worker/hgscan
+			var bodyscan_node = $customer_path/job_positions/airport_worker/bodyscan
 			print("Node im World-Kontext:", hgscan_node)
 
 			airport_worker.set_job_markers({
@@ -55,8 +55,8 @@ func _ready():
 			airline_worker.global_transform.origin = airlinew_spawn.global_transform.origin
 			add_child(airline_worker)
 
-			var schalter_node := $job_positions/airline_worker/schalter
-			var gate_node := $job_positions/airline_worker/gate
+			var schalter_node := $customer_path/job_positions/airline_worker/schalter
+			var gate_node := $customer_path/job_positions/airline_worker/gate
 			airline_worker.set_job_markers({
 				"schalter": schalter_node,
 				"gate": gate_node

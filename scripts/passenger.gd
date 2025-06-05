@@ -18,6 +18,10 @@ var pitch_input := 0.0 # how much mouse has moved vertically each frame
 @onready var curr_character_model
 @onready var turn_speed := 5.0 # wie schnell modell zur laufrichtung dreht 
 
+@onready var passenger_role = false
+@onready var airport_role = false # true je nach GameManager.role
+@onready var airline_role = false
+
 @onready var hint_label := $CanvasLayer/Hint_label
 var active_hints := {} # alle aktiven hints 
 
@@ -37,10 +41,13 @@ func _ready() -> void:
 	match GameManager.role:
 		"passenger":
 			curr_character_model = $character
+			passenger_role = true
 		"airport_worker":
 			curr_character_model = $AuxScene
+			airport_role = true
 		"airline_worker":
 			curr_character_model = $airline_worker	
+			airline_role = true
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -63,15 +70,16 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if Input.is_action_just_pressed("show_bcard"):
+	if Input.is_action_just_pressed("show_bcard") and passenger_role:
 		show_boarding_card()
 		
-	if Input.is_action_just_pressed("next_job"):
+	if Input.is_action_just_pressed("next_job") and !passenger_role:
 		teleport_to_job(self, 1)
-	if Input.is_action_just_pressed("previous_job"):
+	if Input.is_action_just_pressed("previous_job") and !passenger_role:
 		teleport_to_job(self, -1)
 	
-	
+	if Input.is_action_just_pressed("interact") and airline_role and curr_customer_at_counter:
+		print("hier")
 
 	twist_pivot.rotate_y(twist_input)
 	pitch_pivot.rotate_x(pitch_input)
@@ -97,18 +105,18 @@ func _process(delta: float) -> void:
 		curr_character_model.rotation.y = new_yaw
 
 func set_job_markers(markers: Dictionary):
-	if GameManager.role == "airport_worker":
+	if airport_role:
 		job_markers = markers
 		print("Job markers erhalten:", job_markers)
 		print("Marker selbst:", job_markers.get("hgscan"))
-	if GameManager.role == "airline_worker":
+	if airline_role:
 		airline_job_markers = markers
 		print("Job markers erhalten:", airline_job_markers)
 		print("Marker selbst:", airline_job_markers.get("schalter"))
 
 # up_down gibt an ob man zum nächsten job oder zu dem davor teleportiert
 func teleport_to_job(player: Node3D, up_down: int):
-	if GameManager.role == "airport_worker":
+	if airport_role:
 		curr_job_index = (curr_job_index + up_down) % job_order.size()
 		var job_name = job_order[curr_job_index]
 		var marker = job_markers.get(job_name, null)
@@ -118,7 +126,7 @@ func teleport_to_job(player: Node3D, up_down: int):
 		else:
 			print("problem bei airport teleport")
 	
-	if GameManager.role == "airline_worker":
+	if airline_role:
 		curr_job_index = (curr_job_index + up_down) % airline_job_order.size()
 		var job_name = airline_job_order[curr_job_index]
 		var marker = airline_job_markers.get(job_name, null)
@@ -149,7 +157,7 @@ func _on_body_exited(body):
 
 func set_curr_customer(customer):
 	curr_customer_at_counter = customer
-	print("customer set!")
+	show_hint("Customer ist ", curr_customer_at_counter)
 
 # Methoden für die hints
 func show_hint(text: String, owner: Node):
