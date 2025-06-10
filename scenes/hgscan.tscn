@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxh5m46y8xhhl"]
 
 [ext_resource type="PackedScene" uid="uid://cbv7sriqtr3t7" path="res://assets/glb/hgscan.glb" id="1_k2763"]
-[ext_resource type="Script" path="res://scripts/hgscan.gd" id="2_maour"]
+[ext_resource type="Script" uid="uid://d114vdrhtjxnp" path="res://scripts/hgscan.gd" id="2_maour"]
 [ext_resource type="PackedScene" uid="uid://nmqe2cjjkd3k" path="res://scenes/npc_airport_worker.tscn" id="3_lav5q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vmdbe"]

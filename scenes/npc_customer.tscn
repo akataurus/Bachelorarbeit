@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dkn0lpmqbn8xx"]
 
-[ext_resource type="Script" path="res://scripts/npc_customer.gd" id="1_sw1rs"]
+[ext_resource type="Script" uid="uid://cpjqo3tgaw1b3" path="res://scripts/npc_customer.gd" id="1_sw1rs"]
 [ext_resource type="PackedScene" uid="uid://6gai71ur06pn" path="res://scenes/playable/airport_character.tscn" id="2_mcd8m"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j8mlf"]

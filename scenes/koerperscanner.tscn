@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://d2fxem1o4nt1d"]
 
 [ext_resource type="PackedScene" uid="uid://ydts4ghsri2e" path="res://assets/glb/koerperscanner.glb" id="1_7odf3"]
-[ext_resource type="Script" path="res://scripts/kpscanner.gd" id="2_djs0q"]
+[ext_resource type="Script" uid="uid://bj54bekfah8rv" path="res://scripts/kpscanner.gd" id="2_djs0q"]
 [ext_resource type="PackedScene" uid="uid://nmqe2cjjkd3k" path="res://scenes/npc_airport_worker.tscn" id="3_00xkp"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_w66yt"]

@@ -60,3 +60,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player") and body.has_method("set_curr_customer"):
 		body.set_curr_customer(self)
 		print("npc ist angemeldet")
+		
+func dialogue(respond_to: String):
+	match respond_to:
+		"ID":
+			print("henlso")

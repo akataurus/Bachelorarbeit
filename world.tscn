@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://c75tx2d3gdqv"]
 
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_co7eg"]
+[ext_resource type="Script" uid="uid://bv11yvouya8jo" path="res://scripts/world.gd" id="1_co7eg"]
 [ext_resource type="PackedScene" uid="uid://doip7nd4nlelu" path="res://scenes/npc_passenger.tscn" id="2_50cfg"]
 [ext_resource type="PackedScene" uid="uid://glnxtypxtao4" path="res://scenes/non_interactable/absperrband.tscn" id="3_rycwc"]
 [ext_resource type="PackedScene" uid="uid://d1wjdftfy8pox" path="res://scenes/non_interactable/anzeigetafel.tscn" id="4_q0yci"]

@@ -82,6 +82,11 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact") and airline_role and curr_customer_at_counter:
 		start_dialogue()
 
+	if curr_customer_at_counter and airline_role:
+		show_hint("ID check: E", self)
+	else:
+		hide_hint(self)
+	
 	twist_pivot.rotate_y(twist_input)
 	pitch_pivot.rotate_x(pitch_input)
 	# limit viewing
@@ -184,5 +189,5 @@ func show_boarding_card():
 
 func start_dialogue():
 	if curr_customer_at_counter:
-		speech_bubble.text = "Ausweis bitte!"
-		#curr_customer_at_counter.dialogue("")
+		speech_bubble.text = "Show your ID please!"
+		curr_customer_at_counter.dialogue("ID")

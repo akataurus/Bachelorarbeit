@@ -1,9 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://b3vunkpxkns06"]
 
-[ext_resource type="PackedScene" uid="uid://be7nrpet6tssb" path="res://assets/scenes/suitcase_mesh.tscn" id="2_4ujew"]
-[ext_resource type="Script" path="res://suitcase.gd" id="2_xljtq"]
+[ext_resource type="PackedScene" uid="uid://be7nrpet6tssb" path="res://scenes/suitcase_mesh.tscn" id="2_4ujew"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_me533"]
+
+[sub_resource type="Resource" id="Resource_dfrxn"]
+metadata/__load_path__ = "res://suitcase.gd"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mnurf"]
 radius = 3.25987
@@ -15,7 +17,7 @@ size = Vector3(0.479218, 0.884766, 0.299652)
 mass = 0.155
 physics_material_override = SubResource("PhysicsMaterial_me533")
 gravity_scale = 0.7
-script = ExtResource("2_xljtq")
+script = SubResource("Resource_dfrxn")
 
 [node name="Suitcase_Grey_London" parent="." instance=ExtResource("2_4ujew")]
 

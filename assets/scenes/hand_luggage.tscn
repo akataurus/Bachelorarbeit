@@ -1,7 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccfg6nqd46qke"]
 
-[ext_resource type="Script" path="res://hand_luggage.gd" id="1_pfagk"]
-[ext_resource type="PackedScene" uid="uid://c7qco10llpfq6" path="res://assets/scenes/hl_mesh.tscn" id="1_ri8cb"]
+[ext_resource type="PackedScene" uid="uid://c7qco10llpfq6" path="res://scenes/hl_mesh.tscn" id="1_ri8cb"]
+
+[sub_resource type="Resource" id="Resource_mqvee"]
+metadata/__load_path__ = "res://hand_luggage.gd"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ilmoy"]
 size = Vector3(0.405273, 0.489014, 0.477112)
@@ -10,7 +12,7 @@ size = Vector3(0.405273, 0.489014, 0.477112)
 size = Vector3(3.68127, 2.22583, 3.53625)
 
 [node name="Node3D" type="RigidBody3D" groups=["hand_luggage"]]
-script = ExtResource("1_pfagk")
+script = SubResource("Resource_mqvee")
 
 [node name="hand_luggage" parent="." instance=ExtResource("1_ri8cb")]
 

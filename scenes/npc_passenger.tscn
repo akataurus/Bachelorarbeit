@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://doip7nd4nlelu"]
 
-[ext_resource type="Script" path="res://scripts/npc_passenger.gd" id="1_c70n7"]
+[ext_resource type="Script" uid="uid://bk46gv61t3dal" path="res://scripts/npc_passenger.gd" id="1_c70n7"]
 [ext_resource type="PackedScene" uid="uid://ehe0wskqaqbx" path="res://scenes/playable/passenger_character.tscn" id="2_byc47"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j8mlf"]

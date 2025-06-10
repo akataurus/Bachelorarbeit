@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cu46g1yonmqgj"]
 
 [ext_resource type="PackedScene" uid="uid://b28jgchnpgqbx" path="res://assets/glb/schreibtisch.glb" id="1_fdqxc"]
-[ext_resource type="Script" path="res://scripts/gate_counter.gd" id="2_fy01x"]
+[ext_resource type="Script" uid="uid://snecg6bsc10m" path="res://scripts/gate_counter.gd" id="2_fy01x"]
 [ext_resource type="PackedScene" uid="uid://b78ki2eyl6xym" path="res://scenes/npc_airline_worker.tscn" id="2_hu65x"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_35k4y"]
