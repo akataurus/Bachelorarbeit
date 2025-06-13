@@ -77,10 +77,12 @@ func _process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("next_job") and !passenger_role:
 		teleport_to_job(self, 1)
+		dialogue("") # Text löschen bei teleport
 	if Input.is_action_just_pressed("previous_job") and !passenger_role:
 		teleport_to_job(self, -1)
+		dialogue("") # Text löschen bei teleport
 	
-	if Input.is_action_just_pressed("interact") and airline_role and curr_customer_at_counter:
+	if Input.is_action_just_pressed("interact") and airline_role and curr_customer_at_counter and curr_job_index == 0:
 		match speech_counter % 3: 
 			0:
 				dialogue("Hello, ID please!")
