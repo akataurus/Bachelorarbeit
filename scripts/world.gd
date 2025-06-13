@@ -3,11 +3,11 @@ extends Node3D
 @onready var passenger_spawn := $spawns/passenger_spawn
 
 @export var npc_passenger_scene: PackedScene
-@export var npc_passenger_spawn_interval := 10.0
+@export var npc_passenger_spawn_interval := 30.0
 @export var npc_passengers_per_spawn := 0
 
 #@export var npc_customer_scene: PackedScene
-@export var npc_customer_spawn_interval := 15.0
+@export var npc_customer_spawn_interval := 50.0
 @export var npc_customer_per_spawn := 1
 
 @onready var npc_customer_scene = preload("res://scenes/npc_customer.tscn")
@@ -62,6 +62,7 @@ func _ready():
 
 		_:
 			push_error("no acceptable role!")
+	spawn_npc("customer") #zum testen
 
 func _process(delta: float) -> void:
 	timer1 += delta

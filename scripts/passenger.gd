@@ -33,8 +33,9 @@ var airline_job_markers = {}
 var airline_job_order := ["schalter", "gate"]
 
 var curr_job_index := 0
-
 var curr_customer_at_counter: Node = null
+
+var speech_counter = 0 # um zu wissen, welcher Text angezeigt werden soll
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -80,7 +81,13 @@ func _process(delta: float) -> void:
 		teleport_to_job(self, -1)
 	
 	if Input.is_action_just_pressed("interact") and airline_role and curr_customer_at_counter:
-		start_dialogue()
+		match speech_counter % 3: 
+			0:
+				dialogue("Hello, ID please!")
+			1:
+				dialogue("Thanks, I'm checking you in...")
+			2:
+				dialogue("Alright, you are checked in. \n Go to the security check now please.")
 
 	if curr_customer_at_counter and airline_role:
 		show_hint("ID check: E", self)
@@ -113,12 +120,8 @@ func _process(delta: float) -> void:
 func set_job_markers(markers: Dictionary):
 	if airport_role:
 		job_markers = markers
-		print("Job markers erhalten:", job_markers)
-		print("Marker selbst:", job_markers.get("hgscan"))
 	if airline_role:
 		airline_job_markers = markers
-		print("Job markers erhalten:", airline_job_markers)
-		print("Marker selbst:", airline_job_markers.get("schalter"))
 
 # up_down gibt an ob man zum nächsten job oder zu dem davor teleportiert
 func teleport_to_job(player: Node3D, up_down: int):
@@ -163,7 +166,7 @@ func _on_body_exited(body):
 
 func set_curr_customer(customer):
 	curr_customer_at_counter = customer
-	show_hint("Customer ist ", curr_customer_at_counter)
+	#show_hint("Customer ist ", curr_customer_at_counter)
 
 # Methoden für die hints
 func show_hint(text: String, owner: Node):
@@ -187,7 +190,11 @@ func show_boarding_card():
 		await get_tree().create_timer(5).timeout  # Delay in Sekunden
 		boarding_card.visible = false
 
-func start_dialogue():
+func dialogue(text: String):
 	if curr_customer_at_counter:
-		speech_bubble.text = "Show your ID please!"
-		curr_customer_at_counter.dialogue("ID")
+		speech_bubble.text = text
+		await get_tree().create_timer(0.5).timeout
+		curr_customer_at_counter.dialogue(speech_counter)
+		speech_counter += 1
+		await get_tree().create_timer(2).timeout  # Delay in Sekunden
+		speech_bubble.text = ""

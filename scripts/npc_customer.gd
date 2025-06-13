@@ -6,9 +6,12 @@ var current_path_index := 0
 var waiting = false
 const wait_at_index := 5
 
+@onready var label = $Label3D
+var label_time = 2.0 # Zeit, wie lange text angezeigt wird
 
 func _ready():
 	call_deferred("_post_ready")
+	
 	#print("NPC ready, CollisionShape vorhanden?: ", $CollisionShape3D)
 
 # wegen timing issues
@@ -59,9 +62,21 @@ func _physics_process(delta):
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player") and body.has_method("set_curr_customer"):
 		body.set_curr_customer(self)
-		print("npc ist angemeldet")
+		update_label("Hello!")
 		
-func dialogue(respond_to: String):
-	match respond_to:
-		"ID":
-			print("henlso")
+func dialogue(counter: int):
+	match counter % 3:
+		0: #"Hello, ID please!"
+			update_label("Okay")
+		1: #"Thanks, I'm checking you in..."
+			update_label("Alright.")
+		2: #"Go to the security check now."
+			update_label("Thanks! Good bye")
+			await get_tree().create_timer(label_time).timeout  # Delay in Sekunden
+			waiting = false
+
+func update_label(text: String):
+	label.text = text 
+	await get_tree().create_timer(label_time).timeout  # Delay in Sekunden
+	label.text = ""
+	
