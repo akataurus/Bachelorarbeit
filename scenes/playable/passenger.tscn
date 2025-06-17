@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b21r42decjwd4"]
 
-[ext_resource type="Script" uid="uid://dntb87tk32ve0" path="res://scripts/passenger.gd" id="1_mlhtq"]
-[ext_resource type="PackedScene" uid="uid://ehe0wskqaqbx" path="res://scenes/playable/passenger_character.tscn" id="2_612ly"]
+[ext_resource type="Script" uid="uid://dntb87tk32ve0" path="res://scripts/playable_scripts/passenger.gd" id="1_mlhtq"]
+[ext_resource type="PackedScene" uid="uid://ehe0wskqaqbx" path="res://scenes/non_interactable/passenger_character.tscn" id="2_612ly"]
 [ext_resource type="PackedScene" uid="uid://w64soxr7tknp" path="res://scenes/boarding_card.tscn" id="3_rjsru"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j8mlf"]
