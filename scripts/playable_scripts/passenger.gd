@@ -18,7 +18,8 @@ func _ready() -> void:
 	
 	hint_label.visible = false # label ausblenden
 	hint_label.self_modulate = Color(1, 0, 0)  # Rot (RGB)
-
+	
+	boarding_card.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

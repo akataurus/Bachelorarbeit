@@ -25,4 +25,5 @@ shape = SubResource("SphereShape3D_g7xr8")
 
 [node name="speech_bubble" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+visible = false
 text = "Großer Test"

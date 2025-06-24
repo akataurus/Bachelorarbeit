@@ -20,7 +20,6 @@ var pitch_input := 0.0
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	print("ready in player_base.gd")
 
 func _process(delta: float) -> void:
 	# --- Bewegung ---

@@ -43,6 +43,5 @@ offset_bottom = 23.0
 
 [node name="boarding_card" parent="." instance=ExtResource("3_rjsru")]
 transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, 1, 1, 0)
-visible = false
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

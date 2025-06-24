@@ -1,5 +1,4 @@
-# Dieses Script wird an alle Objekte gehängt, wo man einen Koffer ablegen 
-# kann. z.B. Schalter oder Hgscanner
+# schalter skript
 extends Node3D
 
 @onready var drop_position := $baggage_pos
@@ -23,7 +22,7 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	speech_bubble.text = "Welcome! Please put your luggage on the scale."
-	speech_bubble.visible = false # kein text am Anfang
+	speech_bubble.visible = false
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

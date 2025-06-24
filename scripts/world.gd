@@ -64,7 +64,6 @@ func _ready():
 
 		_:
 			push_error("no acceptable role!")
-	spawn_npc("customer") #zum testen
 
 
 func _process(delta: float) -> void:
@@ -73,37 +72,36 @@ func _process(delta: float) -> void:
 
 	if timer1 >= npc_passenger_spawn_interval:
 		timer1 = 0
-		spawn_npc("passenger")
+		spawn_passenger()
 
 	if timer2 >= npc_customer_spawn_interval:
 		timer2 = 0
-		spawn_npc("customer")
+		spawn_customer()
 
-func spawn_npc(npc_type: String):
-	if npc_type == "passenger":
-		for i in npc_passengers_per_spawn:
-			var passenger = npc_passenger_scene.instantiate()
-			passenger.global_transform.origin = passenger_spawn.global_transform.origin
-			add_child(passenger)
+func spawn_passenger():
+	for i in npc_passengers_per_spawn:
+		var passenger = npc_passenger_scene.instantiate()
+		passenger.global_transform.origin = passenger_spawn.global_transform.origin
+		add_child(passenger)
 
-	elif npc_type == "customer":
-		for i in npc_customer_per_spawn:
-			if queue_slots.size() >= queue_markers.size():
-				print("Schlange voll!")
-				return
+func spawn_customer():
+	for i in npc_customer_per_spawn:
+		if queue_slots.size() >= queue_markers.size():
+			print("Schlange voll!")
+			return
 
-			var customer = npc_customer_scene.instantiate()
-			
-			var target_marker = queue_markers[queue_slots.size()]
-			queue_slots.append(customer)
-			add_child(customer)
+		var customer = npc_customer_scene.instantiate()
+		
+		var target_marker = queue_markers[queue_slots.size()]
+		queue_slots.append(customer)
+		add_child(customer)
 
-			# Zusätzlich: Pfad sammeln (optional, falls sie nachher weiterlaufen sollen)
-			var markers := $customer_path.get_children()
-			var path: Array = []
-			for marker in markers:
-				if marker is Marker3D:
-					path.append(marker.global_transform.origin)
+		# Zusätzlich: Pfad sammeln (optional, falls sie nachher weiterlaufen sollen)
+		var markers := $customer_path.get_children()
+		var path: Array = []
+		for marker in markers:
+			if marker is Marker3D:
+				path.append(marker.global_transform.origin)
 
-			if customer.has_method("set_path"):
-				customer.set_path(path)
+		if customer.has_method("set_path"):
+			customer.set_path(path)
