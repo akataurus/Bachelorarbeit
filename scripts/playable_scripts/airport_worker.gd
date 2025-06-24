@@ -1,3 +1,4 @@
+# airport worker skript
 # Basic movement and camera: https://www.youtube.com/watch?v=sVsn9NqpVhg
 # Level editor: https://www.youtube.com/watch?v=BUjCtwLO0S8
 # model (woman): https://rigmodels.com/model.php?view=Business_Woman-3d-model__9TPXMJCKKPSP3PYW9Y119709R
@@ -14,10 +15,12 @@ var job_order := ["hgscan", "bodyscan"]
 var curr_job_index := 0
 
 var speech_counter = 0 # um zu wissen, welcher Text angezeigt werden soll
+@onready var hint_label := $CanvasLayer/Hint_label
+var active_hints := {} # alle aktiven hints 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	super._ready()
 	curr_character_model = $AuxScene
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -32,7 +35,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
+	super._process(delta)
 	var input := Vector3.ZERO
 	input.x = Input.get_axis("ui_left", "ui_right")
 	input.z = Input.get_axis("ui_up", "ui_down")

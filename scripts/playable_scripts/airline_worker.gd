@@ -1,3 +1,4 @@
+# airline worker skript
 
 extends "res://scripts/playable_scripts/player_base.gd"
 
@@ -10,11 +11,14 @@ var airline_job_order := ["schalter", "gate"]
 var curr_job_index := 0
 var curr_customer_at_counter: Node = null
 
+@onready var hint_label :=$CanvasLayer/Hint_label
+var active_hints := {} # alle aktiven hints 
+
 var speech_counter = 0 # um zu wissen, welcher Text angezeigt werden soll
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	super._ready()
 	curr_character_model = $airline_worker
 
 	if area:
@@ -27,9 +31,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-
+	super._process(delta)
 	
-		
 	if Input.is_action_just_pressed("next_job"):
 		teleport_to_job(self, 1)
 		dialogue("") # Text löschen bei teleport

@@ -1,3 +1,4 @@
+# this is general stuff for movement/camera
 # Basic movement and camera: https://www.youtube.com/watch?v=sVsn9NqpVhg
 # Level editor: https://www.youtube.com/watch?v=BUjCtwLO0S8
 # model (woman): https://rigmodels.com/model.php?view=Business_Woman-3d-model__9TPXMJCKKPSP3PYW9Y119709R
@@ -5,68 +6,53 @@
 # boarding pass pic source: https://www.wa.gov.au/media/32906
 extends RigidBody3D
 
-var mouse_sensitivity := 0.001 # speed at wich the camera rotates
-var twist_input := 0.0 # how much mouse has moved horizontally each frame
-var pitch_input := 0.0 # how much mouse has moved vertically each frame
+var mouse_sensitivity := 0.002
+var twist_input := 0.0
+var pitch_input := 0.0
 
 @onready var twist_pivot := $TwistPivot
 @onready var pitch_pivot := $TwistPivot/PitchPivot
+@onready var camera := $TwistPivot/PitchPivot/Camera3D
 
-@onready var turn_speed := 5.0 # wie schnell modell zur laufrichtung dreht 
+@onready var curr_character_model = $character # oder $AuxScene / $airline_worker je nach Spieler
 
-@onready var hint_label := $CanvasLayer/Hint_label
-var active_hints := {} # alle aktiven hints 
-@onready var curr_character_model = null
+@export var turn_speed := 5.0
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	hint_label.visible = false # label ausblenden
-	hint_label.self_modulate = Color(1, 0, 0)  # Rot (RGB)
+	print("ready in player_base.gd")
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
+	# --- Bewegung ---
 	var input := Vector3.ZERO
 	input.x = Input.get_axis("ui_left", "ui_right")
 	input.z = Input.get_axis("ui_up", "ui_down")
-	
-	apply_central_force(twist_pivot.basis * input * 20)
 
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
-	
+	if input != Vector3.ZERO:
+		var dir = (twist_pivot.global_transform.basis * input).normalized()
+		apply_central_force(dir * 20)
+
+		# Modell zur Bewegung drehen
+		if curr_character_model:
+			var target_yaw = atan2(dir.x, dir.z)
+			var current_yaw = curr_character_model.rotation.y
+			curr_character_model.rotation.y = lerp_angle(current_yaw, target_yaw, turn_speed * delta)
+
+	# --- Kamera-Rotation ---
 	twist_pivot.rotate_y(twist_input)
-	pitch_pivot.rotate_x(pitch_input)
-	# limit viewing
-	pitch_pivot.rotation.x = clamp(pitch_pivot.rotation.x,-0.5,0.5)
-	#stop camera when mouse stops
+	pitch_pivot.rotation.x = clamp(pitch_input, -0.5, 0.5)
+
+	# Eingabe zurücksetzen
 	twist_input = 0.0
-	pitch_input = 0.0
-	
-	# Begrenze maximale Geschwindigkeit
+	# pitch_input NICHT zurücksetzen!
+
+	# --- Begrenze Maximalgeschwindigkeit ---
 	if linear_velocity.length() > 5.0:
 		linear_velocity = linear_velocity.normalized() * 5.0
-
-	# Dreht das modell, wenn der spieler sich in ein richtung bewegt
-	if input.length() > 0.1:
-		var movement_dir = (twist_pivot.basis * input).normalized()
-		# Ziel-Rotation berechnen (Y-Rotation zur Bewegungsrichtung)
-		var target_rotation = atan2(movement_dir.x, movement_dir.z)
-		# airline_worker zum Ziel drehen (glatt über interpolate_angle)
-		var current_yaw = curr_character_model.rotation.y
-		var new_yaw = lerp_angle(current_yaw, target_rotation, turn_speed * delta)
-		
-		curr_character_model.rotation.y = new_yaw
+	
 
 
-# camera movement
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			twist_input = - event.relative.x * mouse_sensitivity
-			pitch_input = - event.relative.y * mouse_sensitivity
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		twist_input -= event.relative.x * mouse_sensitivity
+		pitch_input -= event.relative.y * mouse_sensitivity

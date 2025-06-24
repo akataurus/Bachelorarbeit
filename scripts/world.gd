@@ -45,6 +45,8 @@ func _ready():
 				"hgscan": hgscan_node,
 				"bodyscan": bodyscan_node
 			})
+			print("Spieler-Skriptpfad:", airport_worker.get_script().resource_path)
+
 
 		"airline_worker":
 			var airline_worker_scene = load("res://scenes/playable/airline_worker.tscn")
@@ -63,6 +65,7 @@ func _ready():
 		_:
 			push_error("no acceptable role!")
 	spawn_npc("customer") #zum testen
+
 
 func _process(delta: float) -> void:
 	timer1 += delta

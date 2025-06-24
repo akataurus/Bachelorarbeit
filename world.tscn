@@ -1,10 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=20 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="Script" uid="uid://bv11yvouya8jo" path="res://scripts/world.gd" id="1_co7eg"]
 [ext_resource type="PackedScene" uid="uid://doip7nd4nlelu" path="res://scenes/npc_passenger.tscn" id="2_50cfg"]
 [ext_resource type="PackedScene" uid="uid://glnxtypxtao4" path="res://scenes/non_interactable/absperrband.tscn" id="3_rycwc"]
 [ext_resource type="PackedScene" uid="uid://d1wjdftfy8pox" path="res://scenes/non_interactable/anzeigetafel.tscn" id="4_q0yci"]
-[ext_resource type="PackedScene" uid="uid://b8ko216e7cdxq" path="res://scenes/non_interactable/backflip_bench.tscn" id="5_gvmf5"]
 [ext_resource type="PackedScene" uid="uid://cxh5m46y8xhhl" path="res://scenes/hgscan.tscn" id="6_7ucro"]
 [ext_resource type="PackedScene" uid="uid://d2fxem1o4nt1d" path="res://scenes/koerperscanner.tscn" id="7_ff81o"]
 [ext_resource type="PackedScene" uid="uid://bwkjlr4cxb47f" path="res://scenes/polizei.tscn" id="8_1u3fv"]
@@ -58,9 +57,6 @@ shape = SubResource("ConcavePolygonShape3D_otds2")
 
 [node name="anzeigetafel" parent="." instance=ExtResource("4_q0yci")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 30)
-
-[node name="backflip_bench" parent="." instance=ExtResource("5_gvmf5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
 
 [node name="hgscan" parent="." instance=ExtResource("6_7ucro")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 39)

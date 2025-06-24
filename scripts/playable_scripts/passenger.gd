@@ -4,9 +4,12 @@ extends "res://scripts/playable_scripts/player_base.gd"
 @onready var area := $Area3D
 @onready var boarding_card := $boarding_card
 @onready var speech_bubble := $Label3D # für die worker um mit npcs zu reden
+@onready var hint_label :=$CanvasLayer/Hint_label
+var active_hints := {} # alle aktiven hints 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super._ready()
 	curr_character_model = $character
 	
 	if area:
@@ -19,6 +22,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	super._process(delta)
 	
 	if Input.is_action_just_pressed("show_bcard"):
 		show_boarding_card()
