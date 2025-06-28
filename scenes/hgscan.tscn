@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxh5m46y8xhhl"]
+[gd_scene load_steps=11 format=3 uid="uid://cxh5m46y8xhhl"]
 
 [ext_resource type="PackedScene" uid="uid://cbv7sriqtr3t7" path="res://assets/glb/hgscan.glb" id="1_k2763"]
 [ext_resource type="Script" uid="uid://d114vdrhtjxnp" path="res://scripts/hgscan.gd" id="2_maour"]
 [ext_resource type="PackedScene" uid="uid://nmqe2cjjkd3k" path="res://scenes/npc_airport_worker.tscn" id="3_lav5q"]
+[ext_resource type="Script" uid="uid://d24ew5ue7ebgi" path="res://scripts/npc_hgscan.gd" id="4_0j55t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vmdbe"]
 size = Vector3(31.6989, 1.89557, 1.97949)
@@ -56,8 +57,26 @@ transform = Transform3D(0.499811, -0.0265032, -0.00216485, -0.000271566, 0.24358
 mesh = SubResource("PlaneMesh_5jvbo")
 surface_material_override/0 = SubResource("StandardMaterial3D_2dmyn")
 
-[node name="Player" parent="." index="2" instance=ExtResource("3_lav5q")]
+[node name="npc_hgscan" parent="." index="2" instance=ExtResource("3_lav5q")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.21624, 0, 1.3188)
+script = ExtResource("4_0j55t")
+
+[node name="man_scan_path" type="Node3D" parent="." index="3"]
+
+[node name="Marker3D" type="Marker3D" parent="man_scan_path" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4)
+
+[node name="Marker3D2" type="Marker3D" parent="man_scan_path" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.851732, 4.76837e-07, 4.06568)
+
+[node name="Marker3D3" type="Marker3D" parent="man_scan_path" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.733764, 0, 3.42711)
+
+[node name="Marker3D4" type="Marker3D" parent="man_scan_path" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.912497, 0, 3.54468)
+
+[node name="Marker3D5" type="Marker3D" parent="man_scan_path" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1973, 0, 1.40546)
 
 [connection signal="body_entered" from="Cube/Area3D" to="Cube" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Cube/Area3D" to="Cube" method="_on_area_3d_body_exited"]

@@ -31,7 +31,7 @@ script = ExtResource("4_7jchs")
 [node name="Area3D1" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89521, 1.6892, 1.95236)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53383, 1.6892, 4.29634)
 shape = SubResource("SphereShape3D_7jchs")
 
 [node name="spot" type="MeshInstance3D" parent="."]

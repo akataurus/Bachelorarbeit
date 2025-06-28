@@ -37,6 +37,7 @@ func _on_area_3d_2_body_entered(body: Node3D) -> void:
 		return
 	
 	speech_bubble.text = "Okay, stand still now."
+	await get_tree().create_timer(2).timeout
 	
 	var path_markers := $npc_walk_path.get_children()
 	var path: Array[Vector3] = []

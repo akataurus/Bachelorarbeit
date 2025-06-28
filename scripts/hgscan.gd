@@ -1,5 +1,4 @@
-# Dieses Script wird an alle Objekte gehängt, wo man einen Koffer ablegen 
-# kann. z.B. Schalter oder Hgscanner
+# Skript vom Handgepäckscanner
 extends Node3D
 
 @onready var drop_position := $baggage_pos
@@ -8,7 +7,7 @@ extends Node3D
 
 @onready var counter_worker := $"../Player"
 @onready var worker_collshape := $"../Player/CollisionShape3D"
-@onready var speech_bubble := $"../Player".get_node("speech_bubble")
+@onready var speech_bubble := $"../npc_hgscan".get_node("speech_bubble")
 var passenger_in_range := false
 
 # Called when the node enters the scene tree for the first time.
@@ -50,6 +49,7 @@ func update_feedback():
 		speech_bubble.text = "Let me scan it manually..."
 		await get_tree().create_timer(5).timeout  # Delay in Sekunden
 		speech_bubble.text = ""
+		start_man_check()
 		# animation für scannen hier
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
@@ -62,3 +62,24 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		passenger_in_range = false
 		speech_bubble.visible = false
+
+func start_man_check():
+	var path_markers := $"../man_scan_path".get_children()
+	var path: Array[Vector3] = []
+	
+	for marker in path_markers:
+		if marker is Marker3D:
+			path.append(marker.global_transform.origin)
+	
+	var npc = $"../npc_hgscan"
+	npc.set_player(self)
+	npc.start_walk_path(path as Array[Vector3])
+
+func man_scan_result():
+	var roll := randf() # Zahl zwischen 0 und 1
+	if roll < 0.05:
+		speech_bubble.text = "Illegal Stuff found! Go to the Police!"
+	if roll < 0.20:
+		speech_bubble.text = "Forbidden Stuff found! \n Please put them in the bin."
+	else:
+		speech_bubble.text = "Okay, all good. Proceed to the gate."
