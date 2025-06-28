@@ -12,6 +12,7 @@ radius = 4.26534
 [node name="Player" type="RigidBody3D" groups=["player"]]
 lock_rotation = true
 script = ExtResource("1_f0a5r")
+metadata/_edit_group_ = true
 
 [node name="AuxScene" parent="." instance=ExtResource("2_21fhv")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)

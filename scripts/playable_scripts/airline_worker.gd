@@ -73,13 +73,6 @@ func teleport_to_job(player: Node3D, up_down: int):
 func teleport_to_previous_job(player: Node3D):
 	curr_job_index = (curr_job_index -1) % airline_job_order.size()
 
-# camera movement
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			twist_input = - event.relative.x * mouse_sensitivity
-			pitch_input = - event.relative.y * mouse_sensitivity
-
 func _on_body_entered(body):
 	if body.is_in_group("schalter"):
 		show_hint("Ausweis vorzeigen: R", self)

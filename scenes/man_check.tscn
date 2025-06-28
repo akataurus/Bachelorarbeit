@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkysb3i7pilml"]
+
+[ext_resource type="PackedScene" uid="uid://pghbdljyky8s" path="res://scenes/non_interactable/trennwand.tscn" id="1_iuq5o"]
+[ext_resource type="Script" uid="uid://co6w6otf80dcb" path="res://scripts/man_check.gd" id="1_ym3yd"]
+[ext_resource type="PackedScene" uid="uid://nmqe2cjjkd3k" path="res://scenes/npc_airport_worker.tscn" id="2_7sb3f"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7jchs"]
+radius = 8.49512
+
+[node name="man_check" type="Node3D"]
+script = ExtResource("1_ym3yd")
+
+[node name="trennwand" parent="." instance=ExtResource("1_iuq5o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28637, 0)
+
+[node name="trennwand2" parent="." instance=ExtResource("1_iuq5o")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.286, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_7sb3f")]
+transform = Transform3D(1.66818, 0, 1.10326, 0, 2, 0, -1.10326, 0, 1.66818, 1.72406, 0, 1.51797)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89521, 1.6892, 1.95236)
+shape = SubResource("SphereShape3D_7jchs")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
