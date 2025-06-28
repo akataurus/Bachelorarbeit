@@ -23,10 +23,13 @@ func _process(delta: float) -> void:
 func boarding_card_dialogue():
 	if !GameManager.is_checked_in:
 		speech_bubble.text = "Oh no, you are not checked in yet! \n Please go to the counter and check in."
-	if GameManager.is_checked_in and !GameManager.is_sec_checked:
-		speech_bubble.text = "Oh no, you weren't at the security check! \n Please go there first."
-	if GameManager.is_checked_in and GameManager.is_sec_checked:
-		speech_bubble.text = "Thanks! You can go on board now."
+	elif !GameManager.is_hgscan_checked:
+		speech_bubble.text = "Oh no, you need to get your hand luggage checked first!"
+	elif GameManager.is_bodyscan_checked:
+		speech_bubble.text = "Oh no, you need to go through the bodyscan first!"
+	elif GameManager.is_checked_in and GameManager.is_hgscan_checked and GameManager.is_bodyscan_checked:
+		speech_bubble.text = "Thanks! You can go through to the plane now."
+		
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):

@@ -33,9 +33,13 @@ func _on_body_entered(body):
 	if body.is_in_group("schalter"):
 		show_hint("Ausweis vorzeigen: R", self)
 		# hier Ausweiskontrolle implementieren!
-
+	if body.is_in_group("gate_counter"):
+		show_hint("Show boarding card: Right click", self)
+	
 func _on_body_exited(body):
 	if body.is_in_group("schalter"):
+		hide_hint(self)
+	if body.is_in_group("gate_counter"):
 		hide_hint(self)
 
 

@@ -41,7 +41,7 @@ func update_feedback():
 	if is_scan_successful:
 		material.albedo_color = Color(0, 1, 0) # Grün
 		speech_bubble.text = "Okay, looks good. \n You can go to the gate now."
-		GameManager.is_sec_checked = true
+		GameManager.is_hgscan_checked = true
 	else:
 		material.albedo_color = Color(1, 0, 0) # Rot
 		speech_bubble.text = "Oh no, seems like you \n have bad stuff in here!"

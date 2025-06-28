@@ -41,6 +41,7 @@ func _on_body_entered(body):
 			speech_bubble.text = "Looks good, move on please."
 			material.albedo_color = Color(0, 1, 0) # Grün
 			material2.albedo_color = Color(0, 1, 0) 
+			GameManager.is_bodyscan_checked = true
 		else:
 			speech_bubble.text = "Looks like you might have something on you. \n go to the manual body scan please."
 			material.albedo_color = Color(1, 0, 0) # Rot
