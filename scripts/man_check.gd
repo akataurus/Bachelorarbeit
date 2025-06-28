@@ -48,3 +48,12 @@ func _on_area_3d_2_body_entered(body: Node3D) -> void:
 	var npc = $npc_airport_worker
 	npc.set_player(self)
 	npc.start_walk_path(path as Array[Vector3])
+
+func man_scan_result():
+	var roll := randf() # Zahl zwischen 0 und 1
+	if roll < 0.05:
+		speech_bubble.text = "Illegal Stuff found! Go to the Police!"
+	if roll < 0.20:
+		speech_bubble.text = "Forbidden Stuff found! \n Please put them in the bin."
+	else:
+		speech_bubble.text = "Okay, all good. Proceed to the gate."

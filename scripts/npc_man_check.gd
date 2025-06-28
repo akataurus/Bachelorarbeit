@@ -18,6 +18,10 @@ func set_player(player: Node3D):
 
 
 func _physics_process(delta: float) -> void:
+	if is_walking:
+		$speech_bubble.visible = false
+	
+	
 	if !is_walking or path.is_empty():
 		return
 	
@@ -31,6 +35,8 @@ func _physics_process(delta: float) -> void:
 			is_walking = false
 			linear_velocity = Vector3.ZERO
 			look_at_player(player_reference)
+			$"..".man_scan_result()
+			$speech_bubble.visible = true
 			return
 	else:
 		var move_dir = direction.normalized()
