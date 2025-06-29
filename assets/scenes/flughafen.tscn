@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cv1hqkjg6j8cf"]
-
-[ext_resource type="PackedScene" uid="uid://ey8aj213ucos" path="res://assets/glb/flughafen.glb" id="1_f5fri"]
-
-[node name="flughafen" instance=ExtResource("1_f5fri")]
-
-[node name="sidepillars" parent="." index="0"]
-transform = Transform3D(11.985, 0, 0, 0, 11.94, 0, 0, 0, 30, 62.4132, 13.0834, 4.95073e-06)

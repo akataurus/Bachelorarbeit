@@ -5,8 +5,8 @@ extends Node3D
 @onready var area := $luggage_stop
 @onready var feedback := $"../feedback"
 
-@onready var counter_worker := $"../Player"
-@onready var worker_collshape := $"../Player/CollisionShape3D"
+@onready var counter_worker := $"../npc_hgscan"
+@onready var worker_collshape := $"../npc_hgscan/CollisionShape3D"
 @onready var speech_bubble := $"../npc_hgscan".get_node("speech_bubble")
 var passenger_in_range := false
 

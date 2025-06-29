@@ -16,6 +16,10 @@ var active_hints := {} # alle aktiven hints
 
 var speech_counter = 0 # um zu wissen, welcher Text angezeigt werden soll
 
+@onready var anim_player := $business_man_walk/AnimationPlayer
+@onready var anim_player2 := $business_man_walk/AnimationPlayer2
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -27,6 +31,8 @@ func _ready() -> void:
 	
 	hint_label.visible = false # label ausblenden
 	hint_label.self_modulate = Color(1, 0, 0)  # Rot (RGB)
+	
+	anim_player.get_animation("walking").loop = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,7 +59,12 @@ func _process(delta: float) -> void:
 		show_hint("ID check: E", self)
 	else:
 		hide_hint(self)
-
+	
+	if input_vector.length() > 0.1:
+		if anim_player.current_animation != "walking":
+			anim_player.play("walking")
+	else:
+		anim_player2.play("idle")
 
 # aufgerufen von world.gd
 func set_job_markers(markers: Dictionary):

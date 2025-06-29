@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://be7nrpet6tssb"]
-
-[ext_resource type="PackedScene" uid="uid://b5cpwd1nftait" path="res://assets/glb/Suitcase_Grey_London.glb" id="1_tox20"]
-
-[node name="Suitcase_Grey_London" instance=ExtResource("1_tox20")]

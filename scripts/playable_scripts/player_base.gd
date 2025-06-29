@@ -17,18 +17,18 @@ var pitch_input := 0.0
 @onready var curr_character_model = $character # oder $AuxScene / $airline_worker je nach Spieler
 
 @export var turn_speed := 5.0
+@export var input_vector := Vector3.ZERO # für bewegung
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(delta: float) -> void:
 	# --- Bewegung ---
-	var input := Vector3.ZERO
-	input.x = Input.get_axis("ui_left", "ui_right")
-	input.z = Input.get_axis("ui_up", "ui_down")
+	input_vector.x = Input.get_axis("ui_left", "ui_right")
+	input_vector.z = Input.get_axis("ui_up", "ui_down")
 
-	if input != Vector3.ZERO:
-		var dir = (twist_pivot.global_transform.basis * input).normalized()
+	if input_vector != Vector3.ZERO:
+		var dir = (twist_pivot.global_transform.basis * input_vector).normalized()
 		apply_central_force(dir * 20)
 
 		# Modell zur Bewegung drehen

@@ -1,4 +1,6 @@
 # passenger script
+# 3d modell source:
+# https://www.fab.com/listings/4efdac7d-818f-4efd-aef3-aa6f3987ad1e
 extends "res://scripts/playable_scripts/player_base.gd"
 
 @onready var area := $Area3D
