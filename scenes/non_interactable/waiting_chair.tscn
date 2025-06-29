@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq830aithh3p"]
+
+[ext_resource type="PackedScene" uid="uid://dtjxj0bi5i7m6" path="res://assets/glb/waiting_chair.glb" id="1_7xmoy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7xmoy"]
+size = Vector3(2.2995, 0.935547, 0.791992)
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_7xmoy")]
+
+[node name="StaticBody3d" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3d" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0104065, 0.473535, 0.104004)
+shape = SubResource("BoxShape3D_7xmoy")
