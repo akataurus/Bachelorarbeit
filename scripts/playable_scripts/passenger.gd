@@ -5,12 +5,14 @@ extends "res://scripts/playable_scripts/player_base.gd"
 @onready var boarding_card := $boarding_card
 @onready var speech_bubble := $Label3D # für die worker um mit npcs zu reden
 @onready var hint_label :=$CanvasLayer/Hint_label
+
 var active_hints := {} # alle aktiven hints 
+@onready var anim_player := $Sketchfab_Scene/AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
-	curr_character_model = $character
+	curr_character_model = $Sketchfab_Scene
 	
 	if area:
 		area.body_entered.connect(_on_body_entered)
@@ -27,6 +29,17 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("show_bcard"):
 		show_boarding_card()
+	
+	var input = Vector3.ZERO
+	input.x = Input.get_axis("ui_left", "ui_right")
+	input.z = Input.get_axis("ui_up", "ui_down")
+
+	if input.length() > 0.1:
+		if anim_player.current_animation != "walking":
+			anim_player.play("walking")
+	else:
+		if anim_player.current_animation != "t_pose":
+			anim_player.play("t_pose")
 
 
 func _on_body_entered(body):
@@ -41,6 +54,7 @@ func _on_body_exited(body):
 		hide_hint(self)
 	if body.is_in_group("gate_counter"):
 		hide_hint(self)
+
 
 
 # Methoden für die hints

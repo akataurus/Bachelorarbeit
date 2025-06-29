@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b21r42decjwd4"]
 
 [ext_resource type="Script" uid="uid://dntb87tk32ve0" path="res://scripts/playable_scripts/passenger.gd" id="1_mlhtq"]
-[ext_resource type="PackedScene" uid="uid://ehe0wskqaqbx" path="res://scenes/non_interactable/passenger_character.tscn" id="2_612ly"]
+[ext_resource type="PackedScene" uid="uid://ctq2rp6nx5kps" path="res://scenes/passenger_character.tscn" id="2_r5oci"]
 [ext_resource type="PackedScene" uid="uid://w64soxr7tknp" path="res://scenes/boarding_card.tscn" id="3_rjsru"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j8mlf"]
@@ -14,8 +14,8 @@ radius = 4.26534
 lock_rotation = true
 script = ExtResource("1_mlhtq")
 
-[node name="character" parent="." instance=ExtResource("2_612ly")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.0545031, 0)
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_r5oci")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.655888, 0, -0.754858, 0, 1, 0, 0.754858, 0, 0.655888, 0, 0.916326, 0)
