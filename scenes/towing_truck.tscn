@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=4 uid="uid://dwvbogi3sgxgq"]
+[gd_scene load_steps=15 format=4 uid="uid://dwvbogi3sgxgq"]
 
+[ext_resource type="Script" uid="uid://dscb3wdeeggsu" path="res://scripts/towing_truck.gd" id="1_tucpy"]
 [ext_resource type="Texture2D" uid="uid://bco3dunvktb54" path="res://assets/glb/towing_truck_Texture_airport256b.png" id="1_wjel0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_306qy"]
@@ -43,6 +44,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_7lw6i")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_tucpy"]
+size = Vector3(6.45264, 3.61322, 3.78212)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ucnuc"]
+radius = 8.76441
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ru43j"]
 resource_name = "AIRPORT"
 transparency = 4
@@ -83,6 +90,9 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_7ebsu")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wjel0"]
+size = Vector3(5.18628, 1.16431, 4.23148)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1tfl"]
 resource_name = "AIRPORT.002"
@@ -125,36 +135,53 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jtvpn")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wjel0"]
-size = Vector3(11.7654, 1.16431, 4.49323)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_tucpy"]
-size = Vector3(6.45264, 3.61322, 3.78212)
-
-[node name="towing_truck" type="Node3D"]
+[node name="towing_truck" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0958791, 0)
+script = ExtResource("1_tucpy")
 
-[node name="21_1_BaggageTruck" type="MeshInstance3D" parent="."]
+[node name="tractor" type="RigidBody3D" parent="."]
+
+[node name="21_1_BaggageTruck" type="MeshInstance3D" parent="tractor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.93055, 0.0118052, 1.51055e-05)
 mesh = SubResource("ArrayMesh_bfxpd")
 skeleton = NodePath("")
 
-[node name="21_3_BaggageTruck" type="MeshInstance3D" parent="."]
+[node name="shape_tractor" type="CollisionShape3D" parent="tractor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.27368, 2.24893, 0.0174789)
+shape = SubResource("BoxShape3D_tucpy")
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="tractor"]
+node_a = NodePath("..")
+node_b = NodePath("../../wagon1")
+
+[node name="driver_seat_area" type="Area3D" parent="tractor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tractor/driver_seat_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.95392, 2.08782, 0)
+shape = SubResource("SphereShape3D_ucnuc")
+
+[node name="wagon1" type="RigidBody3D" parent="."]
+
+[node name="21_3_BaggageTruck" type="MeshInstance3D" parent="wagon1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.92132, 0.0123064, 7.47606e-06)
 mesh = SubResource("ArrayMesh_dtxpm")
 skeleton = NodePath("")
 
-[node name="21_3_BaggageTruck_001" type="MeshInstance3D" parent="."]
+[node name="shape_wagon1" type="CollisionShape3D" parent="wagon1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8866, 0.623831, -0.0765686)
+shape = SubResource("BoxShape3D_wjel0")
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="wagon1"]
+node_a = NodePath("..")
+node_b = NodePath("../../wagon2")
+
+[node name="wagon2" type="RigidBody3D" parent="."]
+
+[node name="21_3_BaggageTruck_001" type="MeshInstance3D" parent="wagon2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.69989, 0.0123064, 7.47606e-06)
 mesh = SubResource("ArrayMesh_1yitn")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40295, 0.623831, -0.0765686)
+[node name="shape_wagon2" type="CollisionShape3D" parent="wagon2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.68881, 0.645557, -0.0222626)
 shape = SubResource("BoxShape3D_wjel0")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.27368, 2.24893, 0.0174789)
-shape = SubResource("BoxShape3D_tucpy")
