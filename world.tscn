@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=23 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="Script" uid="uid://bv11yvouya8jo" path="res://scripts/world.gd" id="1_co7eg"]
 [ext_resource type="PackedScene" uid="uid://doip7nd4nlelu" path="res://scenes/npc_passenger.tscn" id="2_50cfg"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dq830aithh3p" path="res://scenes/non_interactable/waiting_chair.tscn" id="15_hiqwa"]
 [ext_resource type="PackedScene" uid="uid://b3vunkpxkns06" path="res://scenes/suitcase.tscn" id="15_n6nrx"]
 [ext_resource type="PackedScene" uid="uid://c6jcnjk4rypdo" path="res://scenes/fließband.tscn" id="16_2u3nc"]
+[ext_resource type="PackedScene" uid="uid://dwvbogi3sgxgq" path="res://scenes/towing_truck.tscn" id="17_udxuc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -192,3 +193,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 45)
 
 [node name="fließband2" parent="." instance=ExtResource("16_2u3nc")]
 transform = Transform3D(-0.3, 0, -2.62268e-08, 0, 0.3, 0, 2.62268e-08, 0, -0.3, -7.09998, 0, 46.2446)
+
+[node name="towing_truck" parent="." instance=ExtResource("17_udxuc")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0958791, 69.5394)
