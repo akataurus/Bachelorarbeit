@@ -1,17 +1,26 @@
-extends RigidBody3D
+extends "res://scripts/playable_scripts/player_base.gd"
 
 @export var speed := 10.0
-@export var turn_speed := 1.5
 
 var is_controlled := false
 var player: Node3D = null
 
 @onready var driver_seat_area := $tractor/driver_seat_area
+@onready var vehicle_camera := $camera_arm/vehicle_camera
+
+
 
 func _ready():
+	#vehicle_camera.current = false
 	# Optional: Spielergruppe vorausgesetzt
 	driver_seat_area.body_entered.connect(_on_driver_area_entered)
 	driver_seat_area.body_exited.connect(_on_driver_area_exited)
+	
+	var curr_character_model = $tractor  # oder $mesh oder ähnlich
+	var twist_pivot = $camera_arm
+	var pitch_pivot = $camera_arm
+	var camera = $camera_arm/vehicle_camera
+
 
 func _on_driver_area_entered(body):
 	if body.is_in_group("player"):
@@ -26,24 +35,13 @@ func _on_driver_area_exited(body):
 func _unhandled_input(event):
 	if event.is_action_pressed("interact") and player:
 		is_controlled = true
-		player.visible = false # Spieler verstecken
-		#player.hide_hint(self)
-		print("Fahrzeug wird jetzt gesteuert")
+		player.visible = false
+		#hide_hint(self)
 
-func _physics_process(delta):
-	if not is_controlled:
-		return
+		# Kamera aktivieren
+		#vehicle_camera.current = true
 
-	var input_dir = Vector3.ZERO
-	if Input.is_action_pressed("ui_up"):
-		input_dir.z -= 1
-	if Input.is_action_pressed("ui_down"):
-		input_dir.z += 1
-	if Input.is_action_pressed("ui_left"):
-		rotation.y += turn_speed * delta
-	if Input.is_action_pressed("ui_right"):
-		rotation.y -= turn_speed * delta
-
-	if input_dir != Vector3.ZERO:
-		var move = -transform.basis.z
-		apply_central_force(move * speed * 100)
+		# Spieler-Kamera deaktivieren
+		#var player_camera = player.get_node("TwistPivot/PitchPivot/Camera3D")
+		#if player_camera:
+			#player_camera.current = false
