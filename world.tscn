@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=22 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="Script" uid="uid://bv11yvouya8jo" path="res://scripts/world.gd" id="1_co7eg"]
 [ext_resource type="PackedScene" uid="uid://doip7nd4nlelu" path="res://scenes/npc_passenger.tscn" id="2_50cfg"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ccfg6nqd46qke" path="res://scenes/hand_luggage.tscn" id="14_rwo20"]
 [ext_resource type="PackedScene" uid="uid://dq830aithh3p" path="res://scenes/non_interactable/waiting_chair.tscn" id="15_hiqwa"]
 [ext_resource type="PackedScene" uid="uid://b3vunkpxkns06" path="res://scenes/suitcase.tscn" id="15_n6nrx"]
+[ext_resource type="PackedScene" uid="uid://c6jcnjk4rypdo" path="res://scenes/fließband.tscn" id="16_2u3nc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -186,5 +187,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 31.9744)
 [node name="absperrband11" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64371, 0, 31.9744)
 
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("15_hiqwa")]
+[node name="bench" parent="." instance=ExtResource("15_hiqwa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 45)
+
+[node name="fließband2" parent="." instance=ExtResource("16_2u3nc")]
+transform = Transform3D(-0.3, 0, -2.62268e-08, 0, 0.3, 0, 2.62268e-08, 0, -0.3, -7.09998, 0, 46.2446)

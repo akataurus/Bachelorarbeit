@@ -64,7 +64,7 @@ func _ready():
 
 		_:
 			push_error("no acceptable role!")
-	spawn_customer() #testzwecke
+	#spawn_customer() #testzwecke
 
 func _process(delta: float) -> void:
 	timer1 += delta
