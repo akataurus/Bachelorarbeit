@@ -21,6 +21,9 @@ var active_hints := {} # alle aktiven hints
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
+	twist_pivot = get_node("TwistPivot")
+	pitch_pivot = get_node("TwistPivot/PitchPivot")
+	camera = get_node("TwistPivot/PitchPivot/Camera3D")
 	curr_character_model = $AuxScene
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -31,6 +34,8 @@ func _ready() -> void:
 	
 	hint_label.visible = false # label ausblenden
 	hint_label.self_modulate = Color(1, 0, 0)  # Rot (RGB)
+	
+	ready_completed = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

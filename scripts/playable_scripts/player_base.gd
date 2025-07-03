@@ -5,25 +5,36 @@
 # model (man): https://www.cgtrader.com/items/2578203/download-page
 # boarding pass pic source: https://www.wa.gov.au/media/32906
 extends RigidBody3D
-
+@onready var ready_completed = false
 var mouse_sensitivity := 0.002
 var twist_input := 0.0
 var pitch_input := 0.0
 
-@onready var twist_pivot := $TwistPivot
-@onready var pitch_pivot := $TwistPivot/PitchPivot
-@onready var camera := $TwistPivot/PitchPivot/Camera3D
+var twist_pivot 
+var pitch_pivot 
+var camera 
 
-@onready var curr_character_model = $character # oder $AuxScene / $airline_worker je nach Spieler
+@onready var curr_character_model 
 
 @export var turn_speed := 5.0
 @export var input_vector := Vector3.ZERO # für bewegung
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	camera.current = true
+	
+	if twist_pivot == null:
+		twist_pivot = get_node("TwistPivot")
+	if pitch_pivot == null:
+		pitch_pivot = get_node("TwistPivot/PitchPivot")
+	if camera == null:
+		camera = get_node("TwistPivot/PitchPivot/Camera3D")
+
+	if camera:
+		camera.current = true
 
 func _process(delta: float) -> void:
+	if not ready_completed:
+		return
 	# --- Bewegung ---
 	input_vector.x = Input.get_axis("ui_left", "ui_right")
 	input_vector.z = Input.get_axis("ui_up", "ui_down")

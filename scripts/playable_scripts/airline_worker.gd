@@ -22,6 +22,9 @@ var speech_counter = 0 # um zu wissen, welcher Text angezeigt werden soll
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	twist_pivot = get_node("TwistPivot")
+	pitch_pivot = get_node("TwistPivot/PitchPivot")
+	camera = get_node("TwistPivot/PitchPivot/Camera3D")
 	super._ready()
 	curr_character_model = $airline_worker
 
@@ -33,6 +36,7 @@ func _ready() -> void:
 	hint_label.self_modulate = Color(1, 0, 0)  # Rot (RGB)
 	
 	anim_player.get_animation("walking").loop = true
+	ready_completed = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
