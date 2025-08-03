@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://15irtmjhthl3"]
+
+[ext_resource type="PackedScene" uid="uid://b64cfqeqatw2x" path="res://assets/glb/plane.glb" id="1_dt3pm"]
+
+[node name="plane" instance=ExtResource("1_dt3pm")]

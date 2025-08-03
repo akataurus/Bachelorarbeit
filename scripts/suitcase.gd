@@ -151,7 +151,6 @@ func drop():
 		if drop_target.is_in_group("schalter"):
 			is_moving_on_belt = true
 		if drop_target.is_in_group("towing_truck"):
-			print("Koffer auf Truck abgelegt")
 			var truck = drop_target.get_parent()
 			truck.update_luggage_count(1)
 			
@@ -179,7 +178,6 @@ func drop():
 			freeze = true
 			gravity_scale = 0
 			
-			print("Koffer an wagon1 befestigt, Position: ", position)
 			
 			is_dropping = false
 			return  # Wichtig: Kein reparent zur Szene!

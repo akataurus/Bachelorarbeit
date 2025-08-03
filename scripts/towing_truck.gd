@@ -63,10 +63,6 @@ func load_transport_markers():
 	all_markers.sort_custom(func(a, b): return a.name < b.name)
 	
 	transport_markers = all_markers
-	
-	print("Gefundene Transport-Marker: ", transport_markers.size())
-	for marker in transport_markers:
-		print("  - ", marker.name, " bei ", marker.global_position)
 
 func find_markers_recursive(node: Node) -> Array[Marker3D]:
 	"""Findet rekursiv alle Marker3D nodes die 'transport' im Namen haben"""
@@ -116,7 +112,6 @@ func on_marker_reached():
 		move_to_next_marker() 
 	else: 
 		is_moving = false 
-		print("Transport abgeschlossen! Gepäck kann entladen werden.") 
 	
 func spawn_luggage():
 	"""Spawnt einen neuen Koffer am Spawn-Marker"""
@@ -134,5 +129,3 @@ func spawn_luggage():
 	
 	# Zur Gepäck-Gruppe hinzufügen
 	suitcase.add_to_group("luggage")
-	
-	print("Neuer Koffer gespawnt bei: ", luggage_spawn_marker.global_position)
