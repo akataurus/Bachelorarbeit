@@ -12,6 +12,11 @@ extends Node3D
 @onready var luggage_on_wagon: int = 0
 @onready var luggage_capacity: int = 5
 
+@export var luggage_scene: PackedScene = preload("res://scenes/suitcase.tscn")
+@export var luggage_spawn_interval := 20.0  # Alle 20 Sekunden
+@onready var luggage_spawn_marker := $luggage_spawn_marker  # Marker für Spawn-Position
+var luggage_timer := 0.0
+
 # Transport-Wegpunkte von Marker3D
 var transport_markers: Array[Marker3D] = []
 var current_marker_index = 0
@@ -25,6 +30,12 @@ func _ready():
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("start_truck"):
 		start_automatic_transport()
+		
+	# KOFFER-SPAWNING TIMER
+	luggage_timer += delta
+	if luggage_timer >= luggage_spawn_interval:
+		luggage_timer = 0
+		spawn_luggage()
 
 func get_drop_position():
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)
@@ -107,3 +118,21 @@ func on_marker_reached():
 		is_moving = false 
 		print("Transport abgeschlossen! Gepäck kann entladen werden.") 
 	
+func spawn_luggage():
+	"""Spawnt einen neuen Koffer am Spawn-Marker"""
+	if not luggage_spawn_marker:
+		print("Luggage spawn marker nicht gefunden!")
+		return
+	
+	var suitcase = luggage_scene.instantiate()
+	
+	# Füge zur Szene hinzu (nicht zum Truck)
+	get_tree().current_scene.add_child(suitcase)
+	
+	# Position am Marker setzen
+	suitcase.global_position = luggage_spawn_marker.global_position
+	
+	# Zur Gepäck-Gruppe hinzufügen
+	suitcase.add_to_group("luggage")
+	
+	print("Neuer Koffer gespawnt bei: ", luggage_spawn_marker.global_position)
