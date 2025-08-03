@@ -162,12 +162,19 @@ func drop():
 			var wagon1 = truck.get_node("wagon1")
 			wagon1.add_child(self)
 			
+			# RANDOM OFFSET für natürliche Verteilung
+			var random_offset = Vector3(
+				randf_range(-0.3, 0.3),  # X: links/rechts
+				randf_range(-0.1, 0.2),  # Y: hoch/runter (weniger)
+				randf_range(-0.2, 0.2)   # Z: vor/zurück
+			)
+			
 			# VERWENDE get_drop_position() für die korrekte Position
 			var truck_drop_pos = truck.get_drop_position()
 			# Konvertiere von global zu lokaler Position relativ zu wagon1
 			global_position = truck_drop_pos
 			var local_pos = wagon1.to_local(truck_drop_pos)
-			position = local_pos
+			position = local_pos + random_offset
 			rotation = Vector3(deg_to_rad(90), 0, 0)
 			freeze = true
 			gravity_scale = 0

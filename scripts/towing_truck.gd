@@ -13,7 +13,7 @@ extends Node3D
 @onready var luggage_capacity: int = 5
 
 @export var luggage_scene: PackedScene = preload("res://scenes/suitcase.tscn")
-@export var luggage_spawn_interval := 20.0  # Alle 20 Sekunden
+@export var luggage_spawn_interval := 10.0  # Alle x Sekunden
 @onready var luggage_spawn_marker := $luggage_spawn_marker  # Marker für Spawn-Position
 var luggage_timer := 0.0
 
