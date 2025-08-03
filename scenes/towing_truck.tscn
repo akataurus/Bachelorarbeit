@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://dwvbogi3sgxgq"]
+[gd_scene load_steps=16 format=4 uid="uid://dwvbogi3sgxgq"]
 
 [ext_resource type="Script" uid="uid://dscb3wdeeggsu" path="res://scripts/towing_truck.gd" id="1_tucpy"]
 [ext_resource type="Texture2D" uid="uid://bco3dunvktb54" path="res://assets/glb/towing_truck_Texture_airport256b.png" id="1_wjel0"]
@@ -135,11 +135,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jtvpn")
 
-[node name="towing_truck" type="RigidBody3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ucnuc"]
+
+[node name="towing_truck" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0958791, 0)
 script = ExtResource("1_tucpy")
 
-[node name="tractor" type="RigidBody3D" parent="."]
+[node name="tractor" type="RigidBody3D" parent="." groups=["towing_truck"]]
 
 [node name="21_1_BaggageTruck" type="MeshInstance3D" parent="tractor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.93055, 0.0118052, 1.51055e-05)
@@ -157,7 +159,7 @@ node_b = NodePath("../../wagon1")
 [node name="driver_seat_area" type="Area3D" parent="tractor"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tractor/driver_seat_area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.95392, 2.08782, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.22249, 2.08782, 0)
 shape = SubResource("SphereShape3D_ucnuc")
 
 [node name="wagon1" type="RigidBody3D" parent="."]
@@ -185,3 +187,12 @@ skeleton = NodePath("")
 [node name="shape_wagon2" type="CollisionShape3D" parent="wagon2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.68881, 0.645557, -0.0222626)
 shape = SubResource("BoxShape3D_wjel0")
+
+[node name="baggage_pos" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88236, 3.22261, 0)
+
+[node name="baggage_area" type="Area3D" parent="." groups=["towing_truck"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="baggage_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9013, 1.93818, 0)
+shape = SubResource("BoxShape3D_ucnuc")

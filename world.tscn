@@ -132,6 +132,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2722, 0, 2.38365)
 [node name="spawn" type="Marker3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.7117, 0, -8.57682)
 
+[node name="truck_path" type="Node3D" parent="."]
+
+[node name="transport_01" type="Marker3D" parent="truck_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.8161, 0, 68.7015)
+
+[node name="transport_02" type="Marker3D" parent="truck_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8802, 0, 25.533)
+
+[node name="transport_03" type="Marker3D" parent="truck_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.846367, 0, -6.16447)
+
 [node name="sec_check" type="Node3D" parent="."]
 
 [node name="koerperscanner" parent="sec_check" instance=ExtResource("7_ff81o")]

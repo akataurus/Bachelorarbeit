@@ -10,6 +10,7 @@ var is_dropping = false # workaround für drop() und _on_body_exited()
 
 var is_in_counter_range = false # jewels für hint
 var is_in_scale_range = false
+var is_in_truck_range = false
 
 var weight: float = 0.0 # gewicht des Koffers
 var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
@@ -55,6 +56,8 @@ func _process(delta):
 				#hint.text = "Drop luggage on counter: E"
 			elif is_in_scale_range:
 				player.show_hint("Drop luggage on scale: E", self)
+			elif is_in_truck_range:
+				player.show_hint("Drop luggage on truck: E", self)	
 			else:
 				player.show_hint("Drop luggage: E", self)
 		else:
@@ -83,6 +86,10 @@ func _on_body_entered(body):
 	elif body.is_in_group("waage"):
 		drop_target = body
 		is_in_scale_range = true
+	
+	elif body.is_in_group("towing_truck"):
+		drop_target = body
+		is_in_truck_range = true
 
 
 func _on_body_exited(body):
@@ -104,6 +111,8 @@ func _on_body_exited(body):
 		if body.is_in_group("waage"):
 			is_in_scale_range = false
 			drop_target.get_parent().set_label_text(0.0)
+		if body.is_in_group("towing_truck"):
+			is_in_truck_range = false
 		drop_target = null
 
 
@@ -141,6 +150,32 @@ func drop():
 		#drop_target.get_parent().update_feedback(weight < weight_limit)
 		if drop_target.is_in_group("schalter"):
 			is_moving_on_belt = true
+		if drop_target.is_in_group("towing_truck"):
+			print("Koffer auf Truck abgelegt")
+			var truck = drop_target.get_parent()
+			truck.update_luggage_count(1)
+			
+			# Entferne aus Player-Hierarchie
+			get_parent().remove_child(self)
+			
+			# Füge direkt zu wagon1 hinzu (einfachste Lösung)
+			var wagon1 = truck.get_node("wagon1")
+			wagon1.add_child(self)
+			
+			# VERWENDE get_drop_position() für die korrekte Position
+			var truck_drop_pos = truck.get_drop_position()
+			# Konvertiere von global zu lokaler Position relativ zu wagon1
+			global_position = truck_drop_pos
+			var local_pos = wagon1.to_local(truck_drop_pos)
+			position = local_pos
+			rotation = Vector3(deg_to_rad(90), 0, 0)
+			freeze = true
+			gravity_scale = 0
+			
+			print("Koffer an wagon1 befestigt, Position: ", position)
+			
+			is_dropping = false
+			return  # Wichtig: Kein reparent zur Szene!
 		
 	if is_in_scale_range:
 		drop_target.get_parent().set_label_text(weight)

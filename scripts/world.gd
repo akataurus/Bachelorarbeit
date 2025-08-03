@@ -19,6 +19,12 @@ extends Node3D
 	$customer_path/Marker3D4
 ]
 
+@onready var truck_markers := [
+	$truck_path/transport_01,
+	$truck_path/transport_02,
+	$truck_path/transport_03
+]
+
 var queue_slots := []
 
 var timer1 := 0.0
@@ -65,6 +71,7 @@ func _ready():
 		_:
 			push_error("no acceptable role!")
 	#spawn_customer() #testzwecke
+	call_deferred("setup_truck_path")
 
 func _process(delta: float) -> void:
 	timer1 += delta
@@ -105,3 +112,41 @@ func spawn_customer():
 
 		if customer.has_method("set_path"):
 			customer.set_path(path)
+
+
+func setup_truck_path():
+	"""Setzt den Transport-Pfad für den Truck (analog zu NPC-Pfad)"""
+	await get_tree().process_frame  # Warte einen Frame bis alles geladen ist
+	
+	var truck = find_child("towing_truck", true, false)  # Exakter Name ohne *
+	
+	if not truck:
+		print("Truck nicht gefunden! Verfügbare Nodes:")
+		for child in get_children():
+			print("  - ", child.name)
+		return
+	
+	print("Truck gefunden: ", truck)
+	print("Truck Script: ", truck.get_script())
+	
+	if not truck.has_method("set_transport_path"):
+		print("Truck hat keine set_transport_path Methode!")
+		print("Verfügbare Methoden:")
+		var methods = truck.get_method_list()
+		for method in methods:
+			if "transport" in method.name.to_lower():
+				print("  - ", method.name)
+		return
+	
+	# Erstelle Pfad aus Marker-Positionen
+	var path: Array = []
+	for marker in truck_markers:
+		if marker is Marker3D:
+			path.append(marker.global_position)
+		else:
+			print("WARNUNG: ", marker.name, " ist kein Marker3D!")
+	
+	# Setze Pfad am Truck
+	truck.set_transport_path(path)
+	
+	print("Truck-Pfad gesetzt mit ", path.size(), " Wegpunkten")

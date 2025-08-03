@@ -77,13 +77,10 @@ func teleport_to_previous_job(player: Node3D):
 	curr_job_index = (curr_job_index -1) % job_order.size()
 
 func _on_body_entered(body):
-	if body.is_in_group("schalter"):
-		show_hint("Ausweis vorzeigen: R", self)
-		# hier Ausweiskontrolle implementieren!
+	pass
 
 func _on_body_exited(body):
-	if body.is_in_group("schalter"):
-		hide_hint(self)
+	pass
 
 # Methoden für die hints
 func show_hint(text: String, owner: Node):
