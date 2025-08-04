@@ -125,17 +125,10 @@ func setup_truck_path():
 		for child in get_children():
 			print("  - ", child.name)
 		return
-	
-	print("Truck gefunden: ", truck)
-	print("Truck Script: ", truck.get_script())
+
 	
 	if not truck.has_method("set_transport_path"):
-		print("Truck hat keine set_transport_path Methode!")
-		print("Verfügbare Methoden:")
-		var methods = truck.get_method_list()
-		for method in methods:
-			if "transport" in method.name.to_lower():
-				print("  - ", method.name)
+		print("keine set_transport_path methode gefunden")
 		return
 	
 	# Erstelle Pfad aus Marker-Positionen
@@ -149,4 +142,3 @@ func setup_truck_path():
 	# Setze Pfad am Truck
 	truck.set_transport_path(path)
 	
-	print("Truck-Pfad gesetzt mit ", path.size(), " Wegpunkten")

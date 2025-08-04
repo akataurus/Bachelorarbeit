@@ -2,13 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://csy1faj8co2c1" path="res://assets/glb/trennwand.glb" id="1_as452"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_b7gts"]
-size = Vector3(0.10498, 3.8289, 6.36677)
+[sub_resource type="BoxShape3D" id="BoxShape3D_as452"]
+size = Vector3(0.0947876, 3.46579, 6.39246)
 
 [node name="trennwand" instance=ExtResource("1_as452")]
 
-[node name="Area3D" type="Area3D" parent="." index="1"]
+[node name="Cube" parent="." index="0"]
+transform = Transform3D(0.0228057, 0, 0, 0, 1.9011, 0, 0, 0, 3.03223, 0, 2.25909, 3.14041)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0266113, 2.51624, 3.13988)
-shape = SubResource("BoxShape3D_b7gts")
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0205904, 2.38917, 3.13894)
+shape = SubResource("BoxShape3D_as452")

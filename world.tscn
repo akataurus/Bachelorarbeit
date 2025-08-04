@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=25 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="Script" uid="uid://bv11yvouya8jo" path="res://scripts/world.gd" id="1_co7eg"]
 [ext_resource type="PackedScene" uid="uid://doip7nd4nlelu" path="res://scenes/npc_passenger.tscn" id="2_50cfg"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dq830aithh3p" path="res://scenes/non_interactable/waiting_chair.tscn" id="15_hiqwa"]
 [ext_resource type="PackedScene" uid="uid://b3vunkpxkns06" path="res://scenes/suitcase.tscn" id="15_n6nrx"]
 [ext_resource type="PackedScene" uid="uid://c6jcnjk4rypdo" path="res://scenes/fließband.tscn" id="16_2u3nc"]
+[ext_resource type="PackedScene" uid="uid://ulfxpk6sb8kq" path="res://scenes/non_interactable/trennwand.tscn" id="17_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://dwvbogi3sgxgq" path="res://scenes/towing_truck.tscn" id="17_udxuc"]
 [ext_resource type="PackedScene" uid="uid://15irtmjhthl3" path="res://scenes/plane.tscn" id="18_ikiii"]
 
@@ -58,7 +59,7 @@ mesh = SubResource("PlaneMesh_5phd0")
 shape = SubResource("ConcavePolygonShape3D_otds2")
 
 [node name="anzeigetafel" parent="." instance=ExtResource("4_q0yci")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 30)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -36.6606, 1, 62.0542)
 
 [node name="polizei" parent="." instance=ExtResource("8_1u3fv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 37)
@@ -66,23 +67,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 37)
 [node name="flughafen" parent="." instance=ExtResource("10_1173x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 45)
 
-[node name="gate_counter" parent="." instance=ExtResource("11_qeqct")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, -14, 0, 53)
-
-[node name="waage" parent="." instance=ExtResource("12_rsa7g")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 11, 0, 54)
-
 [node name="hand_luggage" parent="." instance=ExtResource("14_rwo20")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66684, 0, 59.8405)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8233, 0, 62.748)
 
 [node name="suitcase" parent="." instance=ExtResource("15_n6nrx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 57.5314)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.0863, 0, 62.2617)
 
 [node name="spawns" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33.5081)
 
 [node name="passenger_spawn" type="Node3D" parent="spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16382, 0, 27.5045)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.6154, 0, 33.0479)
 
 [node name="airportw_spawn" type="Node3D" parent="spawns"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1477, 0, 8.50154)
@@ -91,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1477, 0, 8.50154)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20777, 0, 12.0229)
 
 [node name="customer_path" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 34.5358)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -18.9345, 0, 55.8431)
 
 [node name="job_positions" type="Node3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34.5358)
@@ -147,67 +142,211 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.846367, 0, -6.16447)
 [node name="sec_check" type="Node3D" parent="."]
 
 [node name="koerperscanner" parent="sec_check" instance=ExtResource("7_ff81o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 45)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.10683, 0, 34.9766)
 
 [node name="hgscan" parent="sec_check" instance=ExtResource("6_7ucro")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 39)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -10.4377, 0, 42.5861)
 
 [node name="man_check" parent="sec_check" instance=ExtResource("12_70uel")]
-transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 18.1906, -1.90735e-06, 51.4717)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -12.7858, -3.8147e-06, 27.9862)
 
-[node name="schalter2" type="Node3D" parent="."]
+[node name="hgscan2" parent="sec_check" instance=ExtResource("6_7ucro")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.72192, 0, 42.5861)
 
-[node name="schalter" parent="schalter2" instance=ExtResource("9_e63ap")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14987, 0, 44.1585)
+[node name="koerperscanner2" parent="sec_check" instance=ExtResource("7_ff81o")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.31423, 0, 34.9766)
 
-[node name="absperrbänder" type="Node3D" parent="schalter2"]
+[node name="schalter_all" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -43.9782, -1.90735e-06, 92.0301)
 
-[node name="schalter" type="Node3D" parent="schalter2/absperrbänder"]
+[node name="schalter1" type="Node3D" parent="schalter_all"]
 
-[node name="absperrband" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="schalter" parent="schalter_all/schalter1" instance=ExtResource("9_e63ap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14987, 0, 43.6964)
+
+[node name="absperrbänder" type="Node3D" parent="schalter_all/schalter1"]
+
+[node name="schalter" type="Node3D" parent="schalter_all/schalter1/absperrbänder"]
+
+[node name="absperrband" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.264, 0, 40)
 
-[node name="absperrband2" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband2" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.95745, 0, 40)
 
-[node name="absperrband3" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband3" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.63275, 0, 37.3161)
 
-[node name="absperrband4" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband4" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25183, 0, 37.3287)
 
-[node name="absperrband12" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband12" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25183, 0, 34.6202)
 
-[node name="absperrband5" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband5" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93523, 0, 34.6453)
 
-[node name="absperrband6" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband6" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.61863, 0, 34.6453)
 
-[node name="absperrband7" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband7" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 37.3161)
 
-[node name="absperrband8" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband8" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3271, 0, 37.3161)
 
-[node name="absperrband9" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband9" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3271, 0, 34.6453)
 
-[node name="absperrband10" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband10" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 31.9744)
 
-[node name="absperrband11" parent="schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+[node name="absperrband11" parent="schalter_all/schalter1/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64371, 0, 31.9744)
 
-[node name="bench" parent="." instance=ExtResource("15_hiqwa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 45)
+[node name="schalter2" type="Node3D" parent="schalter_all"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.83168, 0, -7.62939e-06)
+
+[node name="schalter" parent="schalter_all/schalter2" instance=ExtResource("9_e63ap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14987, 0, 43.6964)
+
+[node name="absperrbänder" type="Node3D" parent="schalter_all/schalter2"]
+
+[node name="schalter" type="Node3D" parent="schalter_all/schalter2/absperrbänder"]
+
+[node name="absperrband" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.264, 0, 40)
+
+[node name="absperrband2" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.95745, 0, 40)
+
+[node name="absperrband3" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.63275, 0, 37.3161)
+
+[node name="absperrband4" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25183, 0, 37.3287)
+
+[node name="absperrband12" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25183, 0, 34.6202)
+
+[node name="absperrband5" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93523, 0, 34.6453)
+
+[node name="absperrband6" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.61863, 0, 34.6453)
+
+[node name="absperrband7" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 37.3161)
+
+[node name="absperrband8" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3271, 0, 37.3161)
+
+[node name="absperrband9" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3271, 0, 34.6453)
+
+[node name="absperrband10" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 31.9744)
+
+[node name="absperrband11" parent="schalter_all/schalter2/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64371, 0, 31.9744)
+
+[node name="schalter3" type="Node3D" parent="schalter_all"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.6634, 0, -2.28882e-05)
+
+[node name="schalter" parent="schalter_all/schalter3" instance=ExtResource("9_e63ap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.14987, 0, 43.6964)
+
+[node name="absperrbänder" type="Node3D" parent="schalter_all/schalter3"]
+
+[node name="schalter" type="Node3D" parent="schalter_all/schalter3/absperrbänder"]
+
+[node name="absperrband" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.264, 0, 40)
+
+[node name="absperrband2" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6.95745, 0, 40)
+
+[node name="absperrband3" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.63275, 0, 37.3161)
+
+[node name="absperrband4" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25183, 0, 37.3287)
+
+[node name="absperrband12" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.25183, 0, 34.6202)
+
+[node name="absperrband5" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93523, 0, 34.6453)
+
+[node name="absperrband6" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.61863, 0, 34.6453)
+
+[node name="absperrband7" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 37.3161)
+
+[node name="absperrband8" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3271, 0, 37.3161)
+
+[node name="absperrband9" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.3271, 0, 34.6453)
+
+[node name="absperrband10" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3271, 0, 31.9744)
+
+[node name="absperrband11" parent="schalter_all/schalter3/absperrbänder/schalter" instance=ExtResource("3_rycwc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64371, 0, 31.9744)
+
+[node name="waage" parent="schalter_all" instance=ExtResource("12_rsa7g")]
+transform = Transform3D(-0.4, 0, 3.49691e-08, 0, 0.4, 0, -3.49691e-08, 0, -0.4, -18.9324, 1.90735e-06, 52.665)
+
+[node name="waage2" parent="schalter_all" instance=ExtResource("12_rsa7g")]
+transform = Transform3D(-0.4, 0, 3.49691e-08, 0, 0.4, 0, -3.49691e-08, 0, -0.4, -3.12126, 1.90735e-06, 53.8067)
 
 [node name="fließband2" parent="." instance=ExtResource("16_2u3nc")]
-transform = Transform3D(-0.3, 0, -2.62268e-08, 0, 0.3, 0, 2.62268e-08, 0, -0.3, -7.09998, 0, 46.2446)
+transform = Transform3D(-0.3, 0, -2.62268e-08, 0, 0.3, 0, 2.62268e-08, 0, -0.3, -28.0641, 0, 46.2603)
 
 [node name="towing_truck" parent="." instance=ExtResource("17_udxuc")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0958791, 69.5394)
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, -36.6411, 0.0958791, 31.7916)
 
 [node name="plane" parent="." instance=ExtResource("18_ikiii")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 40, 0, -56)
+transform = Transform3D(-0.9, 0, -7.86805e-08, 0, 0.9, 0, 7.86805e-08, 0, -0.9, -25.2432, 0, -23.8307)
+
+[node name="walls" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9711, 0, 36.0656)
+
+[node name="trennwand" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.2208, 4.76837e-07, 9.4807)
+
+[node name="trennwand2" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.2208, 4.76837e-07, 5.71706)
+
+[node name="trennwand3" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.2208, 4.76837e-07, 1.95539)
+
+[node name="trennwand4" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.2208, 4.76837e-07, -1.81121)
+
+[node name="trennwand5" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.2208, 4.76837e-07, -5.5694)
+
+[node name="trennwand6" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.2208, 4.76837e-07, -9.33078)
+
+[node name="trennwand7" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.2208, 4.76837e-07, -13.086)
+
+[node name="trennwand8" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.2208, 4.76837e-07, -16.8754)
+
+[node name="trennwand9" parent="walls" instance=ExtResource("17_cbp6q")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 8.22319, -0.0938544, -20.6523)
+
+[node name="gate" type="Node3D" parent="."]
+
+[node name="benches" type="Node3D" parent="gate"]
+
+[node name="bench" parent="gate/benches" instance=ExtResource("15_hiqwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2909, 0, 31.1736)
+
+[node name="gate_counter" parent="gate" instance=ExtResource("11_qeqct")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 4.52484, 1.90735e-06, 17.9597)

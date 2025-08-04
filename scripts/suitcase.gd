@@ -1,4 +1,5 @@
 # source: https://www.cgtrader.com/items/2877263/download-page
+# suitcase skript
 extends RigidBody3D
 
 @export var pickup_distance := 3  # Maximale Distanz zum Aufheben
@@ -16,8 +17,8 @@ var weight: float = 0.0 # gewicht des Koffers
 var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
 
 var is_moving_on_belt = false 
-var belt_direction := Vector3.BACK # Richtung der Bewegung
-var belt_speed := 2 # Geschwindigkeit für Bewegung
+var belt_direction := Vector3.FORWARD # Richtung der Bewegung
+var belt_speed := 1 # Geschwindigkeit für Bewegung
 
 @onready var area := $Area3D
 
@@ -36,7 +37,6 @@ func _ready():
 	
 	randomize()
 	weight = snapped(randf_range(10.0, 30.0), 0.01) # zwei Nachkommastellen
-
 
 func _process(delta):
 	if is_moving_on_belt:
@@ -66,7 +66,6 @@ func _process(delta):
 			else:
 				player.show_hint("Pick up luggage: E", self)
 
-
 func _on_counter_exit_body_entered(body):
 	if body == self:
 		is_moving_on_belt = false
@@ -90,7 +89,10 @@ func _on_body_entered(body):
 	elif body.is_in_group("towing_truck"):
 		drop_target = body
 		is_in_truck_range = true
-
+	
+	elif body.is_in_group("suitcase_stop"):
+		print("here")
+		is_moving_on_belt = false
 
 func _on_body_exited(body):
 	if is_dropping: # ignoriere wegen drop

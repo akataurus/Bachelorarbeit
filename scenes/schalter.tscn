@@ -60,10 +60,10 @@ mesh = SubResource("PlaneMesh_nx4ww")
 surface_material_override/0 = SubResource("StandardMaterial3D_kushs")
 
 [node name="suitcase_stop" type="Area3D" parent="." index="1" groups=["suitcase_stop"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5701, 0.450641, 1.12525)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="suitcase_stop" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.89117, 0.803562, -1.07691)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="suitcase_stop" index="0" groups=["suitcase_stop"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.805864, 0.803562, -0.379705)
 shape = SubResource("BoxShape3D_ocpjk")
 
 [node name="Player" parent="." index="2" instance=ExtResource("3_qvfor")]
@@ -71,4 +71,5 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.672
 
 [connection signal="body_entered" from="bildschirm/Area3D" to="bildschirm" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="bildschirm/Area3D" to="bildschirm" method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="suitcase_stop" to="bildschirm" method="_on_suitcase_stop_body_entered"]
 [connection signal="body_entered" from="Player" to="bildschirm" method="_on_player_body_entered"]

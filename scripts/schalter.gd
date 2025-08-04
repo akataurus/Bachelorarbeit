@@ -77,3 +77,12 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		passenger_in_range = false
 		speech_bubble.visible = false
+
+
+func _on_suitcase_stop_body_entered(body: Node3D) -> void:
+	if body.is_in_group("suitcase"):
+		print("lol")
+		body.is_moving_on_belt = false
+		if body.drop_target and body.drop_target.get_parent().has_method("update_feedback"):
+			body.drop_target.get_parent().update_feedback(body.weight < body.weight_limit)
+		
