@@ -3,7 +3,6 @@ extends Node3D
 @export var speed := 10.0
 @onready var is_moving = false
 
-@onready var driver_seat_area := $tractor/driver_seat_area
 @onready var tractor_node := $"."
 @onready var wagon1 := $wagon1
 @onready var wagon2 := $wagon2

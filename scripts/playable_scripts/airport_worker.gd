@@ -77,10 +77,12 @@ func teleport_to_previous_job(player: Node3D):
 	curr_job_index = (curr_job_index -1) % job_order.size()
 
 func _on_body_entered(body):
-	pass
+	if body.is_in_group("towing_truck"):
+		show_hint("Start truck: Q", self)
 
 func _on_body_exited(body):
-	pass
+	if body.is_in_group("towing_truck"):
+		hide_hint(self)
 
 # Methoden für die hints
 func show_hint(text: String, owner: Node):

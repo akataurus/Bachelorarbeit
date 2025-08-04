@@ -51,7 +51,6 @@ func _ready():
 				"hgscan": hgscan_node,
 				"bodyscan": bodyscan_node
 			})
-			print("Spieler-Skriptpfad:", airport_worker.get_script().resource_path)
 
 
 		"airline_worker":
@@ -113,9 +112,10 @@ func spawn_customer():
 		if customer.has_method("set_path"):
 			customer.set_path(path)
 
+"""
 
 func setup_truck_path():
-	"""Setzt den Transport-Pfad für den Truck (analog zu NPC-Pfad)"""
+	Setzt den Transport-Pfad für den Truck (analog zu NPC-Pfad)
 	await get_tree().process_frame  # Warte einen Frame bis alles geladen ist
 	
 	var truck = find_child("towing_truck", true, false)  # Exakter Name ohne *
@@ -129,7 +129,7 @@ func setup_truck_path():
 	
 	if not truck.has_method("set_transport_path"):
 		print("keine set_transport_path methode gefunden")
-		return
+		#return
 	
 	# Erstelle Pfad aus Marker-Positionen
 	var path: Array = []
@@ -140,5 +140,7 @@ func setup_truck_path():
 			print("WARNUNG: ", marker.name, " ist kein Marker3D!")
 	
 	# Setze Pfad am Truck
-	truck.set_transport_path(path)
+	#truck.set_transport_path(path)
+"""
+
 	
