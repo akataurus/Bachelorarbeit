@@ -12,6 +12,7 @@ var is_dropping = false # workaround für drop() und _on_body_exited()
 var is_in_counter_range = false # jewels für hint
 var is_in_scale_range = false
 var is_in_truck_range = false
+var is_in_plane_range = false
 
 var weight: float = 0.0 # gewicht des Koffers
 var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
@@ -21,9 +22,8 @@ var belt_direction := Vector3.FORWARD # Richtung der Bewegung
 var belt_speed := 1 # Geschwindigkeit für Bewegung
 
 @onready var area := $Area3D
-
-
 @onready var scanner_exit := get_tree().root.find_child("suitcase_stop", true, false)
+@onready var plane = get_tree().current_scene.find_child("plane", true, false)
 
 func _ready():
 	await get_tree().create_timer(0.1).timeout  # Wartet 0.1 Sekunden
@@ -58,6 +58,8 @@ func _process(delta):
 				player.show_hint("Drop luggage on scale: E", self)
 			elif is_in_truck_range:
 				player.show_hint("Drop luggage on truck: E", self)	
+			elif is_in_plane_range:
+				player.show_hint("Load luggage on plane: E", self)	
 			else:
 				player.show_hint("Drop luggage: E", self)
 		else:
@@ -93,6 +95,8 @@ func _on_body_entered(body):
 	elif body.is_in_group("suitcase_stop"):
 		print("here")
 		is_moving_on_belt = false
+		
+	
 
 func _on_body_exited(body):
 	if is_dropping: # ignoriere wegen drop
@@ -191,3 +195,20 @@ func drop():
 	reparent(get_tree().current_scene)  #Entfernt den Koffer aus der Spielerhierarchie
 	
 	is_dropping = false
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	if area.is_in_group("plane_area") and is_held:
+		if player and player.has_method("show_hint"):
+			is_in_plane_range = true
+			if plane:
+				drop_target = plane
+			else:
+				print("plane null")
+
+func _on_area_3d_area_exited(area: Area3D) -> void:
+	if area.is_in_group("plane_area") and is_held:
+		if player and player.has_method("hide_hint"):
+			is_in_plane_range = false
+			if drop_target == plane:
+				drop_target = null
