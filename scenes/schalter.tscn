@@ -24,11 +24,11 @@ size = Vector3(122.561, 130.857, 162.077)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ocpjk"]
 size = Vector3(1, 1, 0.109131)
 
-[node name="schalter" instance=ExtResource("1_fql2p")]
+[node name="schalter" groups=["schalter"] instance=ExtResource("1_fql2p")]
+script = ExtResource("2_6s115")
 
 [node name="bildschirm" parent="." index="0"]
 transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, -0.19, 1.14289, -1.006)
-script = ExtResource("2_6s115")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="bildschirm" index="0" groups=["schalter"]]
 
@@ -46,15 +46,12 @@ transform = Transform3D(0.999869, -0.016161, 0, 0.016161, 0.999869, 0, 0, 0, 1, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0282, 16.6111, 37.3021)
 shape = SubResource("BoxShape3D_qq0fy")
 
-[node name="baggage_pos" type="Marker3D" parent="bildschirm" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.8993, -12.6838, 2.42118)
-
-[node name="weight_feedback" type="MeshInstance3D" parent="bildschirm" index="3"]
+[node name="weight_feedback" type="MeshInstance3D" parent="bildschirm" index="2"]
 transform = Transform3D(2.6, 0, 0, 0, 1, 0, 0, 0, 0.8, -41.5425, -0.600605, -2.62244)
 mesh = SubResource("PlaneMesh_3c0s8")
 surface_material_override/0 = SubResource("StandardMaterial3D_7qrc6")
 
-[node name="monitor_feedback" type="MeshInstance3D" parent="bildschirm" index="4"]
+[node name="monitor_feedback" type="MeshInstance3D" parent="bildschirm" index="3"]
 transform = Transform3D(9.99686, -0.0244299, -0.0338102, -0.00647524, 0.199526, -5.87935, 0.25063, 0.979588, 1.19669, 0.0662823, 10.5469, 1.8079)
 mesh = SubResource("PlaneMesh_nx4ww")
 surface_material_override/0 = SubResource("StandardMaterial3D_kushs")
@@ -63,11 +60,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kushs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5701, 0.450641, 1.12525)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="suitcase_stop" index="0" groups=["suitcase_stop"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.805864, 0.803562, -0.379705)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.323346, 0.439351, -0.379705)
 shape = SubResource("BoxShape3D_ocpjk")
 
 [node name="Player" parent="." index="2" instance=ExtResource("3_qvfor")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.672139, 0, 0)
+
+[node name="baggage_pos" type="Marker3D" parent="." index="3"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, -1.93748, 0.825795, -0.541134)
 
 [connection signal="body_entered" from="bildschirm/Area3D" to="bildschirm" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="bildschirm/Area3D" to="bildschirm" method="_on_area_3d_body_exited"]

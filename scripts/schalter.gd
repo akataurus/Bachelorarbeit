@@ -2,12 +2,12 @@
 extends Node3D
 
 @onready var drop_position := $baggage_pos
-@onready var feedback_light := $weight_feedback
-@onready var monitor_feedback := $monitor_feedback
+@onready var feedback_light := $bildschirm/weight_feedback
+@onready var monitor_feedback := $bildschirm/monitor_feedback
 
-@onready var counter_worker := $"../Player"
-@onready var worker_shape := $"../Player/CollisionShape3D"
-@onready var speech_bubble := $"../Player".get_node("speech_bubble")
+@onready var counter_worker := $Player
+@onready var worker_shape := $"Player/CollisionShape3D"
+@onready var speech_bubble := $"Player".get_node("speech_bubble")
 var passenger_in_range := false
 
 # Called when the node enters the scene tree for the first time.
@@ -80,9 +80,24 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 
 
 func _on_suitcase_stop_body_entered(body: Node3D) -> void:
+	print("triggered")
 	if body.is_in_group("suitcase"):
-		print("lol")
+		print("hier")
 		body.is_moving_on_belt = false
 		if body.drop_target and body.drop_target.get_parent().has_method("update_feedback"):
 			body.drop_target.get_parent().update_feedback(body.weight < body.weight_limit)
+
+# called by suitcase for npc luggage feedback to the player (airline-worker)
+func npc_update_feedback(is_valid: bool):
+	var material = feedback_light.get_active_material(0)
+	var material2 = monitor_feedback.get_active_material(0)
+	if material == null:
+		print("⚠️ Kein Material gefunden!")
+		return
 		
+	if is_valid:
+		material.albedo_color = Color(0, 1, 0) # Grün
+		material2.albedo_color = Color(0, 1, 0)
+	else:
+		material.albedo_color = Color(1, 0, 0) # Rot
+		material2.albedo_color = Color(1, 0, 0) # Rot

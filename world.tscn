@@ -105,25 +105,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5601, 4.76837e-07, 43.1652
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.8487, 0, 74.2875)
 
 [node name="Marker3D" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6543, 0, -1.68731)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1882, 0, -3.01138)
 
 [node name="Marker3D2" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2191, 0, -1.26368)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.33304, 0, -2.98721)
 
 [node name="Marker3D3" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0817, 0, 1.4782)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24089, 0, -0.0938377)
 
 [node name="Marker3D4" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.94843, 0, 1.68891)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0278, 0, -0.00812912)
 
 [node name="schalter" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.01033, 0, 7.18295)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9834, 0, 5.0024)
 
 [node name="hgscan" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2722, 0, 2.38365)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.43132, 1.90735e-06, 5.06668)
 
 [node name="spawn" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.7117, 0, -8.57682)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9488, 0, -11.4776)
 
 [node name="truck_path" type="Node3D" parent="."]
 
@@ -347,3 +347,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2909, 0, 31.1736)
 
 [node name="gate_counter" parent="gate" instance=ExtResource("11_qeqct")]
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 4.52484, 1.90735e-06, 17.9597)
+
+[node name="passenger_spawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 68)

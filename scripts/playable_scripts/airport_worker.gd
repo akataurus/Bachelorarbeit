@@ -99,8 +99,3 @@ func update_hint():
 		combined += hint + "\n"
 	hint_label.text = combined.strip_edges()
 	hint_label.visible = active_hints.size() > 0
-
-
-func _on_area_3d_area_entered(area: Area3D) -> void:
-	if area.is_in_group("plane_area"):
-		print("$$$$")

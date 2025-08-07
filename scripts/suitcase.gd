@@ -41,6 +41,8 @@ func _ready():
 	plane = find_plane()
 
 func _process(delta):
+	if GameManager.role == "airline_worker":
+		return # airline worker kann nicht mit koffern interagieren
 	if is_moving_on_belt:
 		linear_velocity += belt_direction * belt_speed * delta
 		return # keine Eingabe möglich wenn koffer in Bewegung
@@ -55,7 +57,6 @@ func _process(delta):
 		if is_held:
 			if is_in_counter_range:
 				player.show_hint("Drop luggage on counter: E", self)
-				#hint.text = "Drop luggage on counter: E"
 			elif is_in_scale_range:
 				player.show_hint("Drop luggage on scale: E", self)
 			elif is_in_truck_range:
@@ -71,6 +72,7 @@ func _process(delta):
 				player.show_hint("Pick up luggage: E", self)
 
 func _on_counter_exit_body_entered(body):
+	print("hallo")
 	if body == self:
 		is_moving_on_belt = false
 		if drop_target and drop_target.get_parent().has_method("update_feedback"):
@@ -80,6 +82,8 @@ func _on_counter_exit_body_entered(body):
 func _on_body_entered(body):
 	# Prüft, ob der Spieler in den Bereich tritt
 	if body.is_in_group("player"):  
+		if GameManager.role == "airline_worker":
+			return
 		player = body
 	# Prüft, ob der Koffer sich in Schalternähe befindet
 	elif body.is_in_group("schalter"):  
@@ -105,7 +109,8 @@ func _on_body_exited(body):
 		return
 	
 	if body == player and player and player.has_method("hide_hint"):
-		player.hide_hint(self)
+		if GameManager.role != "airline_worker":
+			player.hide_hint(self)
 		# Überprüfe, ob der Spieler wirklich weit genug entfernt ist
 		if body.global_transform.origin.distance_to(global_transform.origin) > pickup_distance:
 			player = null
@@ -125,7 +130,7 @@ func _on_body_exited(body):
 
 
 func pick_up():
-	if player and player.global_transform:
+	if player and player.global_transform and not GameManager.role == "airline_worker":
 		if player.global_transform.origin.distance_to(global_transform.origin) < pickup_distance:
 			is_held = true
 			if drop_target and drop_target.is_in_group("waage"):
@@ -150,11 +155,23 @@ func drop():
 	var drop_position = null
 	
 	if is_instance_valid(drop_target):
-		
-		if drop_target == plane:
+		var parent = drop_target.get_parent()
+		var grandparent = drop_target.get_parent().get_parent()
+		# Versuche verschiedene Wege um get_drop_position() zu finden
+		if drop_target.has_method("get_drop_position"):
+			# Drop_target selbst hat die Methode
 			drop_position = drop_target.get_drop_position()
+		elif parent and parent.has_method("get_drop_position"):
+			# Parent vom drop_target hat die Methode
+			drop_position = parent.get_drop_position()
+		elif grandparent and grandparent.has_method("get_drop_position"):
+			# Grandparent von drop_target hat die Methode
+			drop_position = grandparent.get_drop_position()
 		else:
-			drop_position = drop_target.get_parent().get_drop_position()
+			# Fallback: Verwende drop_target Position
+			print("⚠️ Keine get_drop_position() gefunden, verwende Fallback")
+			drop_position = drop_target.global_position + Vector3(0, 1, 0)
+			
 		global_transform.origin = drop_position
 		global_rotation = Vector3(deg_to_rad(90), 0, 0)
 		# koffer wurde auf ziel abgelegt
@@ -206,7 +223,6 @@ func drop():
 func find_plane():
 	var plane = get_tree().current_scene.find_child("plane", true, false)
 	if plane:
-		print("✅ Plane gefunden: ", plane.name)
 		return plane
 	else:
 		print("❌ Plane nicht gefunden!")
@@ -227,3 +243,6 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 			is_in_plane_range = false
 			if drop_target == plane:
 				drop_target = null
+# called by npc_customer
+func npc_update_feedback(npc: Node3D):
+	pass

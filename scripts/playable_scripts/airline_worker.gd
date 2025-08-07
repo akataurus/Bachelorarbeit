@@ -64,11 +64,6 @@ func _process(delta: float) -> void:
 	else:
 		hide_hint(self)
 	
-	if input_vector.length() > 0.1:
-		if anim_player.current_animation != "walking":
-			anim_player.play("walking")
-	else:
-		anim_player2.play("idle")
 
 # aufgerufen von world.gd
 func set_job_markers(markers: Dictionary):
@@ -103,6 +98,8 @@ func set_curr_customer(customer):
 
 # Methoden für die hints
 func show_hint(text: String, owner: Node):
+	if text == "Pick up luggage: E":
+		pass
 	active_hints[owner] = text
 	update_hint()
 
@@ -118,11 +115,16 @@ func update_hint():
 	hint_label.visible = active_hints.size() > 0
 
 # dialog mit kunde am schalter
+# dialog mit kunde am schalter
 func dialogue(text: String):
 	if curr_customer_at_counter:
+		# 1. Worker spricht
 		speech_bubble.text = text
-		await get_tree().create_timer(0.5).timeout
-		curr_customer_at_counter.dialogue(speech_counter)
-		speech_counter += 1
-		await get_tree().create_timer(2).timeout  # Delay in Sekunden
+		await get_tree().create_timer(2.0).timeout  # Worker Text 2 Sekunden anzeigen
 		speech_bubble.text = ""
+		# 2. Kurze Pause zwischen den Sprechern
+		await get_tree().create_timer(0.5).timeout
+		# 3. Customer antwortet (und warten bis Customer fertig ist)
+		await curr_customer_at_counter.dialogue(speech_counter)
+
+		speech_counter += 1

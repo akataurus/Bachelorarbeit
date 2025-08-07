@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var passenger_spawn := $spawns/passenger_spawn
+@onready var passenger_spawn := $passenger_spawn
 
 @export var npc_passenger_scene: PackedScene
 @export var npc_passenger_spawn_interval := 30.0
@@ -27,8 +27,8 @@ extends Node3D
 
 var queue_slots := []
 
-var timer1 := 0.0
-var timer2 := 0.0
+var spawn_timer := 0.0
+
 
 func _ready():
 	match GameManager.role:
@@ -58,7 +58,7 @@ func _ready():
 				"loading": loading_node,
 				"unloading": unloading_node
 			})
-
+			spawn_customer() #testzwecke
 
 		"airline_worker":
 			var airline_worker_scene = load("res://scenes/playable/airline_worker.tscn")
@@ -73,29 +73,19 @@ func _ready():
 				"schalter": schalter_node,
 				"gate": gate_node
 			})
-
+			spawn_customer() #testzwecke
 		_:
 			push_error("no acceptable role!")
-	#spawn_customer() #testzwecke
+	
 	call_deferred("setup_truck_path")
 
 func _process(delta: float) -> void:
-	timer1 += delta
-	timer2 += delta
-
-	if timer1 >= npc_passenger_spawn_interval:
-		timer1 = 0
-		spawn_passenger()
-
-	if timer2 >= npc_customer_spawn_interval:
-		timer2 = 0
-		spawn_customer()
-
-func spawn_passenger():
-	for i in npc_passengers_per_spawn:
-		var passenger = npc_passenger_scene.instantiate()
-		passenger.global_transform.origin = passenger_spawn.global_transform.origin
-		add_child(passenger)
+	# als passenger keine npcs
+	if GameManager.role != "passenger":
+		spawn_timer += delta
+		if spawn_timer >= npc_customer_spawn_interval:
+			spawn_timer = 0
+			spawn_customer()
 
 func spawn_customer():
 	for i in npc_customer_per_spawn:
@@ -104,6 +94,9 @@ func spawn_customer():
 			return
 
 		var customer = npc_customer_scene.instantiate()
+		
+		var spawn_marker = $customer_path/spawn
+		customer.global_transform.origin = spawn_marker.global_transform.origin
 		
 		var target_marker = queue_markers[queue_slots.size()]
 		queue_slots.append(customer)
@@ -120,6 +113,13 @@ func spawn_customer():
 			customer.set_path(path)
 
 """
+
+func spawn_passenger():
+	for i in npc_passengers_per_spawn:
+		var passenger = npc_passenger_scene.instantiate()
+		passenger.global_transform.origin = passenger_spawn.global_transform.origin
+		add_child(passenger)
+
 
 func setup_truck_path():
 	Setzt den Transport-Pfad für den Truck (analog zu NPC-Pfad)
