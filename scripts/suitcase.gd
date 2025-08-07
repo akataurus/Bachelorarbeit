@@ -44,6 +44,7 @@ func _process(delta):
 	if GameManager.role == "airline_worker":
 		return # airline worker kann nicht mit koffern interagieren
 	if is_moving_on_belt:
+		print("sollte sich bewegen")
 		linear_velocity += belt_direction * belt_speed * delta
 		return # keine Eingabe möglich wenn koffer in Bewegung
 	
@@ -72,12 +73,16 @@ func _process(delta):
 				player.show_hint("Pick up luggage: E", self)
 
 func _on_counter_exit_body_entered(body):
-	print("hallo")
 	if body == self:
-		is_moving_on_belt = false
+		#is_moving_on_belt = false
+		print("parent: ", drop_target.get_parent())
 		if drop_target and drop_target.get_parent().has_method("update_feedback"):
 			drop_target.get_parent().update_feedback(weight < weight_limit)
-
+		var grandparent = drop_target.get_parent().get_parent()
+		print("grandparent: ", grandparent)
+		if grandparent and grandparent.has_method("update_feedback"):
+			print("grandparent hat methode")
+			grandparent.update_feedback(weight < weight_limit)
 
 func _on_body_entered(body):
 	# Prüft, ob der Spieler in den Bereich tritt

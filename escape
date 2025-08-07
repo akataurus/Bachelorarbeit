@@ -1,0 +1,468 @@
+[33mcommit 25bba4e42d54141fa23dca183ad78a10aa6ade97[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Aug 7 17:26:47 2025 +0200
+
+    working on npc counter feedback
+
+[33mcommit 6f28ca629b8bceeecfec74f210ec1272e4f6591a[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Aug 7 09:55:45 2025 +0200
+
+    airport worker can teleport to all jobs
+
+[33mcommit 63fe316dc9949acf16938e1b5a73f201002d8e51[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Aug 7 09:34:24 2025 +0200
+
+    plane loading complete
+
+[33mcommit be5335aa437d79547c3999ca2a69e679b7df5f76[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Tue Aug 5 20:55:01 2025 +0200
+
+    started plane loading
+
+[33mcommit 1f824f7732e0f623998b7937411aa2f09419f16d[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Mon Aug 4 22:11:33 2025 +0200
+
+    truck hint
+
+[33mcommit 851592540e5ffa1d4798295dae642e31e5ab4a64[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Mon Aug 4 20:38:25 2025 +0200
+
+    new layout, counter fixed
+
+[33mcommit a9a6b8382cb9a798f56278b379d973aa6c2e8231[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Sun Aug 3 20:14:42 2025 +0200
+
+    plane model added
+
+[33mcommit 93bfa2f22094a0cbc3ad77f42f0d5db2cb91a283[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Sun Aug 3 19:54:37 2025 +0200
+
+    loading truck with offset
+
+[33mcommit b01fccc19bc114df7426f33f66ed67f53cb8cabc[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Sun Aug 3 19:37:45 2025 +0200
+
+    luggage spawning for tow truck
+
+[33mcommit 66c3be26d218215092fe128201fed48979180b6e[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Sun Aug 3 19:26:11 2025 +0200
+
+    towing truck is transporting
+
+[33mcommit 1e9a063a3969f9a04a5cdaccee50e3d9b1b07677[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Jul 3 11:07:12 2025 +0200
+
+    movement fixed
+
+[33mcommit 9195504c640498ad5f6256311c2bb0ffe9694d93[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jul 1 20:21:53 2025 +0200
+
+    failed driving
+
+[33mcommit 1e2f53d98e38333f7909d3c60176f6c46957afb9[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jul 1 17:50:35 2025 +0200
+
+    tried driving
+
+[33mcommit 111dd3e8b2a3d5d016d62f65dbe54eff537c784b[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jul 1 17:01:22 2025 +0200
+
+    towing truck added
+
+[33mcommit faa3e5127875f13f22153f042ad663f2cd1875d9[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jul 1 15:07:31 2025 +0200
+
+    fließband added in godot
+
+[33mcommit 35d12b0b56cd0e989e85c8a055c42dac03b49def[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jul 1 14:44:02 2025 +0200
+
+    fließband added
+
+[33mcommit 046689cada3a2999376c3381b1aef4505beb705b[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun Jun 29 15:48:40 2025 +0200
+
+    tried animations (failed)
+
+[33mcommit 314fb712e20fd0bbc6757cb69ed6f6340a339672[m
+Merge: 0630586 cfc65d0
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun Jun 29 10:30:00 2025 +0200
+
+    Merge branch 'main' of https://github.com/akataurus/Bachelorarbeit
+
+[33mcommit 06305866898c18b1951a3fa71ab48dc546afe622[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun Jun 29 10:28:35 2025 +0200
+
+    first animated character (passenger)
+
+[33mcommit cfc65d0413eebcf353e09624ffa25d39d13a0738[m
+Author: David <87470151+akataurus@users.noreply.github.com>
+Date:   Sun Jun 29 10:03:15 2025 +0200
+
+    Update README.md
+
+[33mcommit 962e6e3d3a4d52b2ac25c88b175043104a5e76a6[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun Jun 29 10:02:12 2025 +0200
+
+    bench added
+
+[33mcommit 87d2e36abc48f41ae417615360bfe3c92253767b[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sat Jun 28 18:09:55 2025 +0200
+
+    gate logic finished
+
+[33mcommit ce166772a8a948c31e31785a184ad4588592b2b9[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sat Jun 28 17:02:16 2025 +0200
+
+    hgscan manual check
+
+[33mcommit f12c31f25b31ec24565ed7408bc5c428eb25d75f[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sat Jun 28 16:05:33 2025 +0200
+
+    feedback after man scan
+
+[33mcommit f79893c1f62b0c7b21ab4eb0fd8828d28f384a78[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sat Jun 28 15:03:32 2025 +0200
+
+    npc walking around passenger for man scan
+
+[33mcommit 41c4eea3a935f490ec6f5b8c023fa1ce646d6c86[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sat Jun 28 13:47:12 2025 +0200
+
+    man sec check
+
+[33mcommit 717b0373a1d42544404c51213b97e4d31c3e1935[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Tue Jun 24 17:26:57 2025 +0200
+
+    started rest of dialogue
+
+[33mcommit 9213b3fabc2002f0ba197e64609e09dc0eb5b3a2[m
+Author: David <jenzerdavid5@gmail.com>
+Date:   Tue Jun 24 16:12:57 2025 +0200
+
+    refactoring finished
+
+[33mcommit 15d46fa2a892b0fa6823a78fbc3c5378b6e2bb61[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jun 17 16:45:40 2025 +0200
+
+    started refactoring
+
+[33mcommit a34e4645814cfbc228f9e6a3eb95d239d38212d2[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Fri Jun 13 16:15:33 2025 +0200
+
+    security commit
+
+[33mcommit 74b9a683e87b6bff387d507433295de70f245b98[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Fri Jun 13 15:15:13 2025 +0200
+
+    dialogue as airline worker with npc
+
+[33mcommit b7e86591937cdb24605a0b74fafae469c17c2b58[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jun 10 16:47:58 2025 +0200
+
+    started airline - npc dialogue
+
+[33mcommit 542304d1d04ae1fee6e4bcafc446ee9a78a16f3b[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Jun 5 15:39:57 2025 +0200
+
+    startet counter dialogue
+
+[33mcommit c4794008f69ea7d78f0023e3724477a010805efd[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Jun 5 15:11:39 2025 +0200
+
+    fixed job_position_paths
+
+[33mcommit 3f92b5484cdde01a9a06d409ac55ddefa81e30bc[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Jun 5 14:20:10 2025 +0200
+
+    set curr customer
+
+[33mcommit 7d7d86eb9d962473ab672b080238caba30953c7e[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jun 3 17:39:58 2025 +0200
+
+    to fix: worker collision with npc customer
+
+[33mcommit 070cc37394562d4e16f0c477f2975a7c5276f987[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Jun 3 14:14:14 2025 +0200
+
+    pathing works (kinda)
+
+[33mcommit 9dc82f7f018b89db472e9238d0a98acaf2657682[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue May 27 15:44:19 2025 +0200
+
+    Collishionshapes removed
+
+[33mcommit 7fff319f1add5891435fa544cc3789d83a2e1b96[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue May 27 14:00:58 2025 +0200
+
+    teleport to previous job
+
+[33mcommit a010a3b55784017d855f7cd51936b90270aec1dc[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue May 27 13:55:41 2025 +0200
+
+    teleport for airline worker implemented
+
+[33mcommit 10f6747fdf72e48dd68df4f1e98deb4e5bb1eaa3[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue May 27 13:05:38 2025 +0200
+
+    collisionshape of npc removed when working
+
+[33mcommit 51ba285385e79a5260128ee1859008df9a0adcca[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun May 25 18:32:28 2025 +0200
+
+    teleport, but collision still active (fix please!)
+
+[33mcommit e227940ab7dcbb915b7ad6e6eb53fe207ccbf5cb[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun May 25 16:25:08 2025 +0200
+
+    npcs turn as well
+
+[33mcommit 1b97ef21c3ef77463897fa631c8feb77f255bedf[m[33m ([m[1;31morigin/dev[m[33m, [m[1;32mdev[m[33m, [m[1;32mbackup-main[m[33m)[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun May 25 15:47:14 2025 +0200
+
+    rotation when moving
+
+[33mcommit da15ad270a14c3b016506e8c57cea12f6b4b19e0[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun May 25 15:25:08 2025 +0200
+
+    body scan speech interaction
+
+[33mcommit 114fb78876a2c1735efc0187059a6243a5bb976a[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun May 25 14:22:21 2025 +0200
+
+    gate counter
+
+[33mcommit 05e15825e74264f5d7b3a501f7774b2a82675124[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun May 25 13:54:23 2025 +0200
+
+    boarding card
+
+[33mcommit 4e9936a8db599bdccf39c35e4b7f33173e098b79[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sun May 25 13:15:17 2025 +0200
+
+    can only go to security after check in now
+
+[33mcommit 7aea81eee3f60a97a2b7e3eac6e52440dbafc589[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sat May 24 19:00:19 2025 +0200
+
+    check in with luggage
+
+[33mcommit 2c4d47a51b25acaabe19941834bf539db5b1314b[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sat May 24 16:59:35 2025 +0200
+
+    check in dialogue
+
+[33mcommit 47990ce2ee83c72d76d69e3882cff8b0dfb6f7ba[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu May 15 16:47:46 2025 +0200
+
+    paths for customers
+
+[33mcommit 51094dd4e6350e1df5cf7bda18de445b73b086a9[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu May 15 15:07:15 2025 +0200
+
+    customers added
+
+[33mcommit cfe800d40d47420c42063468b6e5adbfbc61431c[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue May 6 13:26:15 2025 +0200
+
+    randomized pathing of npcs
+
+[33mcommit ba6255577782083dec1d424631730627e6a4e89b[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Apr 29 14:57:55 2025 +0200
+
+    npc can move along a path
+
+[33mcommit 53bce680871ce7bd8dfa9155b51f277fd4896c9b[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Apr 29 14:27:44 2025 +0200
+
+    npcs despawnen
+
+[33mcommit 0db4afffeddcdd23a06125a33a431e2e645f3f0f[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Apr 28 17:30:57 2025 +0200
+
+    npc spawning
+
+[33mcommit c0ad9785e26bce82e471340cacdc9c2fddd8486e[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Apr 28 13:36:08 2025 +0200
+
+    models for different role
+
+[33mcommit cf043ab0c4296d7e7a27163c6cfd6d49ecceeb56[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Apr 28 12:23:58 2025 +0200
+
+    different spawn points for roles
+
+[33mcommit d354724b59850e4dce47a3cea116b40860939c68[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Wed Apr 23 15:42:24 2025 +0200
+
+    counter feedback fixed
+
+[33mcommit 294aab37088a58f1d8f0f9b8f96b3b56dd4d06ac[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Apr 17 14:14:43 2025 +0200
+
+    main menu added
+
+[33mcommit b99c5756d6aba1615a8138b14c842f1286bbcd0b[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Apr 14 15:50:42 2025 +0200
+
+    animations added (empty)
+
+[33mcommit 8d599398052b3d25d3dd5945ae55dd63793391e5[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Apr 14 13:41:36 2025 +0200
+
+    new character model
+
+[33mcommit 596032e69a2584058988ae8760eb5e815c7596b0[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Wed Apr 9 15:22:44 2025 +0200
+
+    suicase movement on counter
+
+[33mcommit c3fc1b25e2bbd1150615e277cd5e05b3c75ebb60[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Apr 8 16:16:20 2025 +0200
+
+    refactoring hints
+
+[33mcommit c96c76d5236d4ce6937df7b5063a2a4da34f3f6f[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Apr 1 18:23:02 2025 +0200
+
+    monitors giving feedback
+
+[33mcommit fd68e04d510bfebbe3c0d151ca555179cdabbb51[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Apr 1 17:27:15 2025 +0200
+
+    physics active after drop
+
+[33mcommit a6ed961690fde3acc09808c8bb6b456a5c690cd1[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Apr 1 13:57:17 2025 +0200
+
+    hand luggage movement
+
+[33mcommit 7f40ffc70f29c4f62004471cf2f2cbac20e1d9a6[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Mar 27 15:32:27 2025 +0100
+
+    can only drop luggage on right spots
+
+[33mcommit d0cf9402cfab57db0aecb1a21f11f96c23550906[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Thu Mar 27 14:59:10 2025 +0100
+
+    handgepäck
+
+[33mcommit cdb5ae2efde5935dc68d8d04b1c76923a284f416[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Tue Mar 25 14:17:49 2025 +0100
+
+    minigame functional
+
+[33mcommit 8cf7bfecb0c5ebc6ba3b5bfc188c29f3e93610d9[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Mar 24 17:38:59 2025 +0100
+
+    risikoleiter first draft
+
+[33mcommit b78c50efa6faa0436ba4c219b3ffbb415ab5483a[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Mar 24 15:32:24 2025 +0100
+
+    waage geht
+
+[33mcommit 18c3949ce2cbc93307bc98c974dc2c457c849fcf[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Mar 24 14:25:33 2025 +0100
+
+    trennwand
+
+[33mcommit ec22fb6961b4a3e4c5a1db625da8ac3477c10981[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Mar 24 14:06:18 2025 +0100
+
+    kpscanner gibt feedback
+
+[33mcommit 63d81778179bac7dcca3522a8bfeb43c78a4e488[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Mon Mar 24 12:11:45 2025 +0100
+
+    counter for gate etc
+
+[33mcommit cefb2865a2e1d06b69c541adc0f5db31de757416[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Sat Mar 22 15:32:28 2025 +0100
+
+    waage und schild modelliert
+
+[33mcommit 35bd8c7493601bd2aec01083c40f6f74276c9874[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Fri Mar 21 15:06:39 2025 +0100
+
+    Koffer feedback funktioniert
+
+[33mcommit 21647b56fe14f4827ae053c5e13476668e4f6c47[m
+Author: David Jenzer <jenzerdavid5@gmail.com>
+Date:   Fri Mar 21 14:23:45 2025 +0100
+
+    hints fixed
