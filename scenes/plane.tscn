@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://crx8rxnmgnueo" path="res://scripts/plane.gd" id="2_206p1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_md2q8"]
-radius = 6.7028
+radius = 10.3087
 
 [node name="plane" instance=ExtResource("1_dt3pm")]
 script = ExtResource("2_206p1")
@@ -17,6 +17,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76931, 0.518528, 0.927687)
 shape = SubResource("SphereShape3D_md2q8")
 
 [node name="luggage_drop_pos" type="Marker3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.258347, 3.67766, -8.27674)
 
 [node name="Cube" parent="." index="2"]
 visible = false

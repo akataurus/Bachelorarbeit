@@ -23,7 +23,7 @@ var belt_speed := 1 # Geschwindigkeit für Bewegung
 
 @onready var area := $Area3D
 @onready var scanner_exit := get_tree().root.find_child("suitcase_stop", true, false)
-@onready var plane = get_tree().current_scene.find_child("plane", true, false)
+@onready var plane
 
 func _ready():
 	await get_tree().create_timer(0.1).timeout  # Wartet 0.1 Sekunden
@@ -37,6 +37,8 @@ func _ready():
 	
 	randomize()
 	weight = snapped(randf_range(10.0, 30.0), 0.01) # zwei Nachkommastellen
+
+	plane = find_plane()
 
 func _process(delta):
 	if is_moving_on_belt:
@@ -145,9 +147,14 @@ func drop():
 	is_dropping = true
 	is_held = false
 	freeze = false # Physik wieder aktivieren
+	var drop_position = null
 	
 	if is_instance_valid(drop_target):
-		var drop_position = drop_target.get_parent().get_drop_position()
+		
+		if drop_target == plane:
+			drop_position = drop_target.get_drop_position()
+		else:
+			drop_position = drop_target.get_parent().get_drop_position()
 		global_transform.origin = drop_position
 		global_rotation = Vector3(deg_to_rad(90), 0, 0)
 		# koffer wurde auf ziel abgelegt
@@ -196,6 +203,14 @@ func drop():
 	
 	is_dropping = false
 
+func find_plane():
+	var plane = get_tree().current_scene.find_child("plane", true, false)
+	if plane:
+		print("✅ Plane gefunden: ", plane.name)
+		return plane
+	else:
+		print("❌ Plane nicht gefunden!")
+		return null
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	if area.is_in_group("plane_area") and is_held:
