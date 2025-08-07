@@ -4,6 +4,7 @@ extends Node3D
 var game_started := false
 
 @onready var speech_bubble = $npc_airport_worker.get_node("speech_bubble")
+@onready var npc_airport_worker = $npc_airport_worker
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -16,7 +17,8 @@ func _ready() -> void:
 	var material = mesh_instance.get_active_material(0)
 	material.albedo_color = Color(0, 0, 0) # schwarz 
 	
-	
+	if GameManager.role == "airport_worker":
+		npc_airport_worker.visible = false
 
 # große area
 func _on_area_3d_body_entered(body: Node3D) -> void:

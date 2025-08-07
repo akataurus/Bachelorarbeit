@@ -41,15 +41,22 @@ func _ready():
 		"airport_worker":
 			var airport_worker_scene = preload("res://scenes/playable/airport_worker.tscn")
 			var airport_worker = airport_worker_scene.instantiate()
+			
 			var hgscan_node = $customer_path/job_positions/airport_worker/hgscan
 			var bodyscan_node = $customer_path/job_positions/airport_worker/bodyscan
+			var man_check_node = $customer_path/job_positions/airport_worker/man_check
+			var loading_node = $customer_path/job_positions/airport_worker/loading
+			var unloading_node = $customer_path/job_positions/airport_worker/unloading
 			
 			airport_worker.global_transform.origin = hgscan_node.global_transform.origin
 			add_child(airport_worker)
 			
 			airport_worker.set_job_markers({
 				"hgscan": hgscan_node,
-				"bodyscan": bodyscan_node
+				"bodyscan": bodyscan_node,
+				"man_check": man_check_node,
+				"loading": loading_node,
+				"unloading": unloading_node
 			})
 
 

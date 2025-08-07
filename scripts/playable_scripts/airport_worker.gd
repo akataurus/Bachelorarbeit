@@ -10,7 +10,7 @@ extends "res://scripts/playable_scripts/player_base.gd"
 @onready var speech_bubble := $Label3D # für die worker um mit npcs zu reden
 
 var job_markers = {}
-var job_order := ["hgscan", "bodyscan"]
+var job_order := ["hgscan", "bodyscan", "man_check", "loading", "unloading"]
 
 var curr_job_index := 0
 
@@ -56,7 +56,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("previous_job"):
 		teleport_to_job(self, -1)
 
-
+# called from world.gd
 func set_job_markers(markers: Dictionary):
 	job_markers = markers
 

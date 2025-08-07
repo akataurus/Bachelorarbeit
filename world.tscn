@@ -73,18 +73,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8233, 0, 62.748)
 [node name="suitcase" parent="." instance=ExtResource("15_n6nrx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.0863, 0, 62.2617)
 
-[node name="spawns" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33.5081)
-
-[node name="passenger_spawn" type="Node3D" parent="spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.6154, 0, 33.0479)
-
-[node name="airportw_spawn" type="Node3D" parent="spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1477, 0, 8.50154)
-
-[node name="airlinew_spawn" type="Node3D" parent="spawns"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20777, 0, 12.0229)
-
 [node name="customer_path" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -18.9345, 0, 55.8431)
 
@@ -94,18 +82,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34.5358)
 [node name="airport_worker" type="Node3D" parent="customer_path/job_positions"]
 
 [node name="hgscan" type="Marker3D" parent="customer_path/job_positions/airport_worker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9539, 0, 41.0691)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.28483, 0, 49.6213)
 
 [node name="bodyscan" type="Marker3D" parent="customer_path/job_positions/airport_worker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00559, 0, 47.4234)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.4436, 0, 57.8117)
+
+[node name="man_check" type="Marker3D" parent="customer_path/job_positions/airport_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.01512, 0, 61.76)
+
+[node name="loading" type="Marker3D" parent="customer_path/job_positions/airport_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1347, 0, 59.4308)
+
+[node name="unloading" type="Marker3D" parent="customer_path/job_positions/airport_worker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.1636, 0, 98.1924)
 
 [node name="airline_worker" type="Node3D" parent="customer_path/job_positions"]
 
 [node name="schalter" type="Marker3D" parent="customer_path/job_positions/airline_worker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66123, 4.76837e-07, 44.5775)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5601, 4.76837e-07, 43.1652)
 
 [node name="gate" type="Marker3D" parent="customer_path/job_positions/airline_worker"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2059, 0, 51.6102)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.8487, 0, 74.2875)
 
 [node name="Marker3D" type="Marker3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6543, 0, -1.68731)
