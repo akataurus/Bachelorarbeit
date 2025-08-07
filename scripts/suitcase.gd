@@ -44,7 +44,6 @@ func _process(delta):
 	if GameManager.role == "airline_worker":
 		return # airline worker kann nicht mit koffern interagieren
 	if is_moving_on_belt:
-		print("sollte sich bewegen")
 		linear_velocity += belt_direction * belt_speed * delta
 		return # keine Eingabe möglich wenn koffer in Bewegung
 	

@@ -80,12 +80,21 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 
 
 func _on_suitcase_stop_body_entered(body: Node3D) -> void:
-	print("triggered")
 	if body.is_in_group("suitcase"):
-		print("hier")
 		body.is_moving_on_belt = false
-		if body.drop_target and body.drop_target.get_parent().has_method("update_feedback"):
-			body.drop_target.get_parent().update_feedback(body.weight < body.weight_limit)
+		
+		# Der Schalter mit Script ist ein Geschwister-Node
+		var schalter_script_node = get_parent().get_node_or_null("schalter")
+		
+		if schalter_script_node and schalter_script_node.has_method("update_feedback"):
+			var weight = body.weight if "weight" in body else 20.0
+			var weight_limit = body.weight_limit if "weight_limit" in body else 20.0
+			
+			print("Rufe update_feedback auf Geschwister-Node: ", schalter_script_node.name)
+			schalter_script_node.update_feedback(weight < weight_limit)
+			print("✅ update_feedback erfolgreich aufgerufen")
+		else:
+			print("Geschwister-Node 'schalter' nicht gefunden oder hat keine update_feedback")
 
 # called by suitcase for npc luggage feedback to the player (airline-worker)
 func npc_update_feedback(is_valid: bool):

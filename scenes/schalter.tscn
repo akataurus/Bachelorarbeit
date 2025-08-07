@@ -57,7 +57,7 @@ mesh = SubResource("PlaneMesh_nx4ww")
 surface_material_override/0 = SubResource("StandardMaterial3D_kushs")
 
 [node name="suitcase_stop" type="Area3D" parent="." index="1" groups=["suitcase_stop"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5701, 0.450641, 1.12525)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5701, 0.450641, 1.1357)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="suitcase_stop" index="0" groups=["suitcase_stop"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.323346, 0.439351, -0.379705)
@@ -71,5 +71,5 @@ transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, -1.93748, 0.82579
 
 [connection signal="body_entered" from="bildschirm/Area3D" to="bildschirm" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="bildschirm/Area3D" to="bildschirm" method="_on_area_3d_body_exited"]
-[connection signal="body_entered" from="suitcase_stop" to="bildschirm" method="_on_suitcase_stop_body_entered"]
+[connection signal="body_entered" from="suitcase_stop" to="." method="_on_suitcase_stop_body_entered"]
 [connection signal="body_entered" from="Player" to="bildschirm" method="_on_player_body_entered"]
