@@ -153,12 +153,6 @@ func accept_luggage():
 		# Koffer weiter auf Fließband bewegen
 		pending_npc_suitcase.is_moving_on_belt = true
 		pending_npc_suitcase.freeze = false
-		
-		# Grünes Feedback
-		if pending_npc_suitcase.has_meta("target_schalter"):
-			var schalter = pending_npc_suitcase.get_meta("target_schalter")
-			if schalter.has_method("npc_update_feedback"):
-				schalter.npc_update_feedback(true)  # Grün
 	
 	# NPC darf weitergehen
 	if pending_npc and pending_npc.has_method("luggage_accepted"):
@@ -172,13 +166,6 @@ func accept_luggage():
 	
 func reject_luggage():
 	print("Airline Worker: Koffer abgelehnt!")
-	
-	if pending_npc_suitcase and is_instance_valid(pending_npc_suitcase):
-		# Rotes Feedback
-		if pending_npc_suitcase.has_meta("target_schalter"):
-			var schalter = pending_npc_suitcase.get_meta("target_schalter")
-			if schalter.has_method("npc_update_feedback"):
-				schalter.npc_update_feedback(false)  # Rot
 	
 	# NPC muss Koffer mitnehmen und abhauen
 	if pending_npc and pending_npc.has_method("luggage_rejected"):

@@ -96,6 +96,7 @@ func _on_suitcase_stop_body_entered(body: Node3D) -> void:
 
 # called by suitcase for npc luggage feedback to the player (airline-worker)
 func npc_update_feedback(is_valid: bool):
+	print("npc_udate_feedback called")
 	var material = feedback_light.get_active_material(0)
 	var material2 = monitor_feedback.get_active_material(0)
 	if material == null:
@@ -108,6 +109,10 @@ func npc_update_feedback(is_valid: bool):
 	else:
 		material.albedo_color = Color(1, 0, 0) # Rot
 		material2.albedo_color = Color(1, 0, 0) # Rot
+	
+	await get_tree().create_timer(2).timeout 
+	material.albedo_color = Color(1, 1, 1) # Weiß
+	material2.albedo_color = Color(1, 1, 1)
 
 func notify_airline_worker(suitcase: Node, npc: Node):
 	"""Benachrichtigt den Airline Worker über wartenden Koffer"""
