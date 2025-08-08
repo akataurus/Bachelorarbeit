@@ -41,10 +41,12 @@ func _ready():
 	plane = find_plane()
 
 func _process(delta):
-	if GameManager.role == "airline_worker":
-		return # airline worker kann nicht mit koffern interagieren
+	#if GameManager.role == "airline_worker":
+		#return # airline worker kann nicht mit koffern interagieren
 	if is_moving_on_belt:
+	
 		linear_velocity += belt_direction * belt_speed * delta
+		
 		return # keine Eingabe möglich wenn koffer in Bewegung
 	
 	if player and Input.is_action_just_pressed("interact"):
@@ -73,14 +75,10 @@ func _process(delta):
 
 func _on_counter_exit_body_entered(body):
 	if body == self:
-		#is_moving_on_belt = false
-		print("parent: ", drop_target.get_parent())
 		if drop_target and drop_target.get_parent().has_method("update_feedback"):
 			drop_target.get_parent().update_feedback(weight < weight_limit)
 		var grandparent = drop_target.get_parent().get_parent()
-		print("grandparent: ", grandparent)
 		if grandparent and grandparent.has_method("update_feedback"):
-			print("grandparent hat methode")
 			grandparent.update_feedback(weight < weight_limit)
 
 func _on_body_entered(body):
@@ -103,7 +101,7 @@ func _on_body_entered(body):
 		is_in_truck_range = true
 	
 	elif body.is_in_group("suitcase_stop"):
-		print("here")
+		print("on body entered hat bewegung gestopt")
 		is_moving_on_belt = false
 		
 	
@@ -248,5 +246,8 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 			if drop_target == plane:
 				drop_target = null
 # called by npc_customer
-func npc_update_feedback(npc: Node3D):
-	pass
+func trigger_npc_feedback(schalter: Node):
+	if schalter and schalter.has_method("npc_update_feedback"):
+		schalter.npc_update_feedback(weight < weight_limit)
+	else:
+		print("Schalter hat keine npc_update_feedback Methode!")

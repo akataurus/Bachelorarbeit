@@ -90,9 +90,7 @@ func _on_suitcase_stop_body_entered(body: Node3D) -> void:
 			var weight = body.weight if "weight" in body else 20.0
 			var weight_limit = body.weight_limit if "weight_limit" in body else 20.0
 			
-			print("Rufe update_feedback auf Geschwister-Node: ", schalter_script_node.name)
 			schalter_script_node.update_feedback(weight < weight_limit)
-			print("✅ update_feedback erfolgreich aufgerufen")
 		else:
 			print("Geschwister-Node 'schalter' nicht gefunden oder hat keine update_feedback")
 
@@ -110,3 +108,13 @@ func npc_update_feedback(is_valid: bool):
 	else:
 		material.albedo_color = Color(1, 0, 0) # Rot
 		material2.albedo_color = Color(1, 0, 0) # Rot
+
+func notify_airline_worker(suitcase: Node, npc: Node):
+	"""Benachrichtigt den Airline Worker über wartenden Koffer"""
+	var airline_worker = get_tree().get_first_node_in_group("airline_worker")
+	print("airline worker: ", airline_worker)
+	if airline_worker and airline_worker.has_method("set_pending_luggage"):
+		airline_worker.set_pending_luggage(suitcase, npc)
+		print("Airline Worker benachrichtigt über wartenden Koffer")
+	else:
+		print("❌ Kein Airline Worker gefunden")

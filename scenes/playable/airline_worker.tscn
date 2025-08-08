@@ -9,7 +9,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 [sub_resource type="SphereShape3D" id="SphereShape3D_g7xr8"]
 radius = 4.26534
 
-[node name="Player" type="RigidBody3D" groups=["player"]]
+[node name="Player" type="RigidBody3D" groups=["airline_worker"]]
 lock_rotation = true
 script = ExtResource("1_ky876")
 

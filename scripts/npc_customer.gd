@@ -46,14 +46,12 @@ func _physics_process(delta):
 		current_path_index += 1
 		if current_path_index == wait_at_index:
 			waiting = true
-			print("wartet am Schalter")
 			if not has_placed_luggage:
 				place_luggage_on_scale()
 			return
 		if current_path_index >= path.size():
 			waiting = true
 			velocity = Vector3.ZERO
-			print("npc hat ende erreicht")
 			despawn()
 			return
 	else:
@@ -75,7 +73,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		update_label("Hello!")
 
 func spawn_suitcase():
-	print("Spawne Koffer für NPC")
 	npc_suitcase = suitcase_scene.instantiate()
 	# Koffer zur Szene hinzufügen (nicht als Child des NPCs)
 	get_tree().current_scene.add_child(npc_suitcase)
@@ -97,9 +94,7 @@ func place_luggage_on_scale():
 	if not npc_suitcase or has_placed_luggage:
 		return
 
-	print("NPC legt Koffer auf die Waage")
 
-	# Finde den Schalter und dessen baggage_pos Marker
 	var target_schalter = find_nearest_drop_position()
 	if not target_schalter:
 		print("❌ Schalter nicht gefunden!")
@@ -109,15 +104,57 @@ func place_luggage_on_scale():
 		npc_suitcase.global_position = target_schalter.get_drop_position()
 		npc_suitcase.rotation = Vector3(deg_to_rad(-90), 0, 0)
 		has_placed_luggage = true
+		
+		# Koffer aktivieren
 		npc_suitcase.freeze = false
-		npc_suitcase.gravity_scale = 0.7 # standard gravity
+		npc_suitcase.gravity_scale = 0.7
 		npc_suitcase.is_moving_on_belt = true
-		print("koffer platziert")
+		
+		# 🔥 WICHTIG: drop_target setzen (wie bei Spieler-Koffer)
+		# Finde das StaticBody3D in der schalter-Gruppe für diesen Schalter
+		var schalter_static_body = find_schalter_static_body(target_schalter)
+		if schalter_static_body:
+			npc_suitcase.drop_target = schalter_static_body
+			print("drop_target gesetzt: ", schalter_static_body.name)
+		else:
+			print("❌ StaticBody3D für Schalter nicht gefunden")
+		
+		
+		# Feedback triggern
+		npc_suitcase.set_meta("target_schalter", target_schalter)
+		if target_schalter.has_method("npc_update_feedback"):
+			var is_valid = npc_suitcase.weight < npc_suitcase.weight_limit
+			target_schalter.npc_update_feedback(is_valid)
+		
+	npc_suitcase.set_meta("target_schalter", target_schalter)
+	
+	# Airline Worker benachrichtigen statt sofortiges Feedback
+	if target_schalter.has_method("notify_airline_worker"):
+		target_schalter.notify_airline_worker(npc_suitcase, self)
+	
+		print("koffer platziert - wartet auf Airline Worker Entscheidung")
 	else:
 		print("schalter hat keine get_drop_position mehtode!")
 
+func find_schalter_static_body(schalter_node: Node):
+	"""Findet das StaticBody3D das zu diesem Schalter gehört"""
+	# Suche in der schalter-Gruppe nach dem StaticBody3D
+	var schalter_nodes = get_tree().get_nodes_in_group("schalter")
+	
+	for node in schalter_nodes:
+		if node is StaticBody3D:
+			# Überprüfe ob dieses StaticBody3D zum richtigen Schalter gehört
+			var node_parent = node.get_parent()
+			while node_parent:
+				if node_parent == schalter_node:
+					return node
+				node_parent = node_parent.get_parent()
+	
+	return null
+
 func find_nearest_drop_position():
 	var schalter_nodes = get_tree().get_nodes_in_group("schalter")
+	
 	if schalter_nodes.size() == 0:
 		print("schalter nicht gefunden")
 		return null
@@ -125,22 +162,34 @@ func find_nearest_drop_position():
 	var nearest_schalter = null
 	var shortest_distance = INF
 
-	for schalter in schalter_nodes:
-		# Nur Schalter berücksichtigen, die get_drop_position() haben
-		if not schalter.has_method("get_drop_position"):
-			print("continued")
+	for schalter_node in schalter_nodes:
+		
+		var actual_schalter = null
+		
+		# Für StaticBody3D: Suche Parent mit get_drop_position()
+		if schalter_node is StaticBody3D:
+			var parent = schalter_node.get_parent()
+			while parent:
+				if parent.has_method("get_drop_position"):
+					actual_schalter = parent
+					break
+				parent = parent.get_parent()
+		# Für andere Nodes: Direkt prüfen
+		elif schalter_node.has_method("get_drop_position"):
+			actual_schalter = schalter_node
+		
+		if not actual_schalter:
+			print("  → Keine get_drop_position Methode gefunden")
 			continue
 			
-		var drop_pos = schalter.get_drop_position()
+		var drop_pos = actual_schalter.get_drop_position()
 		var distance = global_position.distance_to(drop_pos)
 
-		print("Distanz zu ", schalter.name, " drop_position: ", distance)
 		
 		if distance < shortest_distance:
 			shortest_distance = distance
-			nearest_schalter = schalter
+			nearest_schalter = actual_schalter
 
-	print("Nächstgelegener Schalter: ", nearest_schalter.name if nearest_schalter else "None")
 	return nearest_schalter
 
 
@@ -173,5 +222,42 @@ func update_label(text: String):
 	label.text = ""
 	
 func despawn():
-	print("npc despawn")
 	queue_free()
+
+func luggage_accepted():
+	"""Wird aufgerufen wenn Airline Worker Koffer akzeptiert"""
+	print("NPC: Koffer wurde akzeptiert - darf weitergehen")
+	update_label("Thank you!")
+	await get_tree().create_timer(2.0).timeout
+	
+	# NPC kann weitergehen (Pfad fortsetzen oder despawnen)
+	waiting = false
+
+func luggage_rejected():
+	"""Wird aufgerufen wenn Airline Worker Koffer ablehnt"""
+	print("NPC: Koffer wurde abgelehnt - muss ihn mitnehmen")
+	update_label("Oh no! I'll take it back...")
+	await get_tree().create_timer(2.0).timeout
+	
+	# Koffer wieder mitnehmen
+	take_suitcase_back()
+	
+	# NPC geht weg
+	await get_tree().create_timer(1.0).timeout
+	waiting = false # npc geht weiter
+	
+func take_suitcase_back():
+	"""NPC nimmt seinen Koffer wieder mit"""
+	if npc_suitcase and is_instance_valid(npc_suitcase):
+		print("NPC nimmt Koffer zurück")
+		
+		# Koffer stoppen
+		npc_suitcase.is_moving_on_belt = false
+		npc_suitcase.freeze = true
+		npc_suitcase.gravity_scale = 0
+		
+		# Koffer zurück zum NPC bewegen
+		npc_suitcase.global_position = global_position + Vector3(1, 0, 0)
+		
+		# Optional: Koffer wieder als "mitgetragen" markieren
+		has_placed_luggage = false

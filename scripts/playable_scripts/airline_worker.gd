@@ -15,6 +15,8 @@ var curr_customer_at_counter: Node = null
 var active_hints := {} # alle aktiven hints 
 
 var speech_counter = 0 # um zu wissen, welcher Text angezeigt werden soll
+var pending_npc_suitcase = null # Der Koffer, der auf Entscheidung wartet
+var pending_npc = null # der zugehörige npc
 
 @onready var anim_player := $business_man_walk/AnimationPlayer
 @onready var anim_player2 := $business_man_walk/AnimationPlayer2
@@ -53,17 +55,28 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact") and curr_job_index == 0:
 		match speech_counter % 3: 
 			0:
+				show_hint("Check in customer: E", self)
 				dialogue("Hello, ID please!")
 			1:
+				show_hint("Finish check in: E", self)
 				dialogue("Thanks, I'm checking you in...")
 			2:
+				hide_hint(self)
 				dialogue("Alright, you are checked in. \n Go to the security check now please.")
 
 	if curr_customer_at_counter:
-		show_hint("ID check: E", self)
+		pass
+		#show_hint("ID check: E", self)
 	else:
 		hide_hint(self)
 	
+	if pending_npc_suitcase:
+		show_hint("Accept luggage: J | Reject luggage: N", self)
+		
+		if Input.is_action_just_pressed("luggage_accept"):
+			accept_luggage()
+		elif Input.is_action_just_pressed("luggage_reject"):
+			reject_luggage()
 
 # aufgerufen von world.gd
 func set_job_markers(markers: Dictionary):
@@ -128,3 +141,56 @@ func dialogue(text: String):
 		await curr_customer_at_counter.dialogue(speech_counter)
 
 		speech_counter += 1
+		if speech_counter >= 3:
+			speech_counter = 0
+
+
+
+func accept_luggage():
+	print("Airline Worker: Koffer akzeptiert!")
+	
+	if pending_npc_suitcase and is_instance_valid(pending_npc_suitcase):
+		# Koffer weiter auf Fließband bewegen
+		pending_npc_suitcase.is_moving_on_belt = true
+		pending_npc_suitcase.freeze = false
+		
+		# Grünes Feedback
+		if pending_npc_suitcase.has_meta("target_schalter"):
+			var schalter = pending_npc_suitcase.get_meta("target_schalter")
+			if schalter.has_method("npc_update_feedback"):
+				schalter.npc_update_feedback(true)  # Grün
+	
+	# NPC darf weitergehen
+	if pending_npc and pending_npc.has_method("luggage_accepted"):
+		pending_npc.luggage_accepted()
+	
+	# Reset
+	pending_npc_suitcase = null
+	pending_npc = null
+	hide_hint(self)
+	
+	
+func reject_luggage():
+	print("Airline Worker: Koffer abgelehnt!")
+	
+	if pending_npc_suitcase and is_instance_valid(pending_npc_suitcase):
+		# Rotes Feedback
+		if pending_npc_suitcase.has_meta("target_schalter"):
+			var schalter = pending_npc_suitcase.get_meta("target_schalter")
+			if schalter.has_method("npc_update_feedback"):
+				schalter.npc_update_feedback(false)  # Rot
+	
+	# NPC muss Koffer mitnehmen und abhauen
+	if pending_npc and pending_npc.has_method("luggage_rejected"):
+		pending_npc.luggage_rejected()
+	
+	# Reset
+	pending_npc_suitcase = null
+	pending_npc = null
+	hide_hint(self)
+	
+func set_pending_luggage(suitcase: Node, npc: Node):
+	"""Wird vom Schalter aufgerufen wenn NPC-Koffer wartet"""
+	pending_npc_suitcase = suitcase
+	pending_npc = npc
+	print("Airline Worker: Koffer wartet auf Entscheidung von ", npc.name)
