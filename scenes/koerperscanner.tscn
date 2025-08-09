@@ -19,7 +19,7 @@ size = Vector3(12.8517, 33.7705, 7.76715)
 
 [node name="koerperscanner" instance=ExtResource("1_7odf3")]
 
-[node name="Cube" parent="." index="0"]
+[node name="Cube" parent="." index="0" groups=["body_scanner"]]
 transform = Transform3D(0.5, 0, 0, 0, 0.067, 0, 0, 0, 0.693, 0, 2.5, 0)
 script = ExtResource("2_djs0q")
 

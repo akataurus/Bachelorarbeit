@@ -129,6 +129,8 @@ func _handle_wait_point():
 		7: # Handgepäck-Scanner
 			if not has_placed_hand_luggage:
 				place_hand_luggage()
+		10: # Körper scanner
+			request_body_scan()
 
 # ========== LUGGAGE PLACEMENT ==========
 func place_luggage_on_scale():
@@ -321,7 +323,47 @@ func hand_luggage_rejected():
 	despawn() #npc verschwindet
 	npc_hand_luggage.despawn() # handgepäck verschwindet
 
+#  Body Scanner Funktionen
+func request_body_scan():
+	"""NPC fordert Körperscanner an"""
+	print("NPC wartet am Körperscanner")
+	
+	var body_scanner = find_nearest_body_scanner()
+	if body_scanner and body_scanner.has_method("notify_airport_worker_for_body_scan"):
+		body_scanner.notify_airport_worker_for_body_scan(self)
+	else:
+		print("❌ Körperscanner nicht gefunden")
 
+
+
+func body_scan_completed(success: bool):
+	"""Wird vom Körperscanner aufgerufen"""
+	if success:
+		update_label("Thank you!")
+		await get_tree().create_timer(2.0).timeout
+		waiting = false  # Weitergehen
+	else:
+		update_label("Oh no, manual check...")
+		await get_tree().create_timer(2.0).timeout
+		# Zum manuellen Check gehen
+		waiting = false
+
+func find_nearest_body_scanner():
+	"""Findet den nächsten Körperscanner"""
+	var scanners = get_tree().get_nodes_in_group("body_scanner")
+	if scanners.size() == 0:
+		return null
+	
+	var nearest = null
+	var shortest_distance = INF
+	
+	for scanner in scanners:
+		var distance = global_position.distance_to(scanner.global_position)
+		if distance < shortest_distance:
+			shortest_distance = distance
+			nearest = scanner
+	
+	return nearest
 
 func take_suitcase_back():
 	if npc_suitcase and is_instance_valid(npc_suitcase):

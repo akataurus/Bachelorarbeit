@@ -21,6 +21,9 @@ var active_hints := {} # alle aktiven hints
 var pending_npc_hand_luggage = null
 var pending_npc_for_hand_luggage = null
 
+var pending_npc_for_body_scan = null
+var current_body_scanner = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -66,6 +69,13 @@ func _process(delta: float) -> void:
 			accept_hand_luggage()
 		elif Input.is_action_just_pressed("luggage_reject"):  # N-Taste
 			reject_hand_luggage()
+	
+	# Body Scanner Entscheidung
+	if pending_npc_for_body_scan:
+		show_hint("Start body scan: E", self)
+		
+		if Input.is_action_just_pressed("interact"):  # B-Taste
+			start_body_scan()
 
 # called from world.gd
 func set_job_markers(markers: Dictionary):
@@ -82,7 +92,23 @@ func teleport_to_job(player: Node3D, up_down: int):
 	else:
 		print("problem bei airport teleport")
 	
+# Body Scanner Management
+func set_pending_body_scan(npc: Node, scanner: Node):
+	"""Wird vom Body Scanner aufgerufen wenn NPC wartet"""
+	pending_npc_for_body_scan = npc
+	current_body_scanner = scanner
+	print("Airport Worker: NPC wartet am Körperscanner")
+
+func start_body_scan():
+	print("Airport Worker: Startet Körperscanner")
 	
+	if current_body_scanner and current_body_scanner.has_method("start_body_scan"):
+		current_body_scanner.start_body_scan(pending_npc_for_body_scan)
+	
+	# Reset
+	pending_npc_for_body_scan = null
+	current_body_scanner = null
+	hide_hint(self)
 
 func teleport_to_previous_job(player: Node3D):
 	curr_job_index = (curr_job_index -1) % job_order.size()
