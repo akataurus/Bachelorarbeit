@@ -13,7 +13,10 @@ var label_time = 2.0 # Zeit, wie lange text angezeigt wird
 
 var npc_suitcase = null
 @export var suitcase_scene: PackedScene = preload("res://scenes/suitcase.tscn")
+var npc_hand_luggage = null
+@export var hand_luggage_scene: PackedScene = preload("res://scenes/hand_luggage.tscn")
 var has_placed_luggage = false
+var has_placed_hand_luggage = false
 
 func _ready():
 	call_deferred("_post_ready")
@@ -51,13 +54,16 @@ func _physics_process(delta):
 	# Wenn nah genug -> anhalten
 	if direction.length() < 0.1:
 		current_path_index += 1
-		if current_path_index in wait_at_indices:
+		if should_wait_at_index():
 			waiting = true
 			print("npc wartet an index ", current_path_index)
 			
 			# für schalter
 			if current_path_index == 5 and not has_placed_luggage:
 				place_luggage_on_scale()
+			# für handgepäck
+			if current_path_index == 7 and not has_placed_hand_luggage:
+				place_hand_luggage()
 			return
 		if current_path_index >= path.size():
 			waiting = true
@@ -95,10 +101,29 @@ func spawn_suitcase():
 	npc_suitcase.freeze = true
 	npc_suitcase.gravity_scale = 0
 
+	spawn_hand_luggage()
+
+func spawn_hand_luggage():
+	print("spawne handgepäck")
+	npc_hand_luggage = hand_luggage_scene.instantiate()
+	get_tree().current_scene.add_child(npc_hand_luggage)
+	# Position links vom NPC
+	npc_hand_luggage.global_position = global_position + Vector3(-1, 0, 0)
+	npc_hand_luggage.add_to_group("npc_hand_luggage")
+	npc_hand_luggage.set_meta("owner_npc", self)
+	npc_hand_luggage.freeze = true
+	npc_hand_luggage.gravity_scale = 0
+	
+
 func move_suitcase_with_npc():
 	 # Koffer folgt dem NPC mit leichtem Offset
-	var target_pos = global_position + Vector3(1.2, 0, -0.5)  # Rechts hinter dem NPC
-	npc_suitcase.global_position = npc_suitcase.global_position.lerp(target_pos, 0.1)
+	if npc_suitcase and is_instance_valid(npc_suitcase) and not has_placed_hand_luggage:
+		var target_pos = global_position + Vector3(1.2, 0, -0.5)  # Rechts hinter dem NPC
+		npc_suitcase.global_position = npc_suitcase.global_position.lerp(target_pos, 0.1)
+	# handgepäck folgt links
+	if npc_hand_luggage and is_instance_valid(npc_hand_luggage) and not has_placed_hand_luggage:
+		var target_pos = global_position + Vector3(-1.2, 0, -0.5)
+		npc_hand_luggage.global_position = npc_hand_luggage.global_position.lerp(target_pos, 0.1)
 
 func place_luggage_on_scale():
 	if not npc_suitcase or has_placed_luggage:
@@ -141,6 +166,116 @@ func place_luggage_on_scale():
 		target_schalter.notify_airline_worker(npc_suitcase, self)
 	else:
 		print("schalter hat keine get_drop_position mehtode!")
+
+func place_hand_luggage():
+	if not npc_hand_luggage or has_placed_hand_luggage:
+		return
+
+	print("NPC legt Handgepäck auf Scanner")
+
+	var target_scanner = find_nearest_hgscan()
+	if not target_scanner:
+		print("❌ Handgepäck-Scanner nicht gefunden!")
+		return
+
+	if target_scanner.has_method("get_drop_position"):
+		npc_hand_luggage.global_position = target_scanner.get_drop_position()
+		npc_hand_luggage.rotation = Vector3(deg_to_rad(-90), 0, 0)
+		has_placed_hand_luggage = true
+		
+		# Handgepäck aktivieren
+		npc_hand_luggage.freeze = false
+		npc_hand_luggage.gravity_scale = 0.7
+		npc_hand_luggage.is_moving_on_belt = true
+		
+		# drop_target setzen für Handgepäck
+		var scanner_static_body = find_hgscan_static_body(target_scanner)
+		if scanner_static_body:
+			npc_hand_luggage.drop_target = scanner_static_body
+			print("Handgepäck drop_target gesetzt: ", scanner_static_body.name)
+		
+		# Airport Worker benachrichtigen
+		npc_hand_luggage.set_meta("target_scanner", target_scanner)
+		if target_scanner.has_method("notify_airport_worker"):
+			target_scanner.notify_airport_worker(npc_hand_luggage, self)
+		
+		print("Handgepäck platziert auf Scanner")
+	else:
+		print("❌ Scanner hat keine get_drop_position Methode!")
+
+func find_nearest_hgscan():
+	var hgscan_nodes = get_tree().get_nodes_in_group("hgscan")
+	
+	if hgscan_nodes.size() == 0:
+		print("Keine hgscan Nodes gefunden")
+		return null
+
+	var nearest_scanner = null
+	var shortest_distance = INF
+
+	for scanner_node in hgscan_nodes:
+		var actual_scanner = null
+		
+		# Ähnlich wie bei Schaltern: Suche Parent mit get_drop_position()
+		if scanner_node is StaticBody3D:
+			var parent = scanner_node.get_parent()
+			while parent:
+				if parent.has_method("get_drop_position"):
+					actual_scanner = parent
+					break
+				parent = parent.get_parent()
+		elif scanner_node.has_method("get_drop_position"):
+			actual_scanner = scanner_node
+		
+		if not actual_scanner:
+			continue
+			
+		var drop_pos = actual_scanner.get_drop_position()
+		var distance = global_position.distance_to(drop_pos)
+		
+		if distance < shortest_distance:
+			shortest_distance = distance
+			nearest_scanner = actual_scanner
+
+	return nearest_scanner
+
+func hand_luggage_accepted():
+	"""Wird aufgerufen wenn Airport Worker Handgepäck akzeptiert"""
+	update_label("Thank you!")
+	await get_tree().create_timer(2.0).timeout
+	waiting = false
+
+func hand_luggage_rejected():
+	"""Wird aufgerufen wenn Airport Worker Handgepäck ablehnt"""
+	update_label("Oh no! I'll check it again...")
+	await get_tree().create_timer(2.0).timeout
+	take_hand_luggage_back()
+	await get_tree().create_timer(1.0).timeout
+	waiting = false
+
+func take_hand_luggage_back():
+	"""NPC nimmt Handgepäck zurück"""
+	if npc_hand_luggage and is_instance_valid(npc_hand_luggage):
+		print("NPC nimmt Handgepäck zurück")
+		npc_hand_luggage.is_moving_on_belt = false
+		npc_hand_luggage.freeze = true
+		npc_hand_luggage.gravity_scale = 0
+		npc_hand_luggage.global_position = global_position + Vector3(-1, 0, 0)
+		has_placed_hand_luggage = false
+
+func find_hgscan_static_body(scanner_node: Node):
+	"""Findet das StaticBody3D für den Handgepäck-Scanner"""
+	var hgscan_nodes = get_tree().get_nodes_in_group("hgscan")
+	
+	for node in hgscan_nodes:
+		if node is StaticBody3D:
+			var node_parent = node.get_parent()
+			while node_parent:
+				if node_parent == scanner_node:
+					return node
+				node_parent = node_parent.get_parent()
+	
+	return null
 
 func find_schalter_static_body(schalter_node: Node):
 	"""Findet das StaticBody3D das zu diesem Schalter gehört"""
@@ -266,7 +401,10 @@ func take_suitcase_back():
 		# Optional: Koffer wieder als "mitgetragen" markieren
 		has_placed_luggage = false
 
-
-	
-	
+func should_wait_at_index() -> bool:
+	if current_path_index in wait_at_indices:
+		if GameManager.role == "airport_worker" and current_path_index == 5:
+			return false
+		return true
+	return false
 	

@@ -52,6 +52,35 @@ func update_feedback():
 		start_man_check()
 		# animation für scannen hier
 
+func npc_update_feedback(is_valid: bool):
+	var material = feedback.get_active_material(0)
+	if material == null:
+		print("⚠️ Kein Material gefunden!")
+		return
+	
+	print("NPC Handgepäck Feedback: ", "Akzeptiert" if is_valid else "Abgelehnt")
+	
+	if is_valid:
+		material.albedo_color = Color(0, 1, 0) # Grün
+		print("✅ NPC Handgepäck: Akzeptiert")
+	else:
+		material.albedo_color = Color(1, 0, 0) # Rot
+		print("❌ NPC Handgepäck: Abgelehnt")
+		
+	# Nach Zeit zurücksetzen
+	await get_tree().create_timer(3.0).timeout
+	material.albedo_color = Color(1, 1, 1)
+
+# Airport Worker benachrichtigen
+func notify_airport_worker(hand_luggage: Node, npc: Node):
+	"""Benachrichtigt den Airport Worker über wartendes Handgepäck"""
+	var airport_worker = get_tree().get_first_node_in_group("airport_worker")
+	if airport_worker and airport_worker.has_method("set_pending_hand_luggage"):
+		airport_worker.set_pending_hand_luggage(hand_luggage, npc)
+		print("Airport Worker benachrichtigt über wartendes Handgepäck")
+	else:
+		print("❌ Kein Airport Worker gefunden")
+
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		passenger_in_range = true

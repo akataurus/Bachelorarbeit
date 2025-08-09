@@ -18,6 +18,9 @@ var speech_counter = 0 # um zu wissen, welcher Text angezeigt werden soll
 @onready var hint_label := $CanvasLayer/Hint_label
 var active_hints := {} # alle aktiven hints 
 
+var pending_npc_hand_luggage = null
+var pending_npc_for_hand_luggage = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -55,6 +58,14 @@ func _process(delta: float) -> void:
 		teleport_to_job(self, 1)
 	if Input.is_action_just_pressed("previous_job"):
 		teleport_to_job(self, -1)
+		
+	if pending_npc_hand_luggage:
+		show_hint("Accept hand luggage: J | Reject hand luggage: N", self)
+		
+		if Input.is_action_just_pressed("luggage_accept"):  #J-Taste
+			accept_hand_luggage()
+		elif Input.is_action_just_pressed("luggage_reject"):  # N-Taste
+			reject_hand_luggage()
 
 # called from world.gd
 func set_job_markers(markers: Dictionary):
@@ -99,3 +110,52 @@ func update_hint():
 		combined += hint + "\n"
 	hint_label.text = combined.strip_edges()
 	hint_label.visible = active_hints.size() > 0
+
+
+func set_pending_hand_luggage(hand_luggage: Node, npc: Node):
+	"""Wird vom Scanner aufgerufen wenn NPC-Handgepäck wartet"""
+	pending_npc_hand_luggage = hand_luggage
+	pending_npc_for_hand_luggage = npc
+	print("Airport Worker: Handgepäck wartet auf Entscheidung von ", npc.name)
+
+func accept_hand_luggage():
+	print("Airport Worker: Handgepäck akzeptiert!")
+	
+	if pending_npc_hand_luggage and is_instance_valid(pending_npc_hand_luggage):
+		# Handgepäck weiter bewegen
+		pending_npc_hand_luggage.is_moving_on_belt = true
+		pending_npc_hand_luggage.freeze = false
+		
+		# Grünes Feedback
+		if pending_npc_hand_luggage.has_meta("target_scanner"):
+			var scanner = pending_npc_hand_luggage.get_meta("target_scanner")
+			if scanner.has_method("npc_update_feedback"):
+				scanner.npc_update_feedback(true)
+	
+	# NPC darf weitergehen
+	if pending_npc_for_hand_luggage and pending_npc_for_hand_luggage.has_method("hand_luggage_accepted"):
+		pending_npc_for_hand_luggage.hand_luggage_accepted()
+	
+	# Reset
+	pending_npc_hand_luggage = null
+	pending_npc_for_hand_luggage = null
+	hide_hint(self)
+
+func reject_hand_luggage():
+	print("Airport Worker: Handgepäck abgelehnt!")
+	
+	if pending_npc_hand_luggage and is_instance_valid(pending_npc_hand_luggage):
+		# Rotes Feedback
+		if pending_npc_hand_luggage.has_meta("target_scanner"):
+			var scanner = pending_npc_hand_luggage.get_meta("target_scanner")
+			if scanner.has_method("npc_update_feedback"):
+				scanner.npc_update_feedback(false)
+	
+	# NPC muss Handgepäck mitnehmen
+	if pending_npc_for_hand_luggage and pending_npc_for_hand_luggage.has_method("hand_luggage_rejected"):
+		pending_npc_for_hand_luggage.hand_luggage_rejected()
+	
+	# Reset
+	pending_npc_hand_luggage = null
+	pending_npc_for_hand_luggage = null
+	hide_hint(self)
