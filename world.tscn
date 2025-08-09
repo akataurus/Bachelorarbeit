@@ -119,8 +119,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0278, 0, -0.00812912)
 [node name="schalter" type="Marker3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9834, 0, 5.0024)
 
+[node name="Marker3D5" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.03355, 0, 5.04851)
+
 [node name="hgscan" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.43132, 1.90735e-06, 5.06668)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.76895, 1.90735e-06, 10.8553)
+
+[node name="Marker3D6" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.41948, 0, 8.15041)
+
+[node name="Marker3D7" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4477, 0, 8.29832)
+
+[node name="bodyscan" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9278, 0, 18.7271)
+
+[node name="Marker3D8" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.07149, 0, 25.4236)
+
+[node name="gate" type="Marker3D" parent="customer_path"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.522, 0, 32.3349)
 
 [node name="spawn" type="Marker3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9488, 0, -11.4776)

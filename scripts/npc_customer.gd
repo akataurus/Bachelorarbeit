@@ -5,7 +5,8 @@ extends CharacterBody3D
 var path := []
 var current_path_index := 0
 var waiting = false
-const wait_at_index := 5
+var wait_at_indices := [5, 7, 10, 12] # indizes wo interagiert wird
+const current_wait_index := 0
 
 @onready var label = $Label3D
 var label_time = 2.0 # Zeit, wie lange text angezeigt wird
@@ -29,6 +30,12 @@ func set_path(p: Array):
 	current_path_index = 0
 	waiting = false
 
+func set_wait_points(indices: Array):
+	# setze pfad indizes an denen der npc warten soll
+	wait_at_indices = indices
+	wait_at_indices.sort() # für korrekte reihenfolge
+	print("npc wartepunkte gesetzt: ", wait_at_indices)
+
 # von einem worker aufgerufen
 func resume_from_wait():
 	waiting = false
@@ -44,9 +51,12 @@ func _physics_process(delta):
 	# Wenn nah genug -> anhalten
 	if direction.length() < 0.1:
 		current_path_index += 1
-		if current_path_index == wait_at_index:
+		if current_path_index in wait_at_indices:
 			waiting = true
-			if not has_placed_luggage:
+			print("npc wartet an index ", current_path_index)
+			
+			# für schalter
+			if current_path_index == 5 and not has_placed_luggage:
 				place_luggage_on_scale()
 			return
 		if current_path_index >= path.size():
@@ -97,7 +107,7 @@ func place_luggage_on_scale():
 
 	var target_schalter = find_nearest_drop_position()
 	if not target_schalter:
-		print("❌ Schalter nicht gefunden!")
+		print("Schalter nicht gefunden!")
 		return
 
 	if target_schalter.has_method("get_drop_position"):
@@ -110,14 +120,12 @@ func place_luggage_on_scale():
 		npc_suitcase.gravity_scale = 0.7
 		npc_suitcase.is_moving_on_belt = true
 		
-		# 🔥 WICHTIG: drop_target setzen (wie bei Spieler-Koffer)
 		# Finde das StaticBody3D in der schalter-Gruppe für diesen Schalter
 		var schalter_static_body = find_schalter_static_body(target_schalter)
 		if schalter_static_body:
 			npc_suitcase.drop_target = schalter_static_body
-			print("drop_target gesetzt: ", schalter_static_body.name)
 		else:
-			print("❌ StaticBody3D für Schalter nicht gefunden")
+			print("StaticBody3D für Schalter nicht gefunden")
 		
 		
 		# Feedback triggern
@@ -131,8 +139,6 @@ func place_luggage_on_scale():
 	# Airline Worker benachrichtigen statt sofortiges Feedback
 	if target_schalter.has_method("notify_airline_worker"):
 		target_schalter.notify_airline_worker(npc_suitcase, self)
-	
-		print("koffer platziert - wartet auf Airline Worker Entscheidung")
 	else:
 		print("schalter hat keine get_drop_position mehtode!")
 
@@ -179,7 +185,7 @@ func find_nearest_drop_position():
 			actual_schalter = schalter_node
 		
 		if not actual_schalter:
-			print("  → Keine get_drop_position Methode gefunden")
+			print("Keine get_drop_position Methode gefunden")
 			continue
 			
 		var drop_pos = actual_schalter.get_drop_position()
@@ -226,7 +232,6 @@ func despawn():
 
 func luggage_accepted():
 	"""Wird aufgerufen wenn Airline Worker Koffer akzeptiert"""
-	print("NPC: Koffer wurde akzeptiert - darf weitergehen")
 	update_label("Thank you!")
 	await get_tree().create_timer(2.0).timeout
 	
@@ -235,7 +240,6 @@ func luggage_accepted():
 
 func luggage_rejected():
 	"""Wird aufgerufen wenn Airline Worker Koffer ablehnt"""
-	print("NPC: Koffer wurde abgelehnt - muss ihn mitnehmen")
 	update_label("Oh no! I'll take it back...")
 	await get_tree().create_timer(2.0).timeout
 	
@@ -261,3 +265,8 @@ func take_suitcase_back():
 		
 		# Optional: Koffer wieder als "mitgetragen" markieren
 		has_placed_luggage = false
+
+
+	
+	
+	

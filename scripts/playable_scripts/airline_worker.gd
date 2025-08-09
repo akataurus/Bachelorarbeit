@@ -147,7 +147,6 @@ func dialogue(text: String):
 
 
 func accept_luggage():
-	print("Airline Worker: Koffer akzeptiert!")
 	
 	if pending_npc_suitcase and is_instance_valid(pending_npc_suitcase):
 		# Koffer weiter auf Fließband bewegen
@@ -165,8 +164,6 @@ func accept_luggage():
 	
 	
 func reject_luggage():
-	print("Airline Worker: Koffer abgelehnt!")
-	
 	# NPC muss Koffer mitnehmen und abhauen
 	if pending_npc and pending_npc.has_method("luggage_rejected"):
 		pending_npc.luggage_rejected()
@@ -180,4 +177,4 @@ func set_pending_luggage(suitcase: Node, npc: Node):
 	"""Wird vom Schalter aufgerufen wenn NPC-Koffer wartet"""
 	pending_npc_suitcase = suitcase
 	pending_npc = npc
-	print("Airline Worker: Koffer wartet auf Entscheidung von ", npc.name)
+	

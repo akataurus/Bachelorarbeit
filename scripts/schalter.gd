@@ -96,7 +96,6 @@ func _on_suitcase_stop_body_entered(body: Node3D) -> void:
 
 # called by suitcase for npc luggage feedback to the player (airline-worker)
 func npc_update_feedback(is_valid: bool):
-	print("npc_udate_feedback called")
 	var material = feedback_light.get_active_material(0)
 	var material2 = monitor_feedback.get_active_material(0)
 	if material == null:
@@ -117,9 +116,7 @@ func npc_update_feedback(is_valid: bool):
 func notify_airline_worker(suitcase: Node, npc: Node):
 	"""Benachrichtigt den Airline Worker über wartenden Koffer"""
 	var airline_worker = get_tree().get_first_node_in_group("airline_worker")
-	print("airline worker: ", airline_worker)
 	if airline_worker and airline_worker.has_method("set_pending_luggage"):
 		airline_worker.set_pending_luggage(suitcase, npc)
-		print("Airline Worker benachrichtigt über wartenden Koffer")
 	else:
 		print("❌ Kein Airline Worker gefunden")
