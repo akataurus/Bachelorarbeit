@@ -112,3 +112,7 @@ func man_scan_result():
 		speech_bubble.text = "Forbidden Stuff found! \n Please put them in the bin."
 	else:
 		speech_bubble.text = "Okay, all good. Proceed to the gate."
+
+
+func _on_luggage_stop_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

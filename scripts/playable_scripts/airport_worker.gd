@@ -62,7 +62,7 @@ func _process(delta: float) -> void:
 	if pending_npc_hand_luggage:
 		show_hint("Accept hand luggage: J | Reject hand luggage: N", self)
 		
-		if Input.is_action_just_pressed("luggage_accept"):  #J-Taste
+		if Input.is_action_just_pressed("luggage_accept"):  # J-Taste
 			accept_hand_luggage()
 		elif Input.is_action_just_pressed("luggage_reject"):  # N-Taste
 			reject_hand_luggage()
@@ -123,8 +123,9 @@ func accept_hand_luggage():
 	
 	if pending_npc_hand_luggage and is_instance_valid(pending_npc_hand_luggage):
 		# Handgepäck weiter bewegen
-		pending_npc_hand_luggage.is_moving_on_belt = true
-		pending_npc_hand_luggage.freeze = false
+		pending_npc_hand_luggage.is_moving_on_belt = false
+		pending_npc_hand_luggage.freeze = true
+		pending_npc_hand_luggage.gravity_scale = 0
 		
 		# Grünes Feedback
 		if pending_npc_hand_luggage.has_meta("target_scanner"):

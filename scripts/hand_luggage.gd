@@ -10,7 +10,7 @@ var drop_target = null # speichert drop Ziel falls erkannt wird
 var is_dropping = false # workaround für drop() und _on_body_exited()
 
 var is_moving_on_belt = false 
-var belt_direction := Vector3.BACK # Richtung der Bewegung
+var belt_direction := Vector3.FORWARD # Richtung der Bewegung
 var belt_speed := 1.5 # Geschwindigkeit für Bewegung
 
 var is_in_hgscan_range = false
@@ -126,3 +126,7 @@ func drop():
 		
 	reparent(get_tree().current_scene)  #Entfernt Koffer aus Spielerhierarchie
 	is_dropping = false
+
+# entfernt handgepäck
+func despawn():
+	queue_free()

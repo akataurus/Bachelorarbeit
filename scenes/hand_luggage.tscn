@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccfg6nqd46qke"]
 
 [ext_resource type="Script" uid="uid://bncpjt1lhvalj" path="res://scripts/hand_luggage.gd" id="1_mubem"]
-[ext_resource type="PackedScene" uid="uid://c7qco10llpfq6" path="res://assets/scenes/hl_mesh.tscn" id="1_ri8cb"]
+[ext_resource type="PackedScene" uid="uid://c7qco10llpfq6" path="res://scenes/hl_mesh.tscn" id="1_ri8cb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ilmoy"]
 size = Vector3(0.405273, 0.489014, 0.477112)
