@@ -19,9 +19,8 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.655888, 0, -0.754858, 0, 1, 0, 0.754858, 0, 0.655888, 0, 0.916326, 0)
 shape = SubResource("ConvexPolygonShape3D_j8mlf")
-disabled = true
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." groups=["npc_customer"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705167, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]

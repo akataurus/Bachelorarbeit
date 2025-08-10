@@ -54,5 +54,6 @@ shape = SubResource("BoxShape3D_yw2lb")
 [node name="npc_airport_worker" parent="." index="1" instance=ExtResource("3_00xkp")]
 transform = Transform3D(-0.8109, 0, -0.585184, 0, 1, 0, 0.585184, 0, -0.8109, 2.05438, 0, 2.30366)
 
+[connection signal="body_entered" from="Cube/Area3D" to="Cube" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="Cube/Area3D2" to="Cube" method="_on_area_3d_2_body_entered"]
 [connection signal="body_exited" from="Cube/Area3D2" to="Cube" method="_on_area_3d_2_body_exited"]

@@ -325,7 +325,6 @@ func hand_luggage_rejected():
 
 #  Body Scanner Funktionen
 func request_body_scan():
-	"""NPC fordert Körperscanner an"""
 	print("NPC wartet am Körperscanner")
 	
 	var body_scanner = find_nearest_body_scanner()
@@ -334,24 +333,12 @@ func request_body_scan():
 	else:
 		print("❌ Körperscanner nicht gefunden")
 
-
-
-func body_scan_completed(success: bool):
-	"""Wird vom Körperscanner aufgerufen"""
-	if success:
-		update_label("Thank you!")
-		await get_tree().create_timer(2.0).timeout
-		waiting = false  # Weitergehen
-	else:
-		update_label("Oh no, manual check...")
-		await get_tree().create_timer(2.0).timeout
-		# Zum manuellen Check gehen
-		waiting = false
-
+# Body Scanner Funktionen (nach request_body_scan())
 func find_nearest_body_scanner():
 	"""Findet den nächsten Körperscanner"""
 	var scanners = get_tree().get_nodes_in_group("body_scanner")
 	if scanners.size() == 0:
+		print("Keine Body Scanner gefunden")
 		return null
 	
 	var nearest = null
@@ -363,6 +350,7 @@ func find_nearest_body_scanner():
 			shortest_distance = distance
 			nearest = scanner
 	
+	print("Nächster Body Scanner: ", nearest.name if nearest else "None")
 	return nearest
 
 func take_suitcase_back():

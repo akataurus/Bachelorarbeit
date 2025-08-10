@@ -135,7 +135,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4477, 0, 8.29832)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9278, 0, 18.7271)
 
 [node name="Marker3D8" type="Marker3D" parent="customer_path"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.07149, 0, 25.4236)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.48, 0, 25.3095)
 
 [node name="gate" type="Marker3D" parent="customer_path"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.522, 0, 32.3349)
