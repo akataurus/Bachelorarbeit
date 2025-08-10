@@ -55,6 +55,7 @@ func _on_area_3d_2_body_exited(body: Node3D) -> void:
 
 # 🔥 ÄNDERN: _on_area_3d_body_entered() 
 func _on_area_3d_body_entered(body: Node3D) -> void:
+	var is_scan_successful := randf() < 0.5
 	# NPC-Handling für Airport Worker
 	if body.is_in_group("npc_customer") and GameManager.role == "airport_worker":
 		if body == pending_npc:
@@ -65,34 +66,14 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 			if airport_worker and airport_worker.has_method("set_body_scan_decision"):
 				airport_worker.set_body_scan_decision(pending_npc, self)
 				print("Airport Worker für Body Scan Entscheidung benachrichtigt")
-			
+				show_scan_feedback(is_scan_successful)
 			# Reset pending_npc
 			pending_npc = null
 			return
 	
 	# Bestehende Passenger-Logik (unverändert)
-	if body.is_in_group("airport_worker") or body.is_in_group("player"):
-		var is_scan_successful := randf() < 0.5
-		
-		var material = indicator.get_active_material(0)
-		var material2 = indicator2.get_active_material(0)
-		if material == null:
-			print("⚠️ Kein Material gefunden!")
-			return
-		
-		if is_scan_successful:
-			speech_bubble.text = "Looks good, move on please."
-			material.albedo_color = Color(0, 1, 0) # Grün
-			material2.albedo_color = Color(0, 1, 0) 
-			GameManager.is_hgscan_checked = true
-		else:
-			speech_bubble.text = "Looks like you might have something on you. \n go to the manual body scan please."
-			material.albedo_color = Color(1, 0, 0) # Rot
-			material2.albedo_color = Color(1, 0, 0) # Rot
-		
-		await get_tree().create_timer(2).timeout 
-		material.albedo_color = Color(1, 1, 1) # Weiß
-		material2.albedo_color = Color(1, 1, 1)
+	if body.is_in_group("npc_customer") or body.is_in_group("player"):
+		show_scan_feedback(is_scan_successful)
 
 # 🔥 NEU: Feedback-Funktion hinzufügen
 func show_scan_feedback(is_valid: bool):

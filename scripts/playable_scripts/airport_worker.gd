@@ -20,6 +20,7 @@ var active_hints := {} # alle aktiven hints
 
 var pending_npc_hand_luggage = null
 var pending_npc_for_hand_luggage = null
+var pending_npc_for_manual_check = null
 
 var pending_npc_for_body_scan = null
 var current_body_scanner = null
@@ -86,6 +87,13 @@ func _process(delta: float) -> void:
 			accept_body_scan()
 		if Input.is_action_just_pressed("luggage_reject"):
 			reject_body_scan()
+			
+	if pending_npc_for_manual_check:
+		show_hint("Manual body check - Accept: J | Reject: N", self)
+		if Input.is_action_just_pressed("luggage_accept"):
+			accept_manual_check()
+		if Input.is_action_just_pressed("luggage_reject"):
+			reject_manual_check()
 	
 # called from world.gd
 func set_job_markers(markers: Dictionary):
@@ -151,6 +159,30 @@ func reject_body_scan():
 	
 	# Reset
 	_reset_body_scan_state()
+
+# ========== MANUAL CHECK MANAGEMENT ==========
+func set_pending_manual_check(npc: Node):
+	"""Wird aufgerufen wenn NPC am Manual Check wartet"""
+	pending_npc_for_manual_check = npc
+	print("Airport Worker: NPC wartet am Manual Check Point")
+
+func accept_manual_check():
+	print("Airport Worker: Manual Check akzeptiert!")
+	
+	if pending_npc_for_manual_check and pending_npc_for_manual_check.has_method("manual_check_accepted"):
+		pending_npc_for_manual_check.manual_check_accepted()
+	
+	pending_npc_for_manual_check = null
+	hide_hint(self)
+
+func reject_manual_check():
+	print("Airport Worker: Manual Check abgelehnt!")
+	
+	if pending_npc_for_manual_check and pending_npc_for_manual_check.has_method("manual_check_rejected"):
+		pending_npc_for_manual_check.manual_check_rejected()
+	
+	pending_npc_for_manual_check = null
+	hide_hint(self)
 
 func _reset_body_scan_state():
 	"""Setzt alle Body Scanner Variablen zurück"""

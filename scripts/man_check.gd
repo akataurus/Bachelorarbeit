@@ -5,6 +5,7 @@ var game_started := false
 
 @onready var speech_bubble = $npc_airport_worker.get_node("speech_bubble")
 @onready var npc_airport_worker = $npc_airport_worker
+@onready var npc_collision_shape = $npc_airport_worker.get_node("CollisionShape3D")
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -19,6 +20,7 @@ func _ready() -> void:
 	
 	if GameManager.role == "airport_worker":
 		npc_airport_worker.visible = false
+		npc_collision_shape.disabled = true
 
 # große area
 func _on_area_3d_body_entered(body: Node3D) -> void:

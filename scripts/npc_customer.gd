@@ -10,7 +10,8 @@ extends CharacterBody3D
 var path := []
 var current_path_index := 0
 var waiting := false
-var wait_at_indices := [5, 7, 10, 11]
+var wait_at_indices := [5, 7, 10, 11, 12, 13]
+var needs_manual_check := false
 
 # ========== UI ==========
 @onready var label = $Label3D
@@ -121,6 +122,9 @@ func _should_wait_at_current_index() -> bool:
 	if GameManager.role == "airport_worker" and current_path_index == 5:
 		return false
 		
+	if current_path_index == 12 and not needs_manual_check:
+		print("Manual check nicht nötig - index überspringen")
+		return false
 	return true
 
 func _handle_wait_point():
@@ -133,6 +137,8 @@ func _handle_wait_point():
 				place_hand_luggage()
 		10: # Körper scanner
 			request_body_scan()
+		12: #manueller check
+			request_manual_check()
 
 # ========== LUGGAGE PLACEMENT ==========
 func place_luggage_on_scale():
@@ -381,7 +387,8 @@ func body_scan_accepted():
 	update_label("Thank you!")
 	await get_tree().create_timer(2.0).timeout
 	
-	# NPC kann zum Boarding weitergehen
+	# 🔥 Kein Manual Check nötig
+	needs_manual_check = false
 	waiting = false
 
 func body_scan_rejected():
@@ -389,10 +396,38 @@ func body_scan_rejected():
 	update_label("I need manual inspection...")
 	await get_tree().create_timer(2.0).timeout
 	
-	# TODO: Zum manuellen Check gehen (später implementiert)
-	print("NPC muss zum manuellen Body Check (TODO)")
+	# 🔥 Manual Check wird benötigt
+	needs_manual_check = true
+	waiting = false  # Weiter zum Manual Check Index
+
+func request_manual_check():
+	"""NPC wartet am Manual Check Point"""
+	print("NPC wartet am Manual Check Point")
+	
+	# Airport Worker benachrichtigen
+	var airport_worker = get_tree().get_first_node_in_group("airport_worker")
+	if airport_worker and airport_worker.has_method("set_pending_manual_check"):
+		airport_worker.set_pending_manual_check(self)
+		print("Airport Worker über Manual Check benachrichtigt")
+	else:
+		print("❌ Kein Airport Worker für Manual Check gefunden")
+
+func manual_check_accepted():
+	"""Wird aufgerufen wenn Airport Worker Manual Check akzeptiert"""
+	update_label("Thank you for your patience!")
+	await get_tree().create_timer(2.0).timeout
+	# Manual Check abgeschlossen
+	needs_manual_check = false
 	waiting = false
 
+func manual_check_rejected():
+	"""Wird aufgerufen wenn Airport Worker Manual Check ablehnt"""
+	update_label("I understand... I'll go home.")
+	await get_tree().create_timer(2.0).timeout
+	
+	despawn()
+	npc_hand_luggage.despawn()
+	
 # ========== CLEANUP ==========
 func despawn():
 	queue_free()
