@@ -404,6 +404,12 @@ func request_manual_check():
 	"""NPC wartet am Manual Check Point"""
 	print("NPC wartet am Manual Check Point")
 	
+	"""Dreht NPC um 180 Grad zum Spieler"""
+	var target_rotation = rotation.y + PI  # 180 Grad hinzufügen
+	# Smooth rotation mit Tween
+	var tween = create_tween()
+	tween.tween_property(self, "rotation:y", target_rotation, 1.0)
+	
 	# Airport Worker benachrichtigen
 	var airport_worker = get_tree().get_first_node_in_group("airport_worker")
 	if airport_worker and airport_worker.has_method("set_pending_manual_check"):

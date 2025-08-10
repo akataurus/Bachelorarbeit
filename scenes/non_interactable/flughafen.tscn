@@ -6,3 +6,9 @@
 
 [node name="sidepillars" parent="." index="0"]
 transform = Transform3D(11.985, 0, 0, 0, 11.94, 0, 0, 0, 30, 62.4132, 13.0834, 4.95073e-06)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 2, -30.351, 0, -30.4509)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D" index="0"]
+operation = 2
