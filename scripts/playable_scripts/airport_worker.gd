@@ -23,6 +23,7 @@ var pending_npc_for_hand_luggage = null
 
 var pending_npc_for_body_scan = null
 var current_body_scanner = null
+var body_scan_pending_decision = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -62,7 +63,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("previous_job"):
 		teleport_to_job(self, -1)
 		
-	if pending_npc_hand_luggage:
+	if pending_npc_hand_luggage and not body_scan_pending_decision:
 		show_hint("Accept hand luggage: J | Reject hand luggage: N", self)
 		
 		if Input.is_action_just_pressed("luggage_accept"):  # J-Taste
@@ -70,13 +71,22 @@ func _process(delta: float) -> void:
 		elif Input.is_action_just_pressed("luggage_reject"):  # N-Taste
 			reject_hand_luggage()
 	
-	# Body Scanner Entscheidung
-	if pending_npc_for_body_scan:
+	# Body Scanner Start
+	if pending_npc_for_body_scan and not body_scan_pending_decision:
 		show_hint("Start body scan: E", self)
 		
 		if Input.is_action_just_pressed("interact"):  # B-Taste
 			start_body_scan()
 
+	# body Scanner entscheidung nach scan
+	if body_scan_pending_decision:
+		show_hint("Body scan result - Accept: J | Reject: N", self)
+		
+		if Input.is_action_just_pressed("luggage_accept"):
+			accept_body_scan()
+		if Input.is_action_just_pressed("luggage_reject"):
+			reject_body_scan()
+	
 # called from world.gd
 func set_job_markers(markers: Dictionary):
 	job_markers = markers
@@ -92,7 +102,7 @@ func teleport_to_job(player: Node3D, up_down: int):
 	else:
 		print("problem bei airport teleport")
 	
-# Body Scanner Management
+# ========== BODY SCANNER MANAGEMENT ==========
 func set_pending_body_scan(npc: Node, scanner: Node):
 	"""Wird vom Body Scanner aufgerufen wenn NPC wartet"""
 	pending_npc_for_body_scan = npc
@@ -105,9 +115,48 @@ func start_body_scan():
 	if current_body_scanner and current_body_scanner.has_method("start_body_scan"):
 		current_body_scanner.start_body_scan(pending_npc_for_body_scan)
 	
+	hide_hint(self)
+
+func set_body_scan_decision(npc: Node, scanner: Node):
+	"""Wird aufgerufen wenn NPC durch Scanner gelaufen ist und auf Entscheidung wartet"""
+	pending_npc_for_body_scan = npc
+	current_body_scanner = scanner
+	body_scan_pending_decision = true
+	print("Airport Worker: NPC wartet auf Body Scan Entscheidung")
+
+func accept_body_scan():
+	print("Airport Worker: Body Scan akzeptiert!")
+	
+	# Grünes Feedback am Scanner
+	if current_body_scanner and current_body_scanner.has_method("show_scan_feedback"):
+		current_body_scanner.show_scan_feedback(true)
+	
+	# NPC darf weitergehen
+	if pending_npc_for_body_scan and pending_npc_for_body_scan.has_method("body_scan_accepted"):
+		pending_npc_for_body_scan.body_scan_accepted()
+	
 	# Reset
+	_reset_body_scan_state()
+
+func reject_body_scan():
+	print("Airport Worker: Body Scan abgelehnt!")
+	
+	# Rotes Feedback am Scanner
+	if current_body_scanner and current_body_scanner.has_method("show_scan_feedback"):
+		current_body_scanner.show_scan_feedback(false)
+	
+	# NPC muss zum manuellen Check
+	if pending_npc_for_body_scan and pending_npc_for_body_scan.has_method("body_scan_rejected"):
+		pending_npc_for_body_scan.body_scan_rejected()
+	
+	# Reset
+	_reset_body_scan_state()
+
+func _reset_body_scan_state():
+	"""Setzt alle Body Scanner Variablen zurück"""
 	pending_npc_for_body_scan = null
 	current_body_scanner = null
+	body_scan_pending_decision = false
 	hide_hint(self)
 
 func teleport_to_previous_job(player: Node3D):

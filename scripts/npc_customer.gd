@@ -10,7 +10,7 @@ extends CharacterBody3D
 var path := []
 var current_path_index := 0
 var waiting := false
-var wait_at_indices := [5, 7, 10, 12]
+var wait_at_indices := [5, 7, 10, 11]
 
 # ========== UI ==========
 @onready var label = $Label3D
@@ -98,6 +98,8 @@ func _setup_luggage_meta(luggage: Node, group_name: String):
 	luggage.set_meta("owner_npc", self)
 	luggage.freeze = true
 	luggage.gravity_scale = 0
+
+
 
 func _move_luggage_with_npc():
 	if npc_suitcase and is_instance_valid(npc_suitcase) and not has_placed_luggage:
@@ -323,7 +325,27 @@ func hand_luggage_rejected():
 	despawn() #npc verschwindet
 	npc_hand_luggage.despawn() # handgepäck verschwindet
 
-#  Body Scanner Funktionen
+
+
+func take_suitcase_back():
+	if npc_suitcase and is_instance_valid(npc_suitcase):
+		print("NPC nimmt Koffer zurück")
+		_reset_luggage(npc_suitcase, Vector3(1, 0, 0))
+		has_placed_luggage = false
+
+func take_hand_luggage_back():
+	if npc_hand_luggage and is_instance_valid(npc_hand_luggage):
+		print("NPC nimmt Handgepäck zurück")
+		_reset_luggage(npc_hand_luggage, Vector3(-1, 0, 0))
+		has_placed_hand_luggage = false
+
+func _reset_luggage(luggage: Node, offset: Vector3):
+	luggage.is_moving_on_belt = false
+	luggage.freeze = true
+	luggage.gravity_scale = 0
+	luggage.global_position = global_position + offset
+
+# ==========BODY SCAN MANAGEMENT============
 func request_body_scan():
 	print("NPC wartet am Körperscanner")
 	
@@ -353,23 +375,23 @@ func find_nearest_body_scanner():
 	print("Nächster Body Scanner: ", nearest.name if nearest else "None")
 	return nearest
 
-func take_suitcase_back():
-	if npc_suitcase and is_instance_valid(npc_suitcase):
-		print("NPC nimmt Koffer zurück")
-		_reset_luggage(npc_suitcase, Vector3(1, 0, 0))
-		has_placed_luggage = false
+# Body Scanner Callbacks
+func body_scan_accepted():
+	"""Wird aufgerufen wenn Airport Worker Body Scan akzeptiert"""
+	update_label("Thank you!")
+	await get_tree().create_timer(2.0).timeout
+	
+	# NPC kann zum Boarding weitergehen
+	waiting = false
 
-func take_hand_luggage_back():
-	if npc_hand_luggage and is_instance_valid(npc_hand_luggage):
-		print("NPC nimmt Handgepäck zurück")
-		_reset_luggage(npc_hand_luggage, Vector3(-1, 0, 0))
-		has_placed_hand_luggage = false
-
-func _reset_luggage(luggage: Node, offset: Vector3):
-	luggage.is_moving_on_belt = false
-	luggage.freeze = true
-	luggage.gravity_scale = 0
-	luggage.global_position = global_position + offset
+func body_scan_rejected():
+	"""Wird aufgerufen wenn Airport Worker Body Scan ablehnt"""
+	update_label("I need manual inspection...")
+	await get_tree().create_timer(2.0).timeout
+	
+	# TODO: Zum manuellen Check gehen (später implementiert)
+	print("NPC muss zum manuellen Body Check (TODO)")
+	waiting = false
 
 # ========== CLEANUP ==========
 func despawn():
