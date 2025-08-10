@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx4n3w63q30li"]
+
+[ext_resource type="PackedScene" uid="uid://ik2fuv7qe5xl" path="res://assets/glb/airport_stairs.glb" id="1_0mfua"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pt62h"]
+size = Vector3(1, 10.9545, 2.83252)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_isdbm"]
+size = Vector3(3.32025, 0.461426, 2.5965)
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_0mfua")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(0.659005, -0.752139, 0, 0.752139, 0.659005, 0, 0, 0, 1, 0.928905, 2.33374, -0.0235933)
+shape = SubResource("BoxShape3D_pt62h")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.32912, 5.90779, -0.0525093)
+shape = SubResource("BoxShape3D_isdbm")
