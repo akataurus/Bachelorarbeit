@@ -17,15 +17,16 @@ var is_in_plane_range = false
 var weight: float = 0.0 # gewicht des Koffers
 var weight_limit = 20.0 # kein Koffer darf weight_limit überschreiten
 
-var is_moving_on_belt = false 
+var is_moving_on_belt = false
 var belt_direction := Vector3.FORWARD # Richtung der Bewegung
-var belt_speed := 1 # Geschwindigkeit für Bewegung
+var belt_speed := 2 # Geschwindigkeit für Bewegung
 
 @onready var area := $Area3D
 @onready var scanner_exit := get_tree().root.find_child("suitcase_stop", true, false)
 @onready var plane
 
 func _ready():
+	can_sleep = false # damit nichts freezed
 	await get_tree().create_timer(0.1).timeout  # Wartet 0.1 Sekunden
 	if area and area is Area3D:
 		area.body_entered.connect(_on_body_entered)
@@ -44,9 +45,6 @@ func _process(delta):
 	#if GameManager.role == "airline_worker":
 		#return # airline worker kann nicht mit koffern interagieren
 	if is_moving_on_belt:
-	
-		linear_velocity += belt_direction * belt_speed * delta
-		
 		return # keine Eingabe möglich wenn koffer in Bewegung
 	
 	if player and Input.is_action_just_pressed("interact"):
@@ -72,6 +70,11 @@ func _process(delta):
 				player.show_hint("Start minigame: G\nSelect: Space\nPick up luggage: E", self)
 			else:
 				player.show_hint("Pick up luggage: E", self)
+
+func _physics_process(delta: float) -> void:
+	if is_moving_on_belt:
+		apply_central_force(belt_direction.normalized() * belt_speed)
+
 
 func _on_counter_exit_body_entered(body):
 	if body == self:

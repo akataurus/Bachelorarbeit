@@ -4,11 +4,13 @@ extends Node3D
 @onready var drop_position := $baggage_pos
 @onready var feedback_light := $bildschirm/weight_feedback
 @onready var monitor_feedback := $bildschirm/monitor_feedback
+@onready var area := $bildschirm/Area3D
 
 @onready var counter_worker := $Player
 @onready var worker_shape := $"Player/CollisionShape3D"
 @onready var speech_bubble := $"Player".get_node("speech_bubble")
 var passenger_in_range := false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,6 +25,9 @@ func _ready() -> void:
 	await get_tree().process_frame
 	speech_bubble.text = "Welcome! Please put your luggage on the scale."
 	speech_bubble.visible = false
+	
+	area.body_entered.connect(_on_area_3d_body_entered)
+	area.body_exited.connect(_on_area_3d_body_exited)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -69,6 +74,7 @@ func update_feedback(is_valid: bool):
 	
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
+	print("body entered")
 	if body.is_in_group("player"):
 		passenger_in_range = true
 		speech_bubble.visible = true
