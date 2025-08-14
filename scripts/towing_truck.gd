@@ -30,11 +30,12 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("start_truck"):
 		start_automatic_transport()
 		
-	# KOFFER-SPAWNING TIMER
-	luggage_timer += delta
-	if luggage_timer >= luggage_spawn_interval:
-		luggage_timer = 0
-		spawn_luggage()
+	if GameManager.role != "passenger":
+		# KOFFER-SPAWNING TIMER
+		luggage_timer += delta
+		if luggage_timer >= luggage_spawn_interval:
+			luggage_timer = 0
+			spawn_luggage()
 
 func get_drop_position():
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)

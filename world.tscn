@@ -318,9 +318,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.64371, 0, 31.9744)
 [node name="waage" parent="schalter_all" instance=ExtResource("12_rsa7g")]
 transform = Transform3D(-0.4, 0, 3.49691e-08, 0, 0.4, 0, -3.49691e-08, 0, -0.4, -18.9324, 1.90735e-06, 52.665)
 
-[node name="waage2" parent="schalter_all" instance=ExtResource("12_rsa7g")]
-transform = Transform3D(-0.4, 0, 3.49691e-08, 0, 0.4, 0, -3.49691e-08, 0, -0.4, -3.12126, 1.90735e-06, 53.8067)
-
 [node name="fließband2" parent="." instance=ExtResource("16_2u3nc")]
 transform = Transform3D(-0.3, 0, -2.62268e-08, 0, 0.3, 0, 2.62268e-08, 0, -0.3, -28.0641, 0, 46.2603)
 

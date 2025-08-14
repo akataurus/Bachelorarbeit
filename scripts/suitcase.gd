@@ -26,6 +26,7 @@ var belt_speed := 2 # Geschwindigkeit für Bewegung
 @onready var plane
 
 func _ready():
+	print("instanciate koffer")
 	can_sleep = false # damit nichts freezed
 	await get_tree().create_timer(0.1).timeout  # Wartet 0.1 Sekunden
 	if area and area is Area3D:
