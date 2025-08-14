@@ -10,6 +10,7 @@ extends "res://scripts/playable_scripts/player_base.gd"
 var active_hints := {} # alle aktiven hints 
 @onready var anim_player := $Sketchfab_Scene/AnimationPlayer
 
+@onready var feet_area := $FeetArea
 # Debug-Flag um intensive Ausgaben zu kontrollieren
 var debug_mode := false
 
@@ -31,7 +32,9 @@ func _ready() -> void:
 	
 	boarding_card.visible = false
 	ready_completed = true
-
+	
+	feet_area.body_entered.connect(_on_body_entered)
+	feet_area.body_exited.connect(_on_body_exited)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -59,12 +62,18 @@ func _on_body_entered(body):
 		# hier Ausweiskontrolle implementieren!
 	if body.is_in_group("gate_counter"):
 		show_hint("Show boarding card: Right click", self)
+	if body.is_in_group("stairs"):
+		print("Auf Treppe!")
+		gravity_scale = 0.7  # weniger Gravitation, besseres Laufen nach oben
 	
 func _on_body_exited(body):
 	if body.is_in_group("schalter"):
 		hide_hint(self)
 	if body.is_in_group("gate_counter"):
 		hide_hint(self)
+	if body.is_in_group("stairs"):
+		print("Treppe verlassen")
+		gravity_scale = 1.8  # wieder normale Gravitation
 
 # Methoden für die hints
 func show_hint(text: String, owner: Node):

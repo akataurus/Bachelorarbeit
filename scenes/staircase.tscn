@@ -3,17 +3,17 @@
 [ext_resource type="PackedScene" uid="uid://ik2fuv7qe5xl" path="res://assets/glb/airport_stairs.glb" id="1_0mfua"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pt62h"]
-size = Vector3(1, 10.9545, 2.83252)
+size = Vector3(1, 10.6496, 2.83252)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_isdbm"]
 size = Vector3(3.32025, 0.461426, 2.5965)
 
-[node name="Sketchfab_Scene" instance=ExtResource("1_0mfua")]
+[node name="Sketchfab_Scene" groups=["stairs"] instance=ExtResource("1_0mfua")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1" groups=["stairs"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-transform = Transform3D(0.659005, -0.752139, 0, 0.752139, 0.659005, 0, 0, 0, 1, 0.928905, 2.33374, -0.0235933)
+transform = Transform3D(0.659005, -0.752139, 0, 0.752139, 0.659005, 0, 0, 0, 1, 1.04356, 2.24686, -0.0235933)
 shape = SubResource("BoxShape3D_pt62h")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]

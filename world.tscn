@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c75tx2d3gdqv"]
+[gd_scene load_steps=26 format=3 uid="uid://c75tx2d3gdqv"]
 
 [ext_resource type="Script" uid="uid://bv11yvouya8jo" path="res://scripts/world.gd" id="1_co7eg"]
 [ext_resource type="PackedScene" uid="uid://doip7nd4nlelu" path="res://scenes/npc_passenger.tscn" id="2_50cfg"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://ulfxpk6sb8kq" path="res://scenes/non_interactable/trennwand.tscn" id="17_cbp6q"]
 [ext_resource type="PackedScene" uid="uid://dwvbogi3sgxgq" path="res://scenes/towing_truck.tscn" id="17_udxuc"]
 [ext_resource type="PackedScene" uid="uid://15irtmjhthl3" path="res://scenes/plane.tscn" id="18_ikiii"]
+[ext_resource type="PackedScene" uid="uid://cx4n3w63q30li" path="res://scenes/staircase.tscn" id="20_26xuy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbeoq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -371,3 +372,6 @@ transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 4.52484, 1.90735e-06
 
 [node name="passenger_spawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 68)
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("20_26xuy")]
+transform = Transform3D(0.6857, 0, -0.140767, 0, 0.7, 0, 0.140767, 0, 0.6857, -19.2987, 9.99563e-07, -2.72258)

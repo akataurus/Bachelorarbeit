@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b21r42decjwd4"]
+[gd_scene load_steps=7 format=3 uid="uid://b21r42decjwd4"]
 
 [ext_resource type="Script" uid="uid://dntb87tk32ve0" path="res://scripts/playable_scripts/passenger.gd" id="1_mlhtq"]
 [ext_resource type="PackedScene" uid="uid://ctq2rp6nx5kps" path="res://scenes/passenger_character.tscn" id="2_r5oci"]
@@ -10,8 +10,12 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 [sub_resource type="SphereShape3D" id="SphereShape3D_g7xr8"]
 radius = 4.26534
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r5oci"]
+radius = 0.615784
+height = 1.23157
+
 [node name="Player2" type="RigidBody3D" groups=["player"]]
-gravity_scale = 0.5
+gravity_scale = 1.8
 lock_rotation = true
 script = ExtResource("1_mlhtq")
 
@@ -45,4 +49,12 @@ offset_bottom = 23.0
 [node name="boarding_card" parent="." instance=ExtResource("3_rjsru")]
 transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, 1, 1, 0)
 
+[node name="FeetArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FeetArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.432123, 0)
+shape = SubResource("CapsuleShape3D_r5oci")
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="FeetArea" to="." method="_on_feet_area_body_entered"]
+[connection signal="body_exited" from="FeetArea" to="." method="_on_feet_area_body_exited"]
