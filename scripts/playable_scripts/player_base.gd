@@ -41,7 +41,11 @@ func _process(delta: float) -> void:
 
 	if input_vector != Vector3.ZERO:
 		var dir = (twist_pivot.global_transform.basis * input_vector).normalized()
-		apply_central_force(dir * 20)
+		var adjusted_dir = dir + Vector3.UP * 0.5  # hilft bei Rampen
+		apply_central_force(adjusted_dir.normalized() * 20)
+
+
+
 
 		# Modell zur Bewegung drehen
 		if curr_character_model:
