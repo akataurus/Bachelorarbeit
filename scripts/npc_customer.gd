@@ -77,6 +77,7 @@ func _spawn_luggage_based_on_role():
 			_spawn_suitcase()
 			_spawn_hand_luggage()
 		"airport_worker":
+			_spawn_suitcase()
 			_spawn_hand_luggage()
 		_:
 			print("Unknown role: ", GameManager.role)

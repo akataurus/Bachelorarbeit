@@ -2,6 +2,7 @@
 extends Node3D
 
 var game_started := false
+var current_player: Node3D
 
 @onready var speech_bubble = $npc_airport_worker.get_node("speech_bubble")
 @onready var npc_airport_worker = $npc_airport_worker
@@ -40,6 +41,8 @@ func _on_area_3d_2_body_entered(body: Node3D) -> void:
 	if !body.is_in_group("player"):
 		return
 	
+	current_player = body # Spieler speichern
+	
 	speech_bubble.text = "Okay, stand still now."
 	await get_tree().create_timer(2).timeout
 	
@@ -51,7 +54,7 @@ func _on_area_3d_2_body_entered(body: Node3D) -> void:
 			path.append(marker.global_transform.origin)
 	
 	var npc = $npc_airport_worker
-	npc.set_player(self)
+	npc.set_player(current_player)
 	npc.start_walk_path(path as Array[Vector3])
 
 func man_scan_result():
