@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 		linear_velocity.z = move_dir.z * speed
 		linear_velocity.y = 0
 		# NPC drehen
-		var yaw = atan2(move_dir.x, move_dir.z) 
+		var yaw = atan2(move_dir.x, move_dir.z) + PI
 		rotation.y = lerp_angle(rotation.y, yaw, 5 * delta)
 
 func look_at_player(player: Node3D):

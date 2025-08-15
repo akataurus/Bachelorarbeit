@@ -35,7 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53383, 1.6892, 4.29634)
 shape = SubResource("SphereShape3D_7jchs")
 
 [node name="spot" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26218, 0, 4.45039)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26218, 0.0472399, 4.45039)
 mesh = SubResource("PlaneMesh_m368o")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_e66ms")

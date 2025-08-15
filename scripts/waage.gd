@@ -8,10 +8,6 @@ var timer := 0.0
 var is_active = false # für das animieren 
 var is_selecting = false
 
-var last_selection_time := 0.0 # für selection delay
-var selection_cooldown := 0.9  # Sekunden zwischen zwei Auswahlaktionen
-
-
 @onready var drop_position := $baggage_pos
 @onready var weight_label := $Label3D
 @onready var optcontainer := $"../optionContainer"
@@ -42,7 +38,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("start_game"):
 		start_minigame()
-
+	if event.is_action_pressed("ui_select"):
+		select_option(current_index)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,11 +51,7 @@ func _process(delta: float) -> void:
 	if timer >= highlight_timer:
 		timer = 0.0
 		cycle_option()
-	
-	var now = Time.get_ticks_msec() / 1000.0
-	if Input.is_action_just_pressed("test_button") and now - last_selection_time > selection_cooldown:
-		last_selection_time = now
-		select_option(current_index)
+
 
 func get_drop_position():
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)
@@ -85,27 +78,21 @@ func cycle_option():
 func select_option(index):
 	
 	if is_selecting:
-		print("returned")
 		return
 	is_selecting = true
-	print("called")
-	await get_tree().create_timer(selection_cooldown).timeout
 	is_selecting = false
 	is_active = false
 	cycle_option() # zur syncronisation
 	var node = option_nodes[index]
 	var weight_change = node.get_meta("weight_change")  # z. B. -2 oder 0
 	
-	print("weight_change: ", weight_change)
 	if weight_change != null:
 		# Auf Koffer zugreifen und Gewicht anpassen
 		#var luggage = get_node("/root/world/suitcase")  
 		var luggage_list = get_tree().get_nodes_in_group("suitcase")
 		var luggage = luggage_list[0]
-		print("weigt vorher: ", luggage.weight)
 		luggage.weight = max(luggage.weight + weight_change, 0)
 		set_label_text(luggage.weight)
-		print("weight nachher: ", luggage.weight)
 	
 
 func set_option_highlighted(node, is_selected):

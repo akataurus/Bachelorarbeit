@@ -65,3 +65,4 @@ func man_scan_result():
 		speech_bubble.text = "Forbidden Stuff found! \n Please put them in the bin."
 	else:
 		speech_bubble.text = "Okay, all good. Proceed to the gate."
+		GameManager.is_bodyscan_checked = true
