@@ -34,7 +34,7 @@ func boarding_card_dialogue():
 		speech_bubble.text = "Oh no, you need to go through the bodyscan first!"
 	elif GameManager.is_checked_in and GameManager.is_hgscan_checked and GameManager.is_bodyscan_checked:
 		speech_bubble.text = "Thanks! You can go through to the plane now."
-		
+		GameManager.is_boarded = true
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):

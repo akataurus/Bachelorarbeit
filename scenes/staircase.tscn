@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cx4n3w63q30li"]
+[gd_scene load_steps=8 format=3 uid="uid://cx4n3w63q30li"]
 
 [ext_resource type="PackedScene" uid="uid://ik2fuv7qe5xl" path="res://assets/glb/airport_stairs.glb" id="1_0mfua"]
+[ext_resource type="Script" uid="uid://dfkale68alfyp" path="res://scripts/staircase.gd" id="2_isdbm"]
+[ext_resource type="PackedScene" uid="uid://b78ki2eyl6xym" path="res://scenes/npc_airline_worker.tscn" id="3_or3vb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pt62h"]
 size = Vector3(1, 10.6496, 2.83252)
@@ -8,7 +10,14 @@ size = Vector3(1, 10.6496, 2.83252)
 [sub_resource type="BoxShape3D" id="BoxShape3D_isdbm"]
 size = Vector3(3.32025, 0.461426, 2.5965)
 
-[node name="Sketchfab_Scene" groups=["stairs"] instance=ExtResource("1_0mfua")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_t2y8j"]
+radius = 4.95416
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_or3vb"]
+size = Vector3(1, 3.87054, 3.53833)
+
+[node name="staircase" groups=["stairs"] instance=ExtResource("1_0mfua")]
+script = ExtResource("2_isdbm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1" groups=["stairs"]]
 
@@ -19,3 +28,24 @@ shape = SubResource("BoxShape3D_pt62h")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.32912, 5.90779, -0.0525093)
 shape = SubResource("BoxShape3D_isdbm")
+
+[node name="Player" parent="." index="2" instance=ExtResource("3_or3vb")]
+transform = Transform3D(-0.473946, 0, 1.42316, 0, 1.5, 0, -1.42316, 0, -0.473946, 4.54938, -0.174824, 2.20144)
+
+[node name="Area3D" type="Area3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.81561, 0.843374, 1.54224)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.340323, 0)
+shape = SubResource("SphereShape3D_t2y8j")
+
+[node name="finish_area" type="Area3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6462, 7.05223, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="finish_area" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.56413, 0.490387, -0.0828857)
+shape = SubResource("BoxShape3D_or3vb")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="finish_area" to="." method="_on_finish_area_body_entered"]

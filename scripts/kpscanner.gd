@@ -90,6 +90,7 @@ func show_scan_feedback(is_valid: bool):
 		material.albedo_color = Color(0, 1, 0) # Grün
 		material2.albedo_color = Color(0, 1, 0)
 		print("✅ Body Scan: Akzeptiert")
+		GameManager.is_bodyscan_checked = true
 	else:
 		speech_bubble.text = "Please report to manual inspection."
 		material.albedo_color = Color(1, 0, 0) # Rot
