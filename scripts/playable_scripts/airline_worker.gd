@@ -1,5 +1,5 @@
 # airline worker skript
-
+# animation tutorial: https://www.youtube.com/watch?v=WpSPJ_OKadM&ab_channel=RaidTheoryGames
 extends "res://scripts/playable_scripts/player_base.gd"
 
 @onready var area := $Area3D
@@ -18,8 +18,7 @@ var speech_counter = 0 # um zu wissen, welcher Text angezeigt werden soll
 var pending_npc_suitcase = null # Der Koffer, der auf Entscheidung wartet
 var pending_npc = null # der zugehörige npc
 
-@onready var anim_player := $business_man_walk/AnimationPlayer
-@onready var anim_player2 := $business_man_walk/AnimationPlayer2
+@onready var anim_player := $Walking/AnimationPlayer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,7 +27,7 @@ func _ready() -> void:
 	pitch_pivot = get_node("TwistPivot/PitchPivot")
 	camera = get_node("TwistPivot/PitchPivot/Camera3D")
 	super._ready()
-	curr_character_model = $airline_worker
+	curr_character_model = $Walking
 
 	if area:
 		area.body_entered.connect(_on_body_entered)
@@ -37,13 +36,23 @@ func _ready() -> void:
 	hint_label.visible = false # label ausblenden
 	hint_label.self_modulate = Color(1, 0, 0)  # Rot (RGB)
 	
-	anim_player.get_animation("walking").loop = true
+	
 	ready_completed = true
 
+	var library = AnimationLibrary.new()
+	library.add_animation("idle", load("res://assets/animations/happy_idle.res"))
+	library.add_animation("walk", load("res://assets/animations/walking.res"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	super._process(delta)
+	
+	if input_vector.length() > 0.1:
+		if anim_player.current_animation != "walk":
+			anim_player.play("walking")
+	else:
+		if anim_player.current_animation != "idle":
+			anim_player.play("happy_idle")
 	
 	if Input.is_action_just_pressed("next_job"):
 		teleport_to_job(self, 1)

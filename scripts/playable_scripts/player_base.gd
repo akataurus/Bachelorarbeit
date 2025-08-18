@@ -40,18 +40,16 @@ func _process(delta: float) -> void:
 	input_vector.z = Input.get_axis("ui_up", "ui_down")
 
 	if input_vector != Vector3.ZERO:
-		var dir = (twist_pivot.global_transform.basis * input_vector).normalized()
-		var adjusted_dir = dir + Vector3.UP * 0.5  # hilft bei Rampen
-		apply_central_force(adjusted_dir.normalized() * 20)
-
-
-
-
+		var dir = twist_pivot.basis * input_vector
+		apply_central_force(dir * 20)
+		
 		# Modell zur Bewegung drehen
 		if curr_character_model:
-			var target_yaw = atan2(dir.x, dir.z)
+			var normalized_dir = dir.normalized()
+			var target_yaw = atan2(normalized_dir.x, normalized_dir.z)
 			var current_yaw = curr_character_model.rotation.y
 			curr_character_model.rotation.y = lerp_angle(current_yaw, target_yaw, turn_speed * delta)
+
 
 	# --- Kamera-Rotation ---
 	twist_pivot.rotate_y(twist_input)
