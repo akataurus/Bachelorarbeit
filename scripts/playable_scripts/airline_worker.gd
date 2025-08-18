@@ -1,5 +1,6 @@
 # airline worker skript
 # animation tutorial: https://www.youtube.com/watch?v=WpSPJ_OKadM&ab_channel=RaidTheoryGames
+# character source: https://www.mixamo.com/#/?page=1&query=Louise&type=Character
 extends "res://scripts/playable_scripts/player_base.gd"
 
 @onready var area := $Area3D
