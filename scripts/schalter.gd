@@ -10,7 +10,7 @@ extends Node3D
 @onready var worker_shape := $"Player/CollisionShape3D"
 @onready var speech_bubble := $"Player".get_node("speech_bubble")
 var passenger_in_range := false
-
+@onready var anim_player := $Player/Walking/AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,6 +37,10 @@ func _process(delta: float) -> void:
 	if passenger_in_range and Input.is_action_just_pressed("interact"):
 		show
 		
+	if anim_player.current_animation != "idle":
+			anim_player.play("happy_idle")
+
+
 func show_ID_check_dialogue():
 	speech_bubble.text = "Thanks!"
 	await get_tree().create_timer(1.5).timeout  # Delay in Sekunden

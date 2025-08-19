@@ -6,6 +6,7 @@ var current_index := 0
 var speed := 2.0
 var is_walking := false
 var player_reference: Node3D
+@onready var anim_player := $airport_worker/AnimationPlayer
 
 # aufgerufen von man_check.gd
 func start_walk_path(p: Array[Vector3]):
@@ -20,9 +21,13 @@ func set_player(player: Node3D):
 func _physics_process(delta: float) -> void:
 	if is_walking:
 		$speech_bubble.visible = false
+		if anim_player.current_animation != "walking":
+			anim_player.play("walking")
 	
 	
 	if !is_walking or path.is_empty():
+		if anim_player.current_animation != "happy_idle":
+			anim_player.play("happy_idle")
 		return
 	
 	var target = path[current_index]

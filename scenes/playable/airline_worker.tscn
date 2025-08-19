@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b53g1v3gyx0xu"]
+[gd_scene load_steps=5 format=3 uid="uid://b53g1v3gyx0xu"]
 
 [ext_resource type="Script" uid="uid://ccaevcp7kgdnl" path="res://scripts/playable_scripts/airline_worker.gd" id="1_ky876"]
 [ext_resource type="PackedScene" uid="uid://blvmicnoy48md" path="res://assets/animations/walking.tscn" id="2_7l48v"]
-[ext_resource type="PackedScene" uid="uid://bqjwahwi46ta2" path="res://scenes/business_man_walk.tscn" id="2_ky876"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g7xr8"]
 radius = 4.26534
@@ -16,9 +15,6 @@ script = ExtResource("1_ky876")
 
 [node name="Walking" parent="." instance=ExtResource("2_7l48v")]
 transform = Transform3D(1, 0, 0, 0, 0.999841, 0.0178536, 0, -0.0178536, 0.999841, 0, -0.0651377, 0)
-
-[node name="business_man_walk" parent="." instance=ExtResource("2_ky876")]
-visible = false
 
 [node name="TwistPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

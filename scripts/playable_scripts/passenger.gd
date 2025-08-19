@@ -1,6 +1,6 @@
 # passenger script
 # 3d modell source:
-# https://www.fab.com/listings/4efdac7d-818f-4efd-aef3-aa6f3987ad1e
+# https://www.mixamo.com/#/?page=1&type=Character
 extends "res://scripts/playable_scripts/player_base.gd"
 
 @onready var area := $Area3D
@@ -8,8 +8,7 @@ extends "res://scripts/playable_scripts/player_base.gd"
 @onready var speech_bubble := $Label3D # für die worker um mit npcs zu reden
 @onready var hint_label := $CanvasLayer/Hint_label
 var active_hints := {} # alle aktiven hints 
-@onready var anim_player := $Sketchfab_Scene/AnimationPlayer
-@onready var anim_player2 := $Sketchfab_Scene/Breathing_idle/AnimationPlayer
+@onready var anim_player := $Remy/AnimationPlayer
 
 @onready var feet_area := $FeetArea
 # Debug-Flag um intensive Ausgaben zu kontrollieren
@@ -22,7 +21,7 @@ func _ready() -> void:
 	pitch_pivot = get_node("TwistPivot/PitchPivot")
 	camera = get_node("TwistPivot/PitchPivot/Camera3D")
 	
-	curr_character_model = $Sketchfab_Scene
+	curr_character_model = $Remy
 	
 	if area:
 		area.body_entered.connect(_on_body_entered)
@@ -37,20 +36,6 @@ func _ready() -> void:
 	feet_area.body_entered.connect(_on_body_entered)
 	feet_area.body_exited.connect(_on_body_exited)
 	
-	# Debug: Zeige alle Ressourcen der importierten Szene
-	var imported_scene = preload("F:/Bachelorarbeit/assets/glb/russian_girl_east_animated.glb")
-	var instance = imported_scene.instantiate()
-
-	# Finde AnimationPlayer in der importierten Szene
-	var import_anim_player = instance.find_child("AnimationPlayer")
-	if import_anim_player:
-		print("Animationen in importierter Szene: ", import_anim_player.get_animation_list())
-
-		# Kopiere Animation direkt
-		for anim_name in import_anim_player.get_animation_list():
-			var animation = import_anim_player.get_animation(anim_name)
-			anim_player.add_animation(anim_name, animation)
-			print("Animation kopiert: ", anim_name)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -68,8 +53,8 @@ func _process(delta: float) -> void:
 		if anim_player.current_animation != "walking":
 			anim_player.play("walking")
 	else:
-		if anim_player2.current_animation != "mixamo_com":
-			anim_player.play("mixamo_com")
+		if anim_player.current_animation != "happy_idle":
+			anim_player.play("happy_idle")
 
 # KORRIGIERT: Funktionsnamen mit Unterstrichen
 func _on_body_entered(body):

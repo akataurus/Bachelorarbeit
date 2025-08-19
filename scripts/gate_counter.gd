@@ -3,6 +3,7 @@ extends Node3D
 @onready var airline_worker := $airline_worker
 @onready var worker_shape := $airline_worker/CollisionShape3D
 @onready var speech_bubble := $"airline_worker".get_node("speech_bubble")
+@onready var anim_player := $airline_worker/Walking/AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,7 +18,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("show_bcard"):
 		boarding_card_dialogue()
-
+	if anim_player.current_animation != "happy_idle":
+		anim_player.play("happy_idle")
 
 
 func boarding_card_dialogue():

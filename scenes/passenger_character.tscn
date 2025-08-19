@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctq2rp6nx5kps"]
 
 [ext_resource type="PackedScene" uid="uid://csxm2lr206pmb" path="res://assets/glb/russian_girl_east_animated.glb" id="1_8iixw"]
-[ext_resource type="PackedScene" uid="uid://2mx4d2qlfijr" path="res://assets/animations/Breathing Idle.fbx" id="2_nnfp2"]
+[ext_resource type="PackedScene" uid="uid://bv6ju7ansea4x" path="res://assets/animations/happy_idle.res" id="2_nnfp2"]
 
 [node name="Sketchfab_Scene" instance=ExtResource("1_8iixw")]
 

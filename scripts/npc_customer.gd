@@ -12,6 +12,7 @@ var current_path_index := 0
 var waiting := false
 var wait_at_indices := [5, 7, 10, 11, 12, 13]
 var needs_manual_check := false
+@onready var anim_player := $Remy/AnimationPlayer
 
 # ========== UI ==========
 @onready var label = $Label3D
@@ -33,12 +34,22 @@ func _post_ready():
 # ========== MOVEMENT & PATH FOLLOWING ==========
 func _physics_process(delta):
 	if path.is_empty() or waiting:
+		if anim_player.current_animation != "happy_idle":
+			anim_player.play("happy_idle")
 		return
 	
 	_follow_path()
 	_move_luggage_with_npc()
 	move_and_slide()
 	_update_rotation()
+	
+	# Animation basierend auf Bewegung
+	if velocity.length() > 0.1:
+		if anim_player.current_animation != "walking":
+			anim_player.play("walking")
+	else:
+		if anim_player.current_animation != "happy_idle":
+			anim_player.play("happy_idle")
 
 func _follow_path():
 	var target_pos = path[current_path_index]
@@ -68,6 +79,8 @@ func _update_rotation():
 func _finish_path():
 	waiting = true
 	velocity = Vector3.ZERO
+	if anim_player.current_animation != "happy_idle":
+		anim_player.play("happy_idle")
 	despawn()
 
 # ========== LUGGAGE MANAGEMENT ==========

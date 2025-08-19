@@ -1,8 +1,7 @@
 # airport worker skript
 # Basic movement and camera: https://www.youtube.com/watch?v=sVsn9NqpVhg
 # Level editor: https://www.youtube.com/watch?v=BUjCtwLO0S8
-# model (woman): https://rigmodels.com/model.php?view=Business_Woman-3d-model__9TPXMJCKKPSP3PYW9Y119709R
-# model (man): https://www.cgtrader.com/items/2578203/download-page
+# model source: https://www.mixamo.com/#/?page=2&type=Character
 # boarding pass pic source: https://www.wa.gov.au/media/32906
 extends "res://scripts/playable_scripts/player_base.gd"
 
@@ -26,13 +25,15 @@ var pending_npc_for_body_scan = null
 var current_body_scanner = null
 var body_scan_pending_decision = false
 
+@onready var anim_player = $worker_model/AnimationPlayer
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	twist_pivot = get_node("TwistPivot")
 	pitch_pivot = get_node("TwistPivot/PitchPivot")
 	camera = get_node("TwistPivot/PitchPivot/Camera3D")
-	curr_character_model = $AuxScene
+	curr_character_model = $worker_model
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -44,6 +45,9 @@ func _ready() -> void:
 	hint_label.self_modulate = Color(1, 0, 0)  # Rot (RGB)
 	
 	ready_completed = true
+	var library = AnimationLibrary.new()
+	library.add_animation("idle", load("res://assets/animations/happy_idle.res"))
+	library.add_animation("walk", load("res://assets/animations/walking.res"))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -94,7 +98,15 @@ func _process(delta: float) -> void:
 			accept_manual_check()
 		if Input.is_action_just_pressed("luggage_reject"):
 			reject_manual_check()
-	
+		
+	if input_vector.length() > 0.1:
+		if anim_player.current_animation != "walk":
+			anim_player.play("walking")
+	else:
+		if anim_player.current_animation != "idle":
+			anim_player.play("happy_idle")
+
+
 # called from world.gd
 func set_job_markers(markers: Dictionary):
 	job_markers = markers

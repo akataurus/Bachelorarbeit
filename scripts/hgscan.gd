@@ -9,6 +9,8 @@ extends Node3D
 @onready var worker_collshape := $"../npc_hgscan/CollisionShape3D"
 @onready var speech_bubble := $"../npc_hgscan".get_node("speech_bubble")
 var passenger_in_range := false
+@onready var anim_player := $"../npc_hgscan/airport_worker/AnimationPlayer"
+var npc_is_moving := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,6 +32,15 @@ func _process(delta: float) -> void:
 		speech_bubble.text = "Please check in at the airport counter first!"
 	if passenger_in_range and GameManager.is_checked_in and Input.is_action_just_pressed("hg_interact"):
 		speech_bubble.text = "Thanks!"
+		
+	if counter_worker is RigidBody3D:
+		npc_is_moving = counter_worker.linear_velocity.length() > 0.1
+	if npc_is_moving:
+		if anim_player.current_animation != "walking":
+			anim_player.play("walking")
+	else:
+		if anim_player.current_animation != "happy_idle":
+			anim_player.play("happy_idle")
 
 func get_drop_position():
 	return drop_position.global_transform.origin + Vector3(0, 0, 0)

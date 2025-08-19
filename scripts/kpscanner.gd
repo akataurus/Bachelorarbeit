@@ -8,6 +8,7 @@ var player = null
 @onready var npc_airport_worker = $"../npc_airport_worker"
 @onready var npc_collision_shape = npc_airport_worker.get_node("CollisionShape3D")
 @onready var speech_bubble = $"../npc_airport_worker".get_node("speech_bubble")
+@onready var anim_player = $"../npc_airport_worker/airport_worker/AnimationPlayer"
 
 # Für Airport Worker NPC-Management
 var pending_npc = null
@@ -22,7 +23,8 @@ func _ready() -> void:
 	speech_bubble.visible = false
 
 func _process(delta: float) -> void:
-	pass
+	if anim_player.current_animation != "happy_idle":
+		anim_player.play("happy_idle")
 
 # Wird vom NPC aufgerufen
 func notify_airport_worker_for_body_scan(npc: Node):
